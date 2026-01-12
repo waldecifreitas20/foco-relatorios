@@ -1,17 +1,24 @@
-import { type ServiceRequest } from "../types/ServiceResquest";
+import { type Order } from "../types/Order";
 
 interface RowProps {
-  options: Array<ServiceRequest>;
+  head: string[]
+  options: Array<Order>;
 }
 
 export function Row(props: RowProps) {
-  
+
   return (
     <>
+      <p className="flex w-full justify-around border-b bg-gray-200 font-bold py-2">
+        {props.head.map((headItem) => (
+          <span key={headItem} className="border-l w-full block text-center">
+            {headItem}
+          </span>
+        ))}
+      </p>
+      
       {props.options.map((opt, i) => {
-        const isHead = i === 0;
-
-    const cellStyle = `${isHead && 'border-l'} w-full block text-center`;
+        const cellStyle = "border-l w-full block text-center";
         return (
           <p
             className={`
@@ -22,7 +29,7 @@ export function Row(props: RowProps) {
             <span className={cellStyle}>{opt.protocol}</span>
             <span className={cellStyle}>{opt.service}</span>
             <span className={cellStyle}>{opt.status}</span>
-            <span className={cellStyle}>{opt.datetime}</span>
+            <span className={cellStyle}>{opt.date} {opt.hour}</span>
           </p>
         );
       })}

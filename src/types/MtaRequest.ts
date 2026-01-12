@@ -1,5 +1,8 @@
+export type MtaStatus = "Cancelado" | "Concluído" | "Em andamento" | "Aguardando Aprovação";
+
+
 export type MtaRequest = {
-  status: "Cancelado" | "Concluído" | "Em andamento",
+  status: MtaStatus;
   destiny?: string;
   cost?: number;
   type?: "Uber" | "Táxi";

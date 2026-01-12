@@ -1,15 +1,24 @@
-import { type ServiceRequest } from "../types/ServiceResquest";
+import { type Order } from "../types/Order";
 import { Row } from "./Row";
 
 interface PendencyTableProps {
-  pendencies: Array<ServiceRequest>;
+  pendencies: Array<Order>;
 }
 
 export function PendencyTable(props: PendencyTableProps) {
   return (
     <>
-      <div className="bg-white flex flex-col flex-wrap w-full font-normal w-full shadow-lg overflow-clip rounded-lg text-center">
-        <Row options={props.pendencies} />
+      <div
+        className="
+        bg-white 
+        flex flex-col flex-wrap 
+        font-normal 
+        w-full 
+        shadow-lg overflow-clip 
+        rounded-lg 
+        text-center">
+        <Row
+          options={props.pendencies} head={['Placa', 'Protocolo', 'Serviço', 'Status', 'Data']} />
       </div>
     </>
   );

@@ -4,9 +4,9 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { Dashboard } from "./views/Dashboard.tsx";
-import { PendencyView } from "./views/Pendency.tsx";
-import { SolicitationView } from "./views/Solicitation.tsx";
-import { NewSolicitationView } from "./views/NewSolicitationView.tsx";
+import { Pendencies } from "./views/Pendencies.tsx";
+import { Orders } from "./views/Orders.tsx";
+import { NewSolicitation} from "./views/NewSolicitation.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -17,9 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         element={<App />}
         children={[
           <Route path="/" element={<Dashboard/>}/>,
-          <Route path="/pendencias" element={<PendencyView/>}/>,
-          <Route path="/solicitacoes" element={<SolicitationView/>}/>,
-          <Route path="/nova-solicitacao" element={<NewSolicitationView/>}/>
+          <Route path="/pendencias" element={<Pendencies/>}/>,
+          <Route path="/solicitacoes" element={<Orders/>}/>,
+          <Route path="/nova-solicitacao" element={<NewSolicitation/>}/>
         ]}
         />
       </Routes>

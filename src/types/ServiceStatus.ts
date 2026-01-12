@@ -1,5 +1,6 @@
 export type ServiceStatus = 
 
+"Em andamento" | 
 "Em base" | 
 "Aguardando direcionamento" | 
 "Aguardando aprovação de orçamento" | 

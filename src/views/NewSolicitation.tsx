@@ -2,7 +2,7 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 
-export function NewSolicitationView() {
+export function NewSolicitation() {
   return (
     <ViewContainer title="Registrar Nova Solicitação">
       <form className="flex flex-col gap-4 max-w-[1000px]">
