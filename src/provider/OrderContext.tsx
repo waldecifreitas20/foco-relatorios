@@ -1,5 +1,6 @@
 import { createContext, useState, type PropsWithChildren } from "react";
 import type { Order } from "../types/Order";
+import { ORDERS } from "../mock/data";
 
 export const OrderContext = createContext({
   getOrders: () => [] as Order[],
@@ -7,7 +8,7 @@ export const OrderContext = createContext({
 });
 
 export function OrderProvider(props: PropsWithChildren) {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>(ORDERS);
 
   function getOrders() {
     return [...orders];
