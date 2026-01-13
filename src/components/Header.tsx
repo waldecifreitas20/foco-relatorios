@@ -9,7 +9,7 @@ const menuOption = [
 ];
 
 export function Header() {
-  const [activeIndex, setAtive] = useState(0);
+  const [activeIndex, setAtive] = useState(menuOption.findIndex(opt => opt.link === document.location.pathname));
 
   return (
     <header
