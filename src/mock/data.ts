@@ -9,6 +9,14 @@ export const ORDERS: Order[] = [
     service: "Guincho",
     status: "Agendado",
   },
+  {
+    date: "2026-01-15",
+    hour: "14:30",
+    plate: "TGC1V34",
+    protocol: "as88-5",
+    service: "Guincho",
+    status: "Concluído",
+  },
 
   {
     date: "2026-01-13",

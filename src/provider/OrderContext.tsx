@@ -9,9 +9,10 @@ export const OrderContext = createContext({
 
 export function OrderProvider(props: PropsWithChildren) {
   const [orders, setOrders] = useState<Order[]>(ORDERS);
+  
 
   function getOrders() {
-    return [...orders];
+    return orders;
   }
 
   function getOrdersByPlate(plate: string) {
