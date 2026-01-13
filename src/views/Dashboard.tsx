@@ -6,8 +6,7 @@ import type { Service } from "../types/Service";
 
 export function Dashboard() {
   const todayDate = new Date(Date.now()).toLocaleDateString();
-  const { getOrders } = useContext(OrderContext);
-  const orders = getOrders();
+  const orders = useContext(OrderContext).getOrders();
 
   const generalStats = [
     { label: "Total", value: orders.length },
@@ -36,8 +35,19 @@ export function Dashboard() {
   return (
     <>
       <ViewContainer title="Visão Geral" subtitle={`Estatísticas da data ${todayDate}`}>
-        {/* day's summary */}
-        <div className="bg-white mb-10 border shadow-lg rounded-lg flex flex-wrap py-4 xl:flex-nowrap justify-center w-full ">
+
+        {/* daily statistics */}
+        <div
+          className="
+          bg-white 
+          mb-10 
+          border shadow-lg  rounded-lg 
+          flex flex-wrap 
+          py-4 
+          justify-center w-full
+          
+          xl:flex-nowrap 
+           ">
           {generalStats.map((stat) => {
             return (
               <div className="block w-full border-l p-2 text-center">
@@ -52,7 +62,15 @@ export function Dashboard() {
         <div className="grid md:grid-cols-3 grid-cols-1 gap-2 w-full mt-2">
           {mainServices.map((stat) => {
             return (
-              <div className="bg-white flex flex-col justify-between py-8 block w-full font-medium w-full shadow-lg p-2 rounded-lg text-center">
+              <div
+                className="
+                bg-white 
+                flex flex-col 
+                justify-between py-8 p-2 
+                font-medium 
+                w-full 
+                shadow-lg 
+                rounded-lg text-center">
                 <p>{stat.label}</p>
                 <p className="text-6xl text-red-600">{stat.value}</p>
               </div>
@@ -64,7 +82,15 @@ export function Dashboard() {
         <div className="grid md:grid-cols-4 grid-cols-2  gap-2 w-full mt-2">
           {otherServices.map((stat) => {
             return (
-              <div className="bg-white flex flex-col justify-between py-4 block w-full font-medium w-full shadow-lg p-2 rounded-lg text-center">
+              <div
+                className="
+                bg-white 
+                flex flex-col justify-between 
+                py-4 p-2 
+                font-medium 
+                w-full 
+                shadow-lg 
+                rounded-lg text-center">
                 <p>{stat.label}</p>
                 <p className="text-4xl text-red-600">{stat.value}</p>
               </div>
