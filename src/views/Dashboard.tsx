@@ -3,6 +3,7 @@ import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import type { ServiceStatus } from "../types/ServiceStatus";
 import type { Service } from "../types/Service";
+import { Card } from "../components/Card";
 
 export function Dashboard() {
   const todayDate = new Date(Date.now()).toLocaleDateString();
@@ -41,16 +42,16 @@ export function Dashboard() {
           className="
           bg-white 
           mb-10 
-          border shadow-lg  rounded-lg 
+          border border-neutral-200 shadow-lg  rounded-lg 
           flex flex-wrap 
           py-4 
           justify-center w-full
           
           xl:flex-nowrap 
            ">
-          {generalStats.map((stat) => {
+          {generalStats.map((stat, i) => {
             return (
-              <div className="block w-full border-l p-2 text-center">
+              <div className={`block w-full ${i > 0 && 'border-l border-neutral-200'} p-2 text-center`}>
                 <p>{stat.label}</p>
                 <p className="text-4xl text-red-600">{stat.value}</p>
               </div>
@@ -62,18 +63,7 @@ export function Dashboard() {
         <div className="grid md:grid-cols-3 grid-cols-1 gap-2 w-full mt-2">
           {mainServices.map((stat) => {
             return (
-              <div
-                className="
-                bg-white 
-                flex flex-col 
-                justify-between py-8 p-2 
-                font-medium 
-                w-full 
-                shadow-lg 
-                rounded-lg text-center">
-                <p>{stat.label}</p>
-                <p className="text-6xl text-red-600">{stat.value}</p>
-              </div>
+              <Card label={stat.label} value={stat.value} large />
             );
           })}
         </div>
@@ -82,18 +72,7 @@ export function Dashboard() {
         <div className="grid md:grid-cols-4 grid-cols-2  gap-2 w-full mt-2">
           {otherServices.map((stat) => {
             return (
-              <div
-                className="
-                bg-white 
-                flex flex-col justify-between 
-                py-4 p-2 
-                font-medium 
-                w-full 
-                shadow-lg 
-                rounded-lg text-center">
-                <p>{stat.label}</p>
-                <p className="text-4xl text-red-600">{stat.value}</p>
-              </div>
+              <Card label={stat.label} value={stat.value} />
             );
           })}
         </div>
