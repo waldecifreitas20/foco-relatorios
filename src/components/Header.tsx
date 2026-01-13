@@ -30,17 +30,19 @@ export function Header() {
                   
           hover:bg-red-950
           bg-red-950/80
-          mt-10 mb-2
+          mt-10 mb-5
           shadow-lg shadow-black/50
 
           cursor-pointer 
           rounded-md 
-          block 
+
           w-full 
-          px-4 py-3
+          px-4 py-3 
+          flex justify-between items-center
         "
         >
           Novo Atendimento
+          <i className="fa-solid fa-plus"></i>
         </Link>
         {menuOption.map((opt, i) => {
           return (
@@ -49,9 +51,8 @@ export function Header() {
               onClick={() => setAtive(i)}
               className={`
               
-              ${
-                activeIndex === i ? "bg-red-800/80 text-white" : "text-white/70"
-              }
+              ${activeIndex === i ? "bg-red-800/80 text-white" : "text-white/70"
+                }
               hover:bg-red-800/50
               cursor-pointer 
               rounded-md 
