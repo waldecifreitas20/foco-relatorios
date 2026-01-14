@@ -1,6 +1,5 @@
-import { createContext, useState, type PropsWithChildren } from "react";
+import { createContext, useEffect, useState, type PropsWithChildren } from "react";
 import type { Order } from "../types/Order";
-import { ORDERS } from "../mock/data";
 
 export const OrderContext = createContext({
   getOrders: () => [] as Order[],
@@ -8,8 +7,18 @@ export const OrderContext = createContext({
 });
 
 export function OrderProvider(props: PropsWithChildren) {
-  const [orders, setOrders] = useState<Order[]>(ORDERS);
-  
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const api = import.meta.env.VITE_API_URL;
+    fetch(`${api}/orders/all`)
+      .then(r => r.json())
+      .then(response => {
+        setOrders(response.orders);
+      })
+      .catch(console.error)
+  }, []);
+
 
   function getOrders() {
     return orders;
