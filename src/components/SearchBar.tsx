@@ -5,7 +5,8 @@ import { Input } from "./Input";
 import type { ServiceStatus } from "../types/ServiceStatus";
 import { useState } from "react";
 
-type SearchParams = {
+
+export type SearchParams = {
   plate: string;
   service: string;
   status: string;
@@ -47,7 +48,6 @@ export function SearchBar(props: SearchBarProps) {
     const formData = new FormData(evt.target);
     const data = Object.fromEntries(formData.entries());
     
-    console.log(data);
     props.onSearch(data as SearchParams);
   }
 

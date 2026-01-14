@@ -13,7 +13,13 @@ export function Input(props: InputProps) {
         name={props.name ?? ""}
         type={props.type ?? "text"}
         value={props.value}
-        className="bg-white w-full block px-4 py-3 shadow-lg rounded-lg outline-none"
+        className="
+        bg-white 
+        border border-neutral-200 
+        w-full block 
+        px-4 py-3 
+        shadow-lg rounded-lg 
+        outline-none"
         placeholder={props.placeholder}
         onClick={() => props.onClick!()}
       />
