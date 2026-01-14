@@ -5,7 +5,7 @@ export type MtaRequest = {
   status: MtaStatus;
   destiny?: string;
   cost?: number;
-  type?: "Uber" | "Táxi";
+  type?: "Uber" | "Táxi" | "Anjo da Guarda";
   plate?: string;
   totalDistance?: number;
   passengersQtd?:  number;
