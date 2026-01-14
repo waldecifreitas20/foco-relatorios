@@ -1,6 +1,13 @@
-export function Button(props: { value: string; outlined?: boolean }) {
+interface ButtonProps {
+  value: string;
+  outlined?: boolean;
+  onClick?: () => void;
+}
+
+export function Button(props: ButtonProps) {
   return (
     <button
+        onClick={() => props.onClick!()}
       className={`
     ${
       props.outlined

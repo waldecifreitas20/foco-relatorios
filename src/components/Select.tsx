@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Input } from "./Input";
 
 interface SelectProps {
   options: string[];
   onSelected: (selectedOption: string) => void;
   label: string;
+  name: string;
 }
 
 export function Select(props: SelectProps) {
@@ -17,21 +19,13 @@ export function Select(props: SelectProps) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <p>{props.label}: </p>
-      <div
-        className="
-        flex items-center 
-        bg-white gap-2
-        w-fit block 
-        px-2 py-3 
-        shadow-lg rounded-lg 
-        outline-none 
-        "
-        onClick={() => setShowOptions((old: boolean) => !old)}
-      >
-        <input className="outline-none" value={selected} />
-      </div>
+      <Input 
+      name={props.name} 
+      value={selected}
+      onClick={() => setShowOptions(old => !old)}
+      />
 
       {showOptions && (
         <div className="absolute shadow-xl w-full border border-neutral-200 bg-white rounded-b-lg">
