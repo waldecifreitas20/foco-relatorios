@@ -3,6 +3,7 @@ import { useState } from "react";
 interface SelectProps {
   options: string[];
   onSelected: (selectedOption: string) => void;
+  label: string;
 }
 
 export function Select(props: SelectProps) {
@@ -17,12 +18,13 @@ export function Select(props: SelectProps) {
 
   return (
     <div className="relative">
+      <p>{props.label}: </p>
       <div
         className="
         flex items-center 
-        bg-white 
-        w-full block 
-        px-4 py-3 
+        bg-white gap-2
+        w-fit block 
+        px-2 py-3 
         shadow-lg rounded-lg 
         outline-none 
         "
@@ -32,11 +34,17 @@ export function Select(props: SelectProps) {
       </div>
 
       {showOptions && (
-        <div className="absolute w-full border border-neutral-200 bg-white rounded-b-lg">
+        <div className="absolute shadow-xl w-full border border-neutral-200 bg-white rounded-b-lg">
           {props.options.map((opt) => {
             return (
               <button
-                className="block text-center w-full leading-6 text-sm cursor-pointer hover:bg-neutral-100"
+                className="
+                block text-left 
+                w-full py-1 px-2
+                text-sm cursor-pointer 
+                hover:bg-neutral-100
+                font-light border-t border-neutral-200
+                "
                 onClick={() => handleSelected(opt)}
               >
                 {opt}
