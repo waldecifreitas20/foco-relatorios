@@ -19,12 +19,12 @@ export function SpecialBudget() {
     >
       {orders.length > 0 || (
         <div className="h-full">
-          <p 
+          <p
             className="
             w-full select-none 
             text-slate-400 font-normal 
             text-2xl text-center mt-50
-            ">Não há orçamentos para verificar</p>          
+            ">Não há orçamentos para verificar</p>
         </div>
       )}
 
@@ -58,7 +58,7 @@ export function SpecialBudget() {
 
           {orders.map((order) => {
             const cellStyle = `
-              w-full 
+              w-full text-wrap px-2 
               flex items-center justify-center 
               text-center text-sm 
               border-l border-neutral-200
@@ -75,13 +75,14 @@ export function SpecialBudget() {
                 justify-around items-center 
                 text-neutral-600
                 border border-neutral-200 
-                py-6
+                py-2 h-24
+                
                 "
               >
                 <span className={"w-full block text-center text-sm"}>{order.plate}</span>
                 <span className={cellStyle}>{order.protocol}</span>
                 <span className={cellStyle}>{order.service}</span>
-                <span className={cellStyle}>R$ {order.specialBudget?.cost.toFixed(2)}</span>
+                <span className={cellStyle}>R$ {order.specialBudget?.cost.toFixed(2).replace(".", ",  ")}</span>
                 <span className={`${cellStyle} col-span-2`}>
                   {order.specialBudget?.status}
                 </span>

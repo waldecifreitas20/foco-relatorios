@@ -3,7 +3,6 @@ import { Select } from "./Select";
 import type { Service } from "../types/Service";
 import { Input } from "./Input";
 import type { ServiceStatus } from "../types/ServiceStatus";
-import { useState } from "react";
 
 
 export type SearchParams = {
@@ -27,15 +26,15 @@ const services: Service[] = [
   "Troca de Pneu",
 ];
 
-const status:ServiceStatus[] = [
-  "Agendado", 
-  "Aguardando aprovação de orçamento", 
+const status: ServiceStatus[] = [
+  "Agendado",
+  "Aguardando aprovação de orçamento",
   "Aguardando confirmação de Conclusão",
   "Aguardando confirmação de entrega",
   "Aguardando confirmação de remoção",
-  "Aguardando direcionamento", 
-  "Cancelado", 
-  "Concluído", 
+  "Aguardando direcionamento",
+  "Cancelado",
+  "Concluído",
   "Em andamento",
   "Em base",
   "Serviço frustrado"
@@ -47,7 +46,7 @@ export function SearchBar(props: SearchBarProps) {
 
     const formData = new FormData(evt.target);
     const data = Object.fromEntries(formData.entries());
-    
+
     props.onSearch(data as SearchParams);
   }
 
@@ -66,13 +65,11 @@ export function SearchBar(props: SearchBarProps) {
           name="service"
           label="Serviço"
           options={services}
-          onSelected={() => {}}
         />
         <Select
           name="status"
           label="Status"
           options={status}
-          onSelected={() => {}}
         />
       </div>
 
