@@ -3,7 +3,6 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
-import type { CreateOrderDto } from "../dto/CreateOderDto";
 
 export function NewSolicitation() {
   const { createOrder } = useContext(OrderContext);
