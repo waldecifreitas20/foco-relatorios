@@ -3,12 +3,14 @@ interface InputProps {
   placeholder?: string;
   name?: string;
   value?:string;
+  label?: string;
   onClick?: () => void;
 }
 
 export function Input(props: InputProps) {
   return (
-    <>
+    <div className="w-full">
+      {props.label && <p>{props.label}: </p>}
       <input
         name={props.name ?? ""}
         type={props.type ?? "text"}
@@ -20,9 +22,9 @@ export function Input(props: InputProps) {
         px-4 py-3 
         shadow-lg rounded-lg 
         outline-none"
-        placeholder={props.placeholder}
+        placeholder={props.placeholder ?? ""}
         onClick={() => props.onClick!()}
       />
-    </>
+    </div>
   );
 }

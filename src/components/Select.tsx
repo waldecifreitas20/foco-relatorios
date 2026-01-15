@@ -3,7 +3,6 @@ import { Input } from "./Input";
 
 interface SelectProps {
   options: string[];
-  onSelected: (selectedOption: string) => void;
   label: string;
   name: string;
 }
@@ -15,7 +14,6 @@ export function Select(props: SelectProps) {
   function handleSelected(option: string) {
     setSelected(option);
     setShowOptions(false);
-    props.onSelected(option);
   }
 
   return (
