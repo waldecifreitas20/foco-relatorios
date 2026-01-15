@@ -2,6 +2,7 @@ import { createContext, useEffect, useState, type PropsWithChildren } from "reac
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
 import type { CreateOrderDto } from "../dto/CreateOderDto";
+import { ORDERS } from "../mock/data";
 
 export const OrderContext = createContext({
   getOrders: () => [] as Order[],
@@ -22,6 +23,8 @@ export function OrderProvider(props: PropsWithChildren) {
         setOrders(response.orders);
       })
       .catch(console.error);
+
+      setOrders(ORDERS);
   });
 
   function getOrders() {

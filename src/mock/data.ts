@@ -61,6 +61,17 @@ export const ORDERS: Order[] = [
       totalDistance: 87,
       type: "Táxi",
       vehicleModel: "Fiat Mobi",
+    },
+
+    specialBudget: {
+      destiny: "R. João Nogueira 45, São Paulo - SP  Cep 55511-555",
+      origin:  "Av. das Amoreiras 987, Campinas - SP  Cep 55511-555",
+      workerBase:  "R. dos Coqueiros 123, Campinas - SP  Cep 55511-555",
+      reason: "Trajeto Longo ",
+      explanation: "Necessário autorização para trajeto acima de 300km",
+      cost: 10130.75,
+      status: "Recusado",
+      daysParked: 1,
     }
   },
 
@@ -82,30 +93,13 @@ export const ORDERS: Order[] = [
       vehicleModel: "Chevrolet Onix",
     },
     specialBudget: {
-      addresses: {
-        destiny: {
-          city: "São Paulo",
-          state: "SP",
-          fullAddress: "R. João Nogueira 45, São Paulo - SP  Cep 55511-555",
-        },
-        origin: {
-          city: "Campinas",
-          state: "SP",
-          fullAddress: "Av. das Amoreiras 987, Campinas - SP  Cep 55511-555",
-        },
-        workerBase: {
-          city: "Campinas",
-          state: "SP",
-          fullAddress: "R. dos Coqueiros 123, Campinas - SP  Cep 55511-555",
-        },
-      },
-
+      destiny: "R. João Nogueira 45, São Paulo - SP  Cep 55511-555",
+      origin:  "Av. das Amoreiras 987, Campinas - SP  Cep 55511-555",
+      workerBase:  "R. dos Coqueiros 123, Campinas - SP  Cep 55511-555",
       reason: "Trajeto Longo ",
       explanation: "Necessário autorização para trajeto acima de 300km",
-      servicePrice: 2530,
-      specialPrice: 3000,
+      cost: 2530,
       status: "Aguardando aprovação",
-      totalPrice: 5530,
       daysParked: 1,
     }
   },
