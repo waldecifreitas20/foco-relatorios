@@ -8,8 +8,9 @@ export const OrderContext = createContext({
   getOrders: () => [] as Order[],
   getOrdersByPlate: (_plate: string) => [] as Order[],
   search: (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: CreateOrderDto) => {},
+  createOrder: async (_order: CreateOrderDto) => { },
   getSpecialBudgets: () => [] as Order[],
+  getOrder: (_protocol: string) => ({}) as Order | undefined,
 });
 
 const API = import.meta.env.VITE_API_URL;
@@ -19,7 +20,7 @@ export function OrderProvider(props: PropsWithChildren) {
   useEffect(() => {
     fetch(`${API}/orders/all`)
       .then((r) => r.json())
-      .then((response) => {
+      .then((_response) => {
         setOrders(ORDERS);
       })
       .catch(console.error);
@@ -30,12 +31,15 @@ export function OrderProvider(props: PropsWithChildren) {
     return orders;
   }
 
+  function getOrder(protocol: string) {
+    return orders.find(o => o.protocol === protocol.trim())
+  }
+
   function getOrdersByPlate(plate: string) {
     return orders.filter((order) => order.plate === plate);
   }
 
   async function createOrder(order: CreateOrderDto) {
-    console.log(order);
 
     fetch(`${API}/orders/create`, {
       method: "POST",
@@ -79,6 +83,7 @@ export function OrderProvider(props: PropsWithChildren) {
         search,
         createOrder,
         getSpecialBudgets,
+        getOrder,
       }}
     >
       {props.children}

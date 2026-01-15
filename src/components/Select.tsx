@@ -5,10 +5,11 @@ interface SelectProps {
   options: string[];
   label: string;
   name: string;
+  value?: string;
 }
 
 export function Select(props: SelectProps) {
-  const [selected, setSelected] = useState(props.options[0]);
+  const [selected, setSelected] = useState(props.value);
   const [showOptions, setShowOptions] = useState(false);
 
   function handleSelected(option: string) {
@@ -19,10 +20,10 @@ export function Select(props: SelectProps) {
   return (
     <div className="relative w-full">
       <p>{props.label}: </p>
-      <Input 
-      name={props.name} 
-      value={selected}
-      onClick={() => setShowOptions(old => !old)}
+      <Input
+        name={props.name}
+        value={selected ?? props.value}
+        onClick={() => setShowOptions(old => !old)}
       />
 
       {showOptions && (
