@@ -20,12 +20,11 @@ export function OrderProvider(props: PropsWithChildren) {
     fetch(`${API}/orders/all`)
       .then((r) => r.json())
       .then((response) => {
-        setOrders(response.orders);
+        setOrders(ORDERS);
       })
       .catch(console.error);
 
-      setOrders(ORDERS);
-  });
+  }, []);
 
   function getOrders() {
     return orders;

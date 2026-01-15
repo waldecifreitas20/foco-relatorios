@@ -1,4 +1,6 @@
+import { Link } from "react-router";
 import { type Order } from "../types/Order";
+import { appRoutes } from "../shared/routes";
 
 interface OrdersTableProps {
   orders: Array<Order>;
@@ -6,19 +8,15 @@ interface OrdersTableProps {
 
 export function OrdersTable(props: OrdersTableProps) {
   const headStyle = "w-full block text-center";
-  const { orders } = props;
-
-  console.log(orders);
 
   return (
     <>
       <div
         className="
-        bg-white 
         flex flex-col flex-wrap 
         font-normal 
         w-full 
-      overflow-clip 
+        overflow-clip 
        
         text-center">
 
@@ -30,8 +28,8 @@ export function OrdersTable(props: OrdersTableProps) {
           bg-[var(--primary)] text-white  
           py-2
           ">
-          <span className={"w-full block text-center}"}>Placa</span>
-            < span className={headStyle}>Protocolo</span>
+          <span className={headStyle}>Placa</span>
+          <span className={headStyle}>Protocolo</span>
           <span className={headStyle}>Serviço</span>
           <span className={`${headStyle} col-span-2`}>Status</span>
           <span className={headStyle}>Data & Hora</span>
@@ -40,31 +38,33 @@ export function OrdersTable(props: OrdersTableProps) {
 
         {props.orders.map((opt) => {
           const cellStyle = `
-            w-full 
+            w-full text-wrap px-2
             flex items-center justify-center 
             text-center text-sm 
-            border-l border-neutral-200
+            border-l border-slate-200
           `;
 
           return (
-            <p
+            <Link
+              to={appRoutes.orders.edit(opt.protocol)}
               className="
               grid grid-cols-6
-              shadow-lg rounded-lg mb-2 
-              bg-white hover:bg-neutral-50
+              shadow-md rounded-lg mb-2 
+              bg-white bg-blend-color hover:bg-red-50
               cursor-pointer
               w-full 
               justify-around items-center 
-              text-neutral-600
-              border border-neutral-200 
-              py-6
+              transition-all duration-200
+              border border-slate-200
+              hover:border-b-red-300
+              py-2 h-24
               ">
               <span className={"w-full block text-center text-sm"}>{opt.plate}</span>
               <span className={cellStyle}>{opt.protocol}</span>
               <span className={cellStyle}>{opt.service}</span>
               <span className={`${cellStyle} col-span-2`}>{opt.status}</span>
               <span className={cellStyle}>{new Date(opt.date).toLocaleDateString()} às {opt.hour}</span>
-            </p>
+            </Link>
           );
         })}
       </div>

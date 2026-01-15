@@ -31,7 +31,7 @@ const status: ServiceStatus[] = [
   "Serviço frustrado",
 ];
 
-export function NewSolicitation() {
+export function FormOrder() {
   const { createOrder } = useContext(OrderContext);
 
   function handleSubmit(evt: any) {

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { appRoutes } from "../shared/routes";
 
 const menuOption = [
-  { label: "Visão Geral", link: "/" },
-  { label: "Pendências", link: "/pendencias" },
-  { label: "Orçamentos Especiais", link: "/orcamentos" },
-  { label: "Atendimentos", link: "/solicitacoes" },
+  { label: "Visão Geral", link: appRoutes.dashboard },
+  { label: "Pendências", link: appRoutes.pendencies.index },
+  { label: "Orçamentos Especiais", link: appRoutes.budget.index },
+  { label: "Atendimentos", link: appRoutes.orders.index },
 ];
 
 export function Header() {
@@ -25,7 +26,7 @@ export function Header() {
 
       <div className="block">
         <Link
-          to="/nova-solicitacao"
+          to={appRoutes.orders.create}
           className="
                   
           hover:bg-red-950
