@@ -40,9 +40,12 @@ export function FormOrder() {
   const editMode = protocol != undefined;
 
 
+
   useEffect(() => {
     if (editMode) {
       setOrder(getOrder(protocol));
+    } else {
+      setOrder(undefined);
     }
   });
 
@@ -64,7 +67,7 @@ export function FormOrder() {
       >
         <div className="flex gap-4">
           <Input value={order?.plate} name="plate" label="Placa" />
-          <Input readOnly value={order?.protocol} name="protocol" label="Protocolo" />
+          <Input readOnly={editMode} value={order?.protocol} name="protocol" label="Protocolo" />
         </div>
 
         <div className="flex gap-4">
