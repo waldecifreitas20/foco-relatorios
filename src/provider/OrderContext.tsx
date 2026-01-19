@@ -2,7 +2,6 @@ import { createContext, useEffect, useState, type PropsWithChildren } from "reac
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
 import type { CreateOrderDto, UpdateOrderDto } from "../dto/order.dto";
-import { ORDERS } from "../mock/data";
 import { api } from "../api/api";
 
 export const OrderContext = createContext({
@@ -34,15 +33,10 @@ export function OrderProvider(props: PropsWithChildren) {
 
   async function createOrder(order: CreateOrderDto) {
     api.createOrder(order)
-      .then((res) => {
-        if (res.status === 200) {
-          updateOrders();
-          return alert("Sucesso!");
-        }
-        return alert(
-          "Não foi possivel registrar este atendimento. Tente novamente mais tarde."
-        );
-      });
+    .catch(error => {
+      console.error(error);
+      throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
+    });
   }
 
 
