@@ -75,6 +75,22 @@ export function OrderProvider(props: PropsWithChildren) {
         }
       });
     }
+    
+    if (params.service !== "") {
+      orders.forEach((o) => {
+        if (o.service === params.service) {
+          results.push(o);
+        }
+      });
+    }
+    
+    if (params.status !== "") {
+      orders.forEach((o) => {
+        if (o.status === params.status) {
+          results.push(o);
+        }
+      });
+    }
 
     return results;
   }

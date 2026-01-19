@@ -3,6 +3,9 @@ import { Select } from "./Select";
 import type { Service } from "../types/Service";
 import { Input } from "./Input";
 import type { ServiceStatus } from "../types/ServiceStatus";
+import { useContext } from "react";
+import { OrderContext } from "../provider/OrderContext";
+import type { Order } from "../types/Order";
 
 
 export type SearchParams = {
@@ -11,9 +14,12 @@ export type SearchParams = {
   status: string;
 };
 
+
 interface SearchBarProps {
-  onSearch: (search: SearchParams) => void;
+  onResult: (result: Order[]) => void;
 }
+
+
 
 
 const services: Service[] = [
@@ -39,15 +45,22 @@ const status: ServiceStatus[] = [
   "Em base",
   "Serviço frustrado"
 ];
-export function SearchBar(props: SearchBarProps) {
 
+
+export function SearchBar(props: SearchBarProps) {
+  const { search } = useContext(OrderContext);
+
+
+  
   function handleSubmit(evt: any) {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
     const data = Object.fromEntries(formData.entries());
+    const result = search(data as SearchParams);
+    console.log(result);
 
-    props.onSearch(data as SearchParams);
+    props.onResult(result);
   }
 
   return (
