@@ -18,7 +18,7 @@ export function Input(props: InputProps) {
         </p>
       )}
       <input
-        disabled={props.readOnly}
+        readOnly={props.readOnly}
         name={props.name ?? ""}
         type={props.type ?? "text"}
         defaultValue={props.value}

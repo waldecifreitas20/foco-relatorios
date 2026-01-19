@@ -34,12 +34,10 @@ const status: ServiceStatus[] = [
 ];
 
 export function FormOrder() {
-  const { createOrder, getOrder } = useContext(OrderContext);
+  const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
   const { protocol } = useParams();
   const [order, setOrder] = useState<Order>();
   const editMode = protocol != undefined;
-
-
 
   useEffect(() => {
     if (editMode) {
@@ -49,14 +47,18 @@ export function FormOrder() {
     }
   });
 
-
   function handleSubmit(evt: any) {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
     const data = Object.fromEntries(formData.entries()) as any;
 
-    createOrder(data);
+    if (editMode) {
+      console.log(data);
+      return updateOrder(data);
+    }
+
+    return createOrder(data);
   }
 
   return (
@@ -67,19 +69,34 @@ export function FormOrder() {
       >
         <div className="flex gap-4">
           <Input value={order?.plate} name="plate" label="Placa" />
-          <Input readOnly={editMode} value={order?.protocol} name="protocol" label="Protocolo" />
+          <Input
+            readOnly={editMode}
+            value={order?.protocol}
+            name="protocol"
+            label="Protocolo"
+          />
         </div>
 
         <div className="flex gap-4">
-          <Select value={order?.service} name="service" label="Serviço" options={services} />
-          <Select value={order?.status} name="status" label="Status" options={status} />
+          <Select
+            value={order?.service}
+            name="service"
+            label="Serviço"
+            options={services}
+          />
+          <Select
+            value={order?.status}
+            name="status"
+            label="Status"
+            options={status}
+          />
           <Input value={order?.date} name="date" type="date" label="Data" />
           <Input value={order?.hour} name="hour" type="time" label="Hora" />
         </div>
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Button value="Cancelar" outlined />
-          <Button value="Registrar" />
+          <Button value={editMode ? "Salvar" : "Registrar"} />
         </div>
       </form>
     </ViewContainer>

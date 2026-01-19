@@ -1,54 +1,59 @@
 import { createContext, useEffect, useState, type PropsWithChildren } from "react";
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
-import type { CreateOrderDto } from "../dto/CreateOderDto";
+import type { CreateOrderDto, UpdateOrderDto } from "../dto/order.dto";
 import { ORDERS } from "../mock/data";
+import { api } from "../api/api";
 
 export const OrderContext = createContext({
   getOrders: () => [] as Order[],
   getOrdersByPlate: (_plate: string) => [] as Order[],
   search: (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: CreateOrderDto) => { },
+  createOrder: async (_order: CreateOrderDto) => {},
   getSpecialBudgets: () => [] as Order[],
-  getOrder: (_protocol: string) => ({}) as Order | undefined,
+  getOrder: (_protocol: string) => ({} as Order | undefined),
+  updateOrder: (_order: UpdateOrderDto) => {},
 });
 
-const API = import.meta.env.VITE_API_URL;
 export function OrderProvider(props: PropsWithChildren) {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    fetch(`${API}/orders/all`)
-      .then((r) => r.json())
-      .then((_response) => {
-        setOrders(ORDERS);
-      })
-      .catch(console.error);
-
+    updateOrders();
   }, []);
+
+
+  async function updateOrders() {
+   await api.getOrders(orders => {    
+     return setOrders(orders);
+  });
+
+  }
+
 
   function getOrders() {
     return orders;
   }
 
+
+
   function getOrder(protocol: string) {
-    return orders.find(o => o.protocol === protocol.trim())
+    return orders.find((o) => o.protocol === protocol.trim());
   }
+
+
 
   function getOrdersByPlate(plate: string) {
     return orders.filter((order) => order.plate === plate);
   }
 
-  async function createOrder(order: CreateOrderDto) {
 
-    fetch(`${API}/orders/create`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(order),
-    })
-      .then((res) => res.json())
+
+  async function createOrder(order: CreateOrderDto) {
+    api.createOrder(order)
       .then((res) => {
         if (res.status === 200) {
+          updateOrders();
           return alert("Sucesso!");
         }
         return alert(
@@ -56,6 +61,8 @@ export function OrderProvider(props: PropsWithChildren) {
         );
       });
   }
+
+
 
   function search(params: SearchParams) {
     const results: Order[] = [];
@@ -71,8 +78,24 @@ export function OrderProvider(props: PropsWithChildren) {
     return results;
   }
 
+
+  
   function getSpecialBudgets() {
     return orders.filter((o) => o.specialBudget !== undefined);
+  }
+
+
+
+  function updateOrder(order: UpdateOrderDto) {
+    api.updateOrder(order)
+    .then((res) => {
+      if (res.status === 200) {
+        return alert("Sucesso!");
+      }
+      return alert(
+        "Não foi possivel registrar este atendimento. Tente novamente mais tarde."
+      );
+    });
   }
 
   return (
@@ -84,6 +107,7 @@ export function OrderProvider(props: PropsWithChildren) {
         createOrder,
         getSpecialBudgets,
         getOrder,
+        updateOrder,
       }}
     >
       {props.children}

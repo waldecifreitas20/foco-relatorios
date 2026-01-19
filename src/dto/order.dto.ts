@@ -8,3 +8,13 @@ export interface CreateOrderDto {
   status: string;
   service: Service;
 }
+
+
+export interface UpdateOrderDto {
+  protocol: string;
+  plate?: string;
+  date?: string;
+  hour?: string;
+  status?: string;
+  service?: Service;
+}
