@@ -16,6 +16,7 @@ export function Orders(props: OrdersProps) {
 
   useEffect(() => {
     const allOrders = getOrders();
+console.log("aa");
 
     if (props.onlyPendency) {
       setOrders(() => {
@@ -28,7 +29,7 @@ export function Orders(props: OrdersProps) {
     } else {
       setOrders(getOrders());
     }
-  }, [props.onlyPendency]);
+  }, []);
 
 
   function handleSearch(result: Order[]) {
@@ -39,7 +40,16 @@ export function Orders(props: OrdersProps) {
   return (
     <ViewContainer title={props.title}>
       <SearchBar onResult={handleSearch} />
-      <OrdersTable orders={orders} />
+      {orders.length > 0 ? <OrdersTable orders={orders} /> : (
+        <div className="h-full">
+          <p
+            className="
+            w-full select-none 
+            text-slate-400 font-normal 
+            text-2xl text-center mt-50
+            ">Não há atendimentos registrados</p>
+        </div>
+      )}
     </ViewContainer>
   );
 }
