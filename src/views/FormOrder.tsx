@@ -34,13 +34,14 @@ const status: ServiceStatus[] = [
   "Serviço frustrado",
 ];
 
+
+
 export function FormOrder() {
   const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
   const { protocol } = useParams();
   const [order, setOrder] = useState<Order>();
   const editMode = protocol != undefined;
 
-  console.log(order);
   
 
   useEffect(() => {
@@ -50,6 +51,9 @@ export function FormOrder() {
       setOrder(undefined);
     }
   });
+
+
+
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
@@ -83,6 +87,7 @@ export function FormOrder() {
           <Input value={order?.plate} name="plate" label="Placa" />
           <Input
             readOnly={editMode}
+            blocked={editMode}
             value={order?.protocol}
             name="protocol"
             label="Protocolo"

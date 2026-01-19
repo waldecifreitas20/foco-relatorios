@@ -37,6 +37,7 @@ export function Select(props: SelectProps) {
       <div className="relative w-full">
         <p>{props.label}: </p>
         <Input
+          readOnly
           name={props.name}
           value={selected ?? props.value}
           onClick={() => setShowOptions((old) => !old)}

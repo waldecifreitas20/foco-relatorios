@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface InputProps {
   type?: string;
   placeholder?: string;
@@ -7,35 +5,37 @@ interface InputProps {
   value?: string;
   label?: string;
   readOnly?: boolean;
+  blocked?:boolean;
+  required?:boolean;
   onClick?: () => void;
-  onChange?: (value: any) => void;
 }
 
 export function Input(props: InputProps) {
-  const [value, setValue] = useState(props.value);
 
   return (
     <div className="w-full">
       {props.label && (
         <p>
           {props.label}:
-          {props.readOnly && <i className="ml-1 fa-solid fa-lock fa-xs"></i>}
+          {props.blocked && <i className="ml-1 fa-solid fa-lock fa-xs"></i>}
         </p>
       )}
       <input
-        disabled={props.readOnly}
         name={props.name ?? ""}
         type={props.type ?? "text"}
-        value={props.value ?? value}
-        onChange={props.onChange ?? ((evt) => setValue(evt.target.value))}
+        defaultValue={props.value}
+        required={props.required}
+        readOnly={props.readOnly}
+
         className={`
-        ${props.readOnly ? "bg-slate-100 cursor-not-allowed" : "bg-white "}
+        ${props.blocked ? "bg-slate-100 cursor-not-allowed" : "bg-white "}
         border border-neutral-200 
         w-full block 
         px-4 py-3 
         shadow-lg rounded-lg 
         outline-none
           `}
+
         placeholder={props.placeholder ?? ""}
         onClick={() => props.onClick!()}
       />
