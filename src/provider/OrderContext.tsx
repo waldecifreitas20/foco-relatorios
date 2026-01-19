@@ -7,9 +7,9 @@ import { api } from "../api/api";
 export const OrderContext = createContext({
   getOrders: () => [] as Order[],
   getOrdersByPlate: (_plate: string) => [] as Order[],
-  search: (_params: SearchParams) => [] as Order[],
   getSpecialBudgets: () => [] as Order[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
+  search: async (_params: SearchParams) => [] as Order[],
   createOrder: async (_order: CreateOrderDto) => {},
   updateOrder: async (_order: UpdateOrderDto) => {},
 });
@@ -65,7 +65,9 @@ export function OrderProvider(props: PropsWithChildren) {
     return orders.filter((order) => order.plate === plate);
   }
 
-  function search(params: SearchParams) {
+  async function search(params: SearchParams) {
+    await updateOrders();
+
     const results: Order[] = [];
 
     if (params.plate !== "") {
