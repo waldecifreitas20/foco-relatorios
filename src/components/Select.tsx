@@ -48,12 +48,12 @@ export function Select(props: SelectProps) {
               return (
                 <button
                   className="
-              block text-left 
-              w-full py-1 px-2
-              text-sm cursor-pointer 
-              hover:bg-neutral-100
-              font-light border-t border-neutral-200
-              "
+                  block text-left 
+                  w-full py-1 px-2
+                  text-sm cursor-pointer 
+                  hover:bg-neutral-100
+                  font-light border-t border-neutral-200
+                  "
                   onClick={() => handleSelected(opt)}
                 >
                   {opt}

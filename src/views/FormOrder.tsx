@@ -103,8 +103,8 @@ export function FormOrder() {
         </div>
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
-          <Button value="Cancelar" outlined />
-          <Button value={editMode ? "Salvar" : "Registrar"} />
+          <Button outlined>Cancelar</Button> 
+          <Button>{editMode ? "Salvar" : "Registrar"}</Button>
         </div>
       </form>
     </ViewContainer>

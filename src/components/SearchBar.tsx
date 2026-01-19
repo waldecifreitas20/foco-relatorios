@@ -74,7 +74,7 @@ export function SearchBar(props: SearchBarProps) {
       </div>
 
       <div>
-        <Button value="Pesquisar" />
+        <Button> Pesquisar</Button>
       </div>
     </form>
   );

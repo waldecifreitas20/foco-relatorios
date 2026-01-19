@@ -23,7 +23,11 @@ export function Input(props: InputProps) {
         type={props.type ?? "text"}
         defaultValue={props.value}
         className={`
-        ${props.readOnly ? "bg-slate-100 cursor-not-allowed" : "bg-white "}
+        ${
+          props.readOnly
+            ? "bg-slate-100 cursor-not-allowed"
+            : "bg-white "
+        }
         border border-neutral-200 
         w-full block 
         px-4 py-3 

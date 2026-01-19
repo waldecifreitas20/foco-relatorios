@@ -13,7 +13,7 @@ export function SpecialBudget() {
       title="Orçamentos Especiais"
       trailing={
         <div className="ml-auto w-fit">
-          <Button value="Novo Orçamento" />
+          <Button>Novo Orçamento</Button>
         </div>
       }
     >

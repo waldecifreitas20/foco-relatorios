@@ -1,5 +1,6 @@
-interface ButtonProps {
-  value: string;
+import type { PropsWithChildren } from "react";
+
+interface ButtonProps  extends PropsWithChildren{
   outlined?: boolean;
   onClick?: () => void;
 }
@@ -19,7 +20,7 @@ export function Button(props: ButtonProps) {
     w-full py-3 px-10 rounded-lg shadow-lg border
     `}
     >
-      {props.value}
+      {props.children}
     </button>
   );
 }
