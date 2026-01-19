@@ -27,8 +27,7 @@ async function updateOrder(order: UpdateOrderDto) {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(order)
-  })
-    .then((res) => res.json())
+  });
     
 }
 

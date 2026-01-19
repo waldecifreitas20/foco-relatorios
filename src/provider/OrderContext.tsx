@@ -9,10 +9,10 @@ export const OrderContext = createContext({
   getOrders: () => [] as Order[],
   getOrdersByPlate: (_plate: string) => [] as Order[],
   search: (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: CreateOrderDto) => {},
   getSpecialBudgets: () => [] as Order[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
-  updateOrder: (_order: UpdateOrderDto) => {},
+  createOrder: async (_order: CreateOrderDto) => {},
+  updateOrder: async (_order: UpdateOrderDto) => {},
 });
 
 export function OrderProvider(props: PropsWithChildren) {
@@ -23,31 +23,14 @@ export function OrderProvider(props: PropsWithChildren) {
   }, []);
 
 
+
+  /* API FUNCTIONS */
   async function updateOrders() {
    await api.getOrders(orders => {    
      return setOrders(orders);
   });
 
   }
-
-
-  function getOrders() {
-    return orders;
-  }
-
-
-
-  function getOrder(protocol: string) {
-    return orders.find((o) => o.protocol === protocol.trim());
-  }
-
-
-
-  function getOrdersByPlate(plate: string) {
-    return orders.filter((order) => order.plate === plate);
-  }
-
-
 
   async function createOrder(order: CreateOrderDto) {
     api.createOrder(order)
@@ -63,6 +46,30 @@ export function OrderProvider(props: PropsWithChildren) {
   }
 
 
+  async function updateOrder(order: UpdateOrderDto) {
+    await api.updateOrder(order)
+    .catch(error => {
+      console.error(error);
+      throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
+    });
+  }
+
+  /* INTERNAL FUNCTIONS */
+  function getOrders() {
+    return orders;
+  }
+
+
+
+  function getOrder(protocol: string) {
+    return orders.find((o) => o.protocol === protocol.trim());
+  }
+
+
+
+  function getOrdersByPlate(plate: string) {
+    return orders.filter((order) => order.plate === plate);
+  }
 
   function search(params: SearchParams) {
     const results: Order[] = [];
@@ -85,18 +92,6 @@ export function OrderProvider(props: PropsWithChildren) {
   }
 
 
-
-  function updateOrder(order: UpdateOrderDto) {
-    api.updateOrder(order)
-    .then((res) => {
-      if (res.status === 200) {
-        return alert("Sucesso!");
-      }
-      return alert(
-        "Não foi possivel registrar este atendimento. Tente novamente mais tarde."
-      );
-    });
-  }
 
   return (
     <OrderContext.Provider

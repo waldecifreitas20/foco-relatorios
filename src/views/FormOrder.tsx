@@ -47,18 +47,26 @@ export function FormOrder() {
     }
   });
 
-  function handleSubmit(evt: any) {
+  async function handleSubmit(evt: any) {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
     const data = Object.fromEntries(formData.entries()) as any;
 
+    var action = createOrder;
+
     if (editMode) {
-      console.log(data);
-      return updateOrder(data);
+      action = updateOrder;
     }
 
-    return createOrder(data);
+    try {
+      await action(data);
+      alert("Atendimento salvo com sucesso!");
+      location.pathname = "/";
+      
+    } catch (error: any) {
+      alert(error.message);
+    }
   }
 
   return (
