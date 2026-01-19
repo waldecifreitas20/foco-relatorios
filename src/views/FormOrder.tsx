@@ -80,10 +80,10 @@ export function FormOrder() {
         className="flex flex-col gap-4 max-w-[1000px]"
       >
         <div className="flex gap-4">
-          <Input value={order?.plate ?? ""} name="plate" label="Placa" />
+          <Input value={order?.plate} name="plate" label="Placa" />
           <Input
             readOnly={editMode}
-            value={order?.protocol ?? ""}
+            value={order?.protocol}
             name="protocol"
             label="Protocolo"
           />
@@ -91,19 +91,19 @@ export function FormOrder() {
 
         <div className="flex gap-4">
           <Select
-            value={order?.service ?? ""}
+            value={order?.service}
             name="service"
             label="Serviço"
             options={services}
           />
           <Select
-            value={order?.status ?? ""}
+            value={order?.status}
             name="status"
             label="Status"
             options={status}
           />
-          <Input value={order?.date ?? ""} name="date" type="date" label="Data" />
-          <Input value={order?.hour ?? ""} name="hour" type="time" label="Hora" />
+          <Input value={order?.date} name="date" type="date" label="Data" />
+          <Input value={order?.hour} name="hour" type="time" label="Hora" />
         </div>
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
