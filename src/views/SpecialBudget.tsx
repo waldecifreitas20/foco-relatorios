@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Button } from "../components/Button";
+import { useNavigate } from "react-router";
+import { appRoutes } from "../shared/routes";
 
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
+  const navigate = useNavigate();
   const { getSpecialBudgets } = useContext(OrderContext);
   const orders = getSpecialBudgets();
 
@@ -13,7 +16,7 @@ export function SpecialBudget() {
       title="Orçamentos Especiais"
       trailing={
         <div className="ml-auto w-fit">
-          <Button>Novo Orçamento</Button>
+          <Button onClick={() => navigate(appRoutes.budget.create)}>Novo Orçamento</Button>
         </div>
       }
     >

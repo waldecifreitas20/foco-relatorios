@@ -6,7 +6,10 @@ export const appRoutes = {
     edit: (protocol = ":protocol") => `/solicitacoes/editar/${protocol}`,
   },
   pendencies: { index: "/pendencias" },
-  budget: { index: "/orcamentos" },
+  budget: { 
+    index: "/orcamentos",
+    create: "/orcamentos/novo",
+  },
 
 }
 

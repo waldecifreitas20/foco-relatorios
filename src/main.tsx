@@ -9,6 +9,7 @@ import { FormOrder } from "./views/FormOrder.tsx";
 import { OrderProvider } from "./provider/OrderContext.tsx";
 import { SpecialBudget } from "./views/SpecialBudget.tsx";
 import { appRoutes } from "./shared/routes.ts";
+import { SpecialBudgetForm } from "./views/SpecialBudgetForm.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path={appRoutes.dashboard} element={<Dashboard />} />,
               <Route path={appRoutes.pendencies.index} element={<Orders title="Atendimentos Pendentes" onlyPendency />} />,
               <Route path={appRoutes.budget.index} element={<SpecialBudget />} />,
+              <Route path={appRoutes.budget.create} element={<SpecialBudgetForm />} />,
               <Route path={appRoutes.orders.index} element={<Orders title="Histórico de Solicitações" />} />,
               <Route path={appRoutes.orders.create} element={<FormOrder />} />,
               <Route path={appRoutes.orders.edit()} element={<FormOrder />} />,

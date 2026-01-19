@@ -1,10 +1,10 @@
-type SpecialBudgetReason =
+export type SpecialBudgetReason =
   | "Indisponibilidade de Prestadores"
   | "Trajeto Longo "
   | "Baixa Infraestrutura"
   | "Complexidade do Serviço";
 
-type SpecialBudgetStatus = "Aguardando aprovação" | "Aprovado" | "Recusado";
+export type SpecialBudgetStatus = "Aguardando aprovação" | "Aprovado" | "Recusado";
 
 export type SpecialBudget = {
   id: number;
@@ -13,7 +13,7 @@ export type SpecialBudget = {
   wheelDollies?: number;
   additionalWheels?: number;
   daysParked?: number;
-  uprighting?: boolean;
+  isUprighted?: boolean;
   groundWithdraw?: boolean;
   offRoad?: boolean;
   origin: string;

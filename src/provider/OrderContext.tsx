@@ -3,6 +3,7 @@ import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
 import type { CreateOrderDto, UpdateOrderDto } from "../dto/order.dto";
 import { api } from "../api/api";
+import type { CreateSpecialBudgetDto } from "../dto/specialbudget.dto";
 
 export const OrderContext = createContext({
   getOrders: () => [] as Order[],
@@ -47,6 +48,12 @@ export function OrderProvider(props: PropsWithChildren) {
       throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
     });
   }
+
+  async function createSpecialBudget(specialBudget: CreateSpecialBudgetDto) {
+    return [specialBudget]
+  }
+
+
 
   /* INTERNAL FUNCTIONS */
   function getOrders() {
