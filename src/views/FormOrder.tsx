@@ -6,8 +6,9 @@ import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
 import type { Service } from "../types/Service";
 import type { ServiceStatus } from "../types/ServiceStatus";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import type { Order } from "../types/Order";
+import { appRoutes } from "../shared/routes";
 
 const services: Service[] = [
   "Guincho",
@@ -38,6 +39,9 @@ export function FormOrder() {
   const { protocol } = useParams();
   const [order, setOrder] = useState<Order>();
   const editMode = protocol != undefined;
+
+  console.log(order);
+  
 
   useEffect(() => {
     if (editMode) {
@@ -76,10 +80,10 @@ export function FormOrder() {
         className="flex flex-col gap-4 max-w-[1000px]"
       >
         <div className="flex gap-4">
-          <Input value={order?.plate} name="plate" label="Placa" />
+          <Input value={order?.plate ?? ""} name="plate" label="Placa" />
           <Input
             readOnly={editMode}
-            value={order?.protocol}
+            value={order?.protocol ?? ""}
             name="protocol"
             label="Protocolo"
           />
@@ -87,23 +91,38 @@ export function FormOrder() {
 
         <div className="flex gap-4">
           <Select
-            value={order?.service}
+            value={order?.service ?? ""}
             name="service"
             label="Serviço"
             options={services}
           />
           <Select
-            value={order?.status}
+            value={order?.status ?? ""}
             name="status"
             label="Status"
             options={status}
           />
-          <Input value={order?.date} name="date" type="date" label="Data" />
-          <Input value={order?.hour} name="hour" type="time" label="Hora" />
+          <Input value={order?.date ?? ""} name="date" type="date" label="Data" />
+          <Input value={order?.hour ?? ""} name="hour" type="time" label="Hora" />
         </div>
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
-          <Button outlined>Cancelar</Button> 
+          <Link
+            to={appRoutes.dashboard}
+            className="
+            bg-transparent 
+            border-[var(--primary)] 
+            text-[var(--primary)] 
+            hover:text-white
+            block text-center
+            cursor-pointer
+            hover:bg-[var(--primary-hover)]
+            w-full py-3 px-10 rounded-lg shadow-lg border
+            "
+          >
+            Cancelar
+          </Link>
+
           <Button>{editMode ? "Salvar" : "Registrar"}</Button>
         </div>
       </form>

@@ -2,13 +2,13 @@ import type { PropsWithChildren } from "react";
 
 interface ButtonProps  extends PropsWithChildren{
   outlined?: boolean;
-  onClick?: () => void;
+  onClick?: (evt:any) => void;
 }
 
 export function Button(props: ButtonProps) {
   return (
     <button
-        onClick={() => props.onClick!()}
+        onClick={props.onClick}
       className={`
     ${
       props.outlined

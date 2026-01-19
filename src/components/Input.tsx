@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface InputProps {
   type?: string;
   placeholder?: string;
@@ -6,9 +8,12 @@ interface InputProps {
   label?: string;
   readOnly?: boolean;
   onClick?: () => void;
+  onChange?: (value: any) => void;
 }
 
 export function Input(props: InputProps) {
+  const [value, setValue] = useState(props.value);
+
   return (
     <div className="w-full">
       {props.label && (
@@ -18,16 +23,13 @@ export function Input(props: InputProps) {
         </p>
       )}
       <input
-        readOnly={props.readOnly}
+        disabled={props.readOnly}
         name={props.name ?? ""}
         type={props.type ?? "text"}
-        defaultValue={props.value}
+        value={props.value ?? value}
+        onChange={props.onChange ?? ((evt) => setValue(evt.target.value))}
         className={`
-        ${
-          props.readOnly
-            ? "bg-slate-100 cursor-not-allowed"
-            : "bg-white "
-        }
+        ${props.readOnly ? "bg-slate-100 cursor-not-allowed" : "bg-white "}
         border border-neutral-200 
         w-full block 
         px-4 py-3 
