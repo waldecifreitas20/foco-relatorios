@@ -16,13 +16,13 @@ async function createOrder(order: CreateOrderDto) {
 
 
 async function getOrders(fnCallback: (orders: Order[]) => void) {
-  fetch(`${API_URL}/orders/all`)
+  return fnCallback(ORDERS);
+  /* fetch(`${API_URL}/orders/all`)
     .then((r) => r.json())
     .then((_response) => {      
-      // return fnCallback(); PROD CODE;
-      return fnCallback(ORDERS);
+      return fnCallback(); PROD CODE;
     })
-    .catch(console.error);
+    .catch(console.error); */
 }
 
 
@@ -32,7 +32,7 @@ async function updateOrder(order: UpdateOrderDto) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(order)
   });
-    
+
 }
 
 

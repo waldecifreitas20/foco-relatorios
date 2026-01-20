@@ -1,0 +1,1 @@
+export type ServiceProvider = "Amparo" | "Socorreae" | "Cadê Guincho";

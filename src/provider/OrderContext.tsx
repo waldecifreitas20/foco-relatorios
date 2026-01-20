@@ -10,12 +10,13 @@ export const OrderContext = createContext({
   getSpecialBudgets: () => [] as Order[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: Order) => {},
-  updateOrder: async (_order: Order) => {},
+  createOrder: async (_order: Order) => { },
+  updateOrder: async (_order: Order) => { },
 });
 
 export function OrderProvider(props: PropsWithChildren) {
   const [orders, setOrders] = useState<Order[]>([]);
+  console.log(orders);
 
   useEffect(() => {
     updateOrders();
@@ -25,9 +26,9 @@ export function OrderProvider(props: PropsWithChildren) {
 
   /* API FUNCTIONS */
   async function updateOrders() {
-   await api.getOrders(orders => {    
-     return setOrders(orders);
-  });
+    await api.getOrders(orders => {
+      return setOrders(orders);
+    });
 
   }
 
@@ -42,17 +43,17 @@ export function OrderProvider(props: PropsWithChildren) {
         );
       }); */
 
-      setOrders(os => ([...os, order]));
+    setOrders(os => ([...os, order]));
   }
 
 
   async function updateOrder(order: Order) {
-   /*  await api.updateOrder(order)
-    .catch(error => {
-      console.error(error);
-      throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
-    }); */
-  
+    /*  await api.updateOrder(order)
+     .catch(error => {
+       console.error(error);
+       throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
+     }); */
+
     setOrders(os => {
       const index = os.findIndex((o) => o.protocol === order.protocol);
       os[index] = order;
@@ -92,7 +93,7 @@ export function OrderProvider(props: PropsWithChildren) {
         }
       });
     }
-    
+
     if (params.service !== "") {
       orders.forEach((o) => {
         if (o.service === params.service) {
@@ -100,7 +101,7 @@ export function OrderProvider(props: PropsWithChildren) {
         }
       });
     }
-    
+
     if (params.status !== "") {
       orders.forEach((o) => {
         if (o.status === params.status) {
@@ -113,7 +114,7 @@ export function OrderProvider(props: PropsWithChildren) {
   }
 
 
-  
+
   function getSpecialBudgets() {
     return orders.filter((o) => o.specialBudget !== undefined);
   }

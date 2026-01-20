@@ -10,46 +10,9 @@ import { Link, useNavigate, useParams } from "react-router";
 import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
 import type { Client } from "../types/Client";
+import { CLIENTS, PROVIDERS, SERVICES, STATUS } from "../mock/data";
 
-const services: Service[] = [
-  "Guincho",
-  "Recarga de Bateria",
-  "Chaveiro",
-  "Desatolamento",
-  "Pane Seca",
-  "Troca de Bateria",
-  "Troca de Pneu",
-];
 
-const status: ServiceStatus[] = [
-  "Agendado",
-  "Aguardando aprovação de orçamento",
-  "Aguardando confirmação de Conclusão",
-  "Aguardando confirmação de entrega",
-  "Aguardando confirmação de remoção",
-  "Aguardando direcionamento",
-  "Cancelado",
-  "Concluído",
-  "Em andamento",
-  "Em base",
-  "Serviço frustrado",
-];
-
-const clients: Client[] = [
-  "Unidas Fleet",
-  "Unidas Livre",
-  "Unidas Seminovos",
-  "Unidas Pesados",
-  "Foco",
-  "ITA",
-  "Energisa",
-  "Dahruj",
-  "Motory",
-  "NETA Auto",
-  "Localiza",
-  "GAC",
-  "GWM",
-];
 
 
 
@@ -60,7 +23,7 @@ export function FormOrder() {
   const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(order?.status);
   const editMode = protocol != undefined;
   const navigateTo = useNavigate();
-  
+
 
   useEffect(() => {
     if (editMode) {
@@ -77,20 +40,22 @@ export function FormOrder() {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
-    let {cost, ...order} = Object.fromEntries(formData.entries()) as any;
+    let { cost, ...order } = Object.fromEntries(formData.entries()) as any;
 
-   
+
     if (cost) {
-      order = {...order, specialBudget: {
-        cost,
-        status: "Aguardando aprovação",
-      }} as Order;
-      
+      order = {
+        ...order, specialBudget: {
+          cost,
+          status: "Aguardando aprovação",
+        }
+      } as Order;
+
     }
 
     console.log(order);
 
-    
+
     var action = createOrder;
 
     if (editMode) {
@@ -98,12 +63,12 @@ export function FormOrder() {
     }
 
     try {
-     
+
 
       await action(order).then(() => {
         navigateTo(appRoutes.dashboard);
       });
-      
+
     } catch (error: any) {
       alert(error.message);
     }
@@ -126,47 +91,47 @@ export function FormOrder() {
         />
 
         <div className="flex gap-4">
-          <Input 
-            value={order?.plate} 
-            name="plate" 
-            label="Placa" 
+          <Input
+            value={order?.plate}
+            name="plate"
+            label="Placa"
             required />
           <Select
             required
-            value={order?.partner}
+            value={order?.serviceProvider}
             name="partner"
             label="Fornecedor"
-            options={["Amparo", "Socorreae", "Cadê Guincho"]}
+            options={PROVIDERS.map(p => ({ label: p, value: p }))}
           />
         </div>
 
         <div className="flex gap-4">
           <Select
-            value={order?.service}
+            value={order?.client}
             name="client"
             label="Cliente Contratante"
-            options={clients}
+            options={CLIENTS.map(c => ({ label: c, value: c }))}
             required
           />
           <Select
             value={order?.service}
             name="service"
             label="Serviço"
-            options={services}
+            options={SERVICES.map(s => ({ label: s, value: s }))}
             required
           />
         </div>
 
         <div className="flex gap-4">
           <Input required value={order?.date} name="date" type="date" label="Data" />
-          <Input  value={order?.hour} name="hour" type="time" label="Hora" />
+          <Input value={order?.hour} name="hour" type="time" label="Hora" />
         </div>
 
         <Select
           value={order?.status}
           name="status"
           label="Status"
-          options={status}
+          options={STATUS.map(s => ({ label: s, value: s }))}
           required
           onSelect={(option) => setServiceStatus(option as ServiceStatus)}
         />
@@ -183,7 +148,7 @@ export function FormOrder() {
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Link
-            to={appRoutes.dashboard}
+            to={editMode ? appRoutes.pendencies.index : appRoutes.dashboard}
             className="
             bg-transparent 
             border-[var(--primary)] 

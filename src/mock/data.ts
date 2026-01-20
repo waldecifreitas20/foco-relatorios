@@ -1,4 +1,8 @@
+import type { Client } from "../types/Client";
 import type { Order } from "../types/Order";
+import type { Service } from "../types/Service";
+import type { ServiceProvider } from "../types/ServiceProvider";
+import type { ServiceStatus } from "../types/ServiceStatus";
 
 export const ORDERS: Order[] = [
   {
@@ -8,6 +12,8 @@ export const ORDERS: Order[] = [
     protocol: "as88-5",
     service: "Guincho",
     status: "Agendado",
+    client: "Unidas Fleet",
+    serviceProvider: "Amparo",
   },
   {
     date: "2026-01-15",
@@ -16,6 +22,8 @@ export const ORDERS: Order[] = [
     protocol: "as88-5",
     service: "Guincho",
     status: "Concluído",
+    client: "Unidas Fleet",
+    serviceProvider: "Amparo",
   },
 
   {
@@ -25,9 +33,13 @@ export const ORDERS: Order[] = [
     protocol: "0s88-1",
     service: "Chaveiro",
     status: "Agendado",
+    client: "Unidas Fleet",
+    serviceProvider: "Amparo",
   },
   
   {
+    client: "Unidas Fleet",
+    serviceProvider: "Amparo",
     date: "2026-01-11",
     hour: "17:00",
     plate: "BYK0J89",
@@ -43,11 +55,15 @@ export const ORDERS: Order[] = [
     protocol: "1a2b-3",
     service: "Guincho",
     status: "Cancelado",
+    client: "Unidas Fleet",
+    serviceProvider: "Amparo",
   },
-
+  
   {
     date: "2026-01-13",
     hour: "07:30",
+    client: "Unidas Fleet",
+    serviceProvider: "Amparo",
     plate: "PHF8J57",
     protocol: "0e1f-5",
     service: "Guincho",
@@ -76,6 +92,8 @@ export const ORDERS: Order[] = [
   },
 
   {
+    client: "Unidas Fleet",
+    serviceProvider: "Amparo",
     date: "2026-01-13",
     hour: "07:30",
     plate: "PHF8J57",
@@ -104,3 +122,45 @@ export const ORDERS: Order[] = [
     }
   },
 ];  
+
+export const SERVICES: Service[] = [
+  "Guincho",
+  "Recarga de Bateria",
+  "Chaveiro",
+  "Desatolamento",
+  "Pane Seca",
+  "Troca de Bateria",
+  "Troca de Pneu",
+];
+
+export const STATUS: ServiceStatus[] = [
+  "Agendado",
+  "Aguardando aprovação de orçamento",
+  "Aguardando confirmação de Conclusão",
+  "Aguardando confirmação de entrega",
+  "Aguardando confirmação de remoção",
+  "Aguardando direcionamento",
+  "Cancelado",
+  "Concluído",
+  "Em andamento",
+  "Em base",
+  "Serviço frustrado",
+];
+
+export const CLIENTS: Client[] = [
+  "Unidas Fleet",
+  "Unidas Livre",
+  "Unidas Seminovos",
+  "Unidas Pesados",
+  "Foco",
+  "ITA",
+  "Energisa",
+  "Dahruj",
+  "Motory",
+  "NETA Auto",
+  "Localiza",
+  "GAC",
+  "GWM",
+];
+
+export const PROVIDERS: ServiceProvider[] = ["Amparo", "Cadê Guincho", "Socorreae"];

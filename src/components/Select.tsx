@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import { Input } from "./Input";
 
 interface SelectProps {
-  options: string[];
+  options: {
+    label: string;
+    value: any;
+  }[];
   label: string;
   name: string;
   value?: string;
-  required?:boolean;
-  onSelect?: (option: string) => void;
+  required?: boolean;
+  inputEnable?: boolean;
+  onTyping?: (value: string) => void;
+  onSelect?: (option: any) => void;
 }
 
 export function Select(props: SelectProps) {
@@ -41,12 +46,20 @@ export function Select(props: SelectProps) {
       )}
 
       <div className="relative w-full">
-        <p>{props.label}{props.required && <span className="text-red-500">*</span>}: </p>
+        <p>
+          {props.label}
+          {props.required && <span className="text-red-500">*</span>}:{" "}
+        </p>
         <Input
-          readOnly
+          readOnly={!props.inputEnable}
           required={props.required}
           name={props.name}
           value={selected ?? props.value}
+          onChange={(evt) =>
+            props.inputEnable &&
+            props.onTyping &&
+            props.onTyping(evt.target.value)
+          }
           onClick={() => setShowOptions((old) => !old)}
         />
 
@@ -62,9 +75,9 @@ export function Select(props: SelectProps) {
                   hover:bg-neutral-100
                   font-light border-t border-neutral-200
                   "
-                  onClick={() => handleSelected(opt)}
+                  onClick={() => handleSelected(opt.value)}
                 >
-                  {opt}
+                  {opt.label}
                 </button>
               );
             })}

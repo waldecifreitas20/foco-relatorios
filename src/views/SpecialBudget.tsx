@@ -9,15 +9,16 @@ export function SpecialBudget() {
   const headStyle = "w-full block text-center";
   const navigate = useNavigate();
   const { getSpecialBudgets } = useContext(OrderContext);
+  const navigateTo = useNavigate();
   const orders = getSpecialBudgets();
-  console.log(orders);
+
   
   return (
     <ViewContainer
       title="Orçamentos Especiais"
       trailing={
         <div className="ml-auto w-fit">
-          <Button onClick={() => navigate(appRoutes.budget.create)}>Novo Orçamento</Button>
+          <Button onClick={() => navigateTo(appRoutes.budget.create)}>Novo Orçamento</Button>
         </div>
       }
     >

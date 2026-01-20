@@ -77,12 +77,12 @@ export function SearchBar(props: SearchBarProps) {
         <Select
           name="service"
           label="Serviço"
-          options={services}
+          options={services.map(s => ({label: s, value: s}))}
         />
         <Select
           name="status"
           label="Status"
-          options={status}
+          options={status.map(s => ({label: s, value: s}))}
         />
       </div>
 
