@@ -8,6 +8,7 @@ interface InputProps {
   blocked?:boolean;
   required?:boolean;
   onClick?: () => void;
+  onChange?: (evt:any) => void;
 }
 
 export function Input(props: InputProps) {
@@ -26,7 +27,6 @@ export function Input(props: InputProps) {
         defaultValue={props.value}
         required={props.required}
         readOnly={props.readOnly}
-
         className={`
         ${props.blocked ? "bg-slate-100 cursor-not-allowed" : "bg-white "}
         border border-neutral-200 
@@ -35,10 +35,11 @@ export function Input(props: InputProps) {
         shadow-lg rounded-lg 
         outline-none
         focus:border-red-500
-          `}
-
+        `}
+        
         placeholder={props.placeholder ?? ""}
         onClick={() => props.onClick!()}
+        onChange={props.onChange}
       />
     </div>
   );
