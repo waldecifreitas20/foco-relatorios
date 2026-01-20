@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Button } from "../components/Button";
+import { Link } from "react-router";
+import { appRoutes } from "../shared/routes";
 
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
@@ -66,7 +68,8 @@ export function SpecialBudget() {
             `;
 
             return (
-              <p
+              <Link
+              to={appRoutes.budget.create}
                 className="
                 grid grid-cols-7
                 shadow-lg rounded-lg mb-2 
@@ -90,7 +93,7 @@ export function SpecialBudget() {
                 <span className={cellStyle}>
                   {new Date(order.date).toLocaleDateString()} {order.hour}
                 </span>
-              </p>
+              </Link>
             );
           })}
         </div>
