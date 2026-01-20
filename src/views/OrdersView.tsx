@@ -16,7 +16,6 @@ export function Orders(props: OrdersProps) {
 
   useEffect(() => {
     const allOrders = getOrders();
-console.log("aa");
 
     if (props.onlyPendency) {
       setOrders(() => {
@@ -29,7 +28,7 @@ console.log("aa");
     } else {
       setOrders(getOrders());
     }
-  }, []);
+  }, [props.onlyPendency]);
 
 
   function handleSearch(result: Order[]) {
