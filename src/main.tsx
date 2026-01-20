@@ -10,7 +10,6 @@ import { OrderProvider } from "./provider/OrderContext.tsx";
 import { SpecialBudget } from "./views/SpecialBudget.tsx";
 import { FormSpecialBudget } from "./views/FormSpecialBudget.tsx";
 import { appRoutes } from "./shared/routes.ts";
-import { SpecialBudgetForm } from "./views/SpecialBudgetForm.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

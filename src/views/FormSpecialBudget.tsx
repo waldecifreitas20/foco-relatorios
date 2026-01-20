@@ -57,17 +57,17 @@ export function FormSpecialBudget() {
   const { protocol } = useParams();
   const navigateTo = useNavigate();
 
-  
+
   const [order, setOrder] = useState<Order>();
   const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(order?.status);
   const editMode = protocol != undefined;
-  
+
   const { updateOrder } = useContext(OrderContext);
 
 
 
   useEffect(() => {
-    
+
   }, []);
 
 
@@ -76,14 +76,14 @@ export function FormSpecialBudget() {
   async function handleSubmit(evt: any) {
     evt.preventDefault();
 
-    
+
   }
 
   return (
-    <ViewContainer title={`${!editMode ? "Criar" : "Alterar"} Solicitação`}>
+    <ViewContainer title={`${!editMode ? "Registar" : "Alterar"} Orçamento Especial`}>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 max-w-[800px]"
+        className="flex flex-col gap-4 max-w-200"
       >
         <Input
           readOnly={editMode}
@@ -96,10 +96,10 @@ export function FormSpecialBudget() {
         />
 
         <div className="flex gap-4">
-          <Input 
-            value={order?.plate} 
-            name="plate" 
-            label="Placa" 
+          <Input
+            value={order?.plate}
+            name="plate"
+            label="Placa"
             required />
           <Select
             required
@@ -129,7 +129,7 @@ export function FormSpecialBudget() {
 
         <div className="flex gap-4">
           <Input required value={order?.date} name="date" type="date" label="Data" />
-          <Input  value={order?.hour} name="hour" type="time" label="Hora" />
+          <Input value={order?.hour} name="hour" type="time" label="Hora" />
         </div>
 
         <Select
