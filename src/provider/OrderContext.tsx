@@ -32,11 +32,15 @@ export function OrderProvider(props: PropsWithChildren) {
   }
 
   async function createOrder(order: CreateOrderDto) {
-    api.createOrder(order)
-    .catch(error => {
-      console.error(error);
-      throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
-    });
+    api
+      .createOrder(order)
+      .then((res) => alert(res.status))
+      .catch((error) => {
+        console.error(error);
+        throw new Error(
+          "Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde."
+        );
+      });
   }
 
 
