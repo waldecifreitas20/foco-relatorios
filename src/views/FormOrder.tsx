@@ -6,7 +6,7 @@ import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
 import type { Service } from "../types/Service";
 import type { ServiceStatus } from "../types/ServiceStatus";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
 import type { Client } from "../types/Client";
@@ -59,7 +59,7 @@ export function FormOrder() {
   const [order, setOrder] = useState<Order>();
   const [serviceStatus, setServiceStatus] = useState<ServiceStatus>();
   const editMode = protocol != undefined;
-
+  const navigateTo = useNavigate();
   
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export function FormOrder() {
     } else {
       setOrder(undefined);
     }
-  });
+  }, []);
 
 
 
@@ -86,9 +86,9 @@ export function FormOrder() {
     }
 
     try {
-      await action(data);
-      alert("Atendimento salvo com sucesso!");
-      location.pathname = "/";
+      await action(data).then(() => {
+        navigateTo(appRoutes.dashboard);
+      });
       
     } catch (error: any) {
       alert(error.message);

@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState, type PropsWithChildren } from "react";
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
-import type { CreateOrderDto, UpdateOrderDto } from "../dto/order.dto";
+import type { UpdateOrderDto } from "../dto/order.dto";
 import { api } from "../api/api";
 
 export const OrderContext = createContext({
@@ -10,7 +10,7 @@ export const OrderContext = createContext({
   getSpecialBudgets: () => [] as Order[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: CreateOrderDto) => {},
+  createOrder: async (_order: Order) => {},
   updateOrder: async (_order: UpdateOrderDto) => {},
 });
 
@@ -31,8 +31,8 @@ export function OrderProvider(props: PropsWithChildren) {
 
   }
 
-  async function createOrder(order: CreateOrderDto) {
-    api
+  async function createOrder(order: Order) {
+    /* api
       .createOrder(order)
       .then((res) => alert(res.status))
       .catch((error) => {
@@ -40,7 +40,9 @@ export function OrderProvider(props: PropsWithChildren) {
         throw new Error(
           "Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde."
         );
-      });
+      }); */
+
+      setOrders(os => ([...os, order]));
   }
 
 

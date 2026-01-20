@@ -12,7 +12,7 @@ export type Order = {
   status: ServiceStatus;
   partner: "Socorreae" | "Amparo" | "Cadê Guincho";
   date: string;
-  hour: string;
+  hour?: string;
   mta?: MtaRequest;
   specialBudget?: SpecialBudget;
 };
