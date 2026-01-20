@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router";
 import { appRoutes } from "../shared/routes";
 import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
 import type { Order } from "../types/Order";
+import { MutableInput } from "../components/MutableInput";
 
 
 
@@ -32,7 +33,7 @@ export function FormSpecialBudget() {
 
   const [ticketOptions, setTicketOptions] = useState<Order[]>([]);
   const [ticket, setTicket] = useState<Order>();
-
+  const [isEditing, setIsEditing] = useState(true);
 
 
   async function handleSubmit(evt: any) {
@@ -52,18 +53,33 @@ export function FormSpecialBudget() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 max-w-[800px]"
       >
-        <Select 
-          label="Ticket" 
-          name="protocol" 
-          options={ticketOptions.map(o => ({
-            label: `${o.protocol} - ${o.plate} - ${o.service}`,
-            value: o,
-          }))}
-          onSelect={(order) => {setTicket(order as Order)} }
-          inputEnable
-          onTyping={handleTicketTyping}
-          />
-    
+
+        {!isEditing && ticket  !== undefined  ?
+          <MutableInput
+            onClick={() => setIsEditing(true)}
+            label="Ticket"
+            required
+            value={ticket?.protocol}
+          /> : (
+            <Select
+              required
+              label="Ticket"
+              name="protocol"
+              options={ticketOptions.map(o => ({
+                label: `${o.protocol} - ${o.plate} - ${o.service}`,
+                value: o,
+              }))}
+              inputEnable
+              value={ticket?.protocol}
+              onTyping={handleTicketTyping}
+              onSelect={(order) => {
+                setTicket(order as Order)
+                setIsEditing(false);
+              }}
+
+            />
+          )}
+
         <div className="flex gap-4">
           <Input value={ticket?.plate} readOnly blocked name="plate" label="Placa" />
           <Input value={ticket?.client} readOnly blocked name="client" label="Cliente Contratante" />

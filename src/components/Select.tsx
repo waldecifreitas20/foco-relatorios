@@ -19,6 +19,7 @@ export function Select(props: SelectProps) {
   const [selected, setSelected] = useState(props.value);
   const [showOptions, setShowOptions] = useState(false);
 
+
   function handleSelected(option: string) {
     setSelected(option);
     setShowOptions(false);
