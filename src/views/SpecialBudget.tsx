@@ -22,7 +22,7 @@ export function SpecialBudget() {
         flex flex-col flex-wrap 
         font-normal 
         w-full 
-      overflow-clip 
+        overflow-clip 
        
         text-center"
       >
