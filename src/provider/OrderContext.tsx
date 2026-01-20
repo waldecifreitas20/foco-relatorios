@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState, type PropsWithChildren } from "react";
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
-import type { UpdateOrderDto } from "../dto/order.dto";
 import { api } from "../api/api";
 
 export const OrderContext = createContext({
@@ -11,7 +10,7 @@ export const OrderContext = createContext({
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
   createOrder: async (_order: Order) => {},
-  updateOrder: async (_order: UpdateOrderDto) => {},
+  updateOrder: async (_order: Order) => {},
 });
 
 export function OrderProvider(props: PropsWithChildren) {
@@ -46,13 +45,22 @@ export function OrderProvider(props: PropsWithChildren) {
   }
 
 
-  async function updateOrder(order: UpdateOrderDto) {
-    await api.updateOrder(order)
+  async function updateOrder(order: Order) {
+   /*  await api.updateOrder(order)
     .catch(error => {
       console.error(error);
       throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
-    });
+    }); */
+  
+    setOrders(os => {
+      const index = os.findIndex((o) => o.protocol === order.protocol);
+      os[index] = order;
+      return os;
+    })
   }
+
+
+
 
   /* INTERNAL FUNCTIONS */
   function getOrders() {

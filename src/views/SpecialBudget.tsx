@@ -7,7 +7,8 @@ export function SpecialBudget() {
   const headStyle = "w-full block text-center";
   const { getSpecialBudgets } = useContext(OrderContext);
   const orders = getSpecialBudgets();
-
+  console.log(orders);
+  
   return (
     <ViewContainer
       title="Orçamentos Especiais"
@@ -80,14 +81,14 @@ export function SpecialBudget() {
                 "
               >
                 <span className={"w-full block text-center text-sm"}>{order.plate}</span>
-                <span className={cellStyle}>{order.protocol}</span>
+                <span className={cellStyle}>{order.protocol.slice(-6)}</span>
                 <span className={cellStyle}>{order.service}</span>
-                <span className={cellStyle}>R$ {order.specialBudget?.cost.toFixed(2).replace(".", ",  ")}</span>
+                <span className={cellStyle}>R$ {Number(order.specialBudget?.cost).toFixed(2).replace(".", ",  ")}</span>
                 <span className={`${cellStyle} col-span-2`}>
                   {order.specialBudget?.status}
                 </span>
                 <span className={cellStyle}>
-                  {new Date(order.date).toLocaleDateString()} às {order.hour}
+                  {new Date(order.date).toLocaleDateString()} {order.hour}
                 </span>
               </p>
             );

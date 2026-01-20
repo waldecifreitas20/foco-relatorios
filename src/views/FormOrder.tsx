@@ -57,7 +57,7 @@ export function FormOrder() {
   const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
   const { protocol } = useParams();
   const [order, setOrder] = useState<Order>();
-  const [serviceStatus, setServiceStatus] = useState<ServiceStatus>();
+  const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(order?.status);
   const editMode = protocol != undefined;
   const navigateTo = useNavigate();
   
@@ -77,8 +77,20 @@ export function FormOrder() {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
-    const data = Object.fromEntries(formData.entries()) as any;
+    let {cost, ...order} = Object.fromEntries(formData.entries()) as any;
 
+   
+    if (cost) {
+      order = {...order, specialBudget: {
+        cost,
+        status: "Aguardando aprovação",
+      }} as Order;
+      
+    }
+
+    console.log(order);
+
+    
     var action = createOrder;
 
     if (editMode) {
@@ -86,7 +98,9 @@ export function FormOrder() {
     }
 
     try {
-      await action(data).then(() => {
+     
+
+      await action(order).then(() => {
         navigateTo(appRoutes.dashboard);
       });
       
@@ -159,9 +173,6 @@ export function FormOrder() {
 
         {serviceStatus === "Aguardando aprovação de orçamento" && (
           <Input
-            readOnly={editMode}
-            blocked={editMode}
-            type="number"
             value={order?.specialBudget?.cost}
             name="cost"
             label="Valor do orçamento"
