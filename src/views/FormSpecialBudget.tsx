@@ -4,79 +4,37 @@ import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
-import type { Service } from "../types/Service";
-import type { ServiceStatus } from "../types/ServiceStatus";
 import { Link, useNavigate, useParams } from "react-router";
-import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
-import type { Client } from "../types/Client";
+import type { SpecialBudget, SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
 
-const services: Service[] = [
-  "Guincho",
-  "Recarga de Bateria",
-  "Chaveiro",
-  "Desatolamento",
-  "Pane Seca",
-  "Troca de Bateria",
-  "Troca de Pneu",
+const reasons: SpecialBudgetReason[] = [
+  "Baixa Infraestrutura",
+  "Complexidade do Serviço",
+   "Indisponibilidade de Prestadores",
+   "Trajeto Longo ",
 ];
 
-const status: ServiceStatus[] = [
-  "Agendado",
-  "Aguardando aprovação de orçamento",
-  "Aguardando confirmação de Conclusão",
-  "Aguardando confirmação de entrega",
-  "Aguardando confirmação de remoção",
-  "Aguardando direcionamento",
-  "Cancelado",
-  "Concluído",
-  "Em andamento",
-  "Em base",
-  "Serviço frustrado",
-];
-
-const clients: Client[] = [
-  "Unidas Fleet",
-  "Unidas Livre",
-  "Unidas Seminovos",
-  "Unidas Pesados",
-  "Foco",
-  "ITA",
-  "Energisa",
-  "Dahruj",
-  "Motory",
-  "NETA Auto",
-  "Localiza",
-  "GAC",
-  "GWM",
-];
-
+const statuses: SpecialBudgetStatus[] = [
+  "Aguardando aprovação",
+  "Aprovado",
+  "Recusado"
+]; 
 
 
 export function FormSpecialBudget() {
   const { protocol } = useParams();
+  const editMode = protocol != undefined;
+
   const navigateTo = useNavigate();
 
-  
-  const [order, setOrder] = useState<Order>();
-  const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(order?.status);
-  const editMode = protocol != undefined;
-  
+  const [specialBudget, setSpecialBudget] = useState<SpecialBudget>();
   const { updateOrder } = useContext(OrderContext);
 
-
-
-  useEffect(() => {
-    
-  }, []);
-
-
-
+  useEffect(() => {}, []);
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
-
-    
   }
 
   return (
@@ -88,68 +46,33 @@ export function FormSpecialBudget() {
         <Input
           readOnly={editMode}
           blocked={editMode}
-          value={order?.protocol}
           name="protocol"
           label="Ticket"
           placeholder="3300-33000-a0b1-c2d3-e4f5-g6h7-8"
           required
+
         />
 
         <div className="flex gap-4">
+          <Input readOnly blocked name="plate" label="Placa" />
+          <Input readOnly blocked name="client" label="Cliente Contratante" />
+        </div>
+
+
           <Input 
-            value={order?.plate} 
-            name="plate" 
-            label="Placa" 
-            required />
-          <Select
             required
-            value={order?.partner}
-            name="partner"
-            label="Fornecedor"
-            options={["Amparo", "Socorreae", "Cadê Guincho"]}
-          />
-        </div>
-
-        <div className="flex gap-4">
-          <Select
-            value={order?.service}
-            name="client"
-            label="Cliente Contratante"
-            options={clients}
-            required
-          />
-          <Select
-            value={order?.service}
-            name="service"
-            label="Serviço"
-            options={services}
-            required
-          />
-        </div>
-
-        <div className="flex gap-4">
-          <Input required value={order?.date} name="date" type="date" label="Data" />
-          <Input  value={order?.hour} name="hour" type="time" label="Hora" />
-        </div>
-
-        <Select
-          value={order?.status}
-          name="status"
-          label="Status"
-          options={status}
-          required
-          onSelect={(option) => setServiceStatus(option as ServiceStatus)}
-        />
-
-        {serviceStatus === "Aguardando aprovação de orçamento" && (
-          <Input
-            value={order?.specialBudget?.cost}
-            name="cost"
-            label="Valor do orçamento"
+            name="cost" 
+            type="number" 
+            label="Valor do Orçamento" 
             placeholder="R$ 1.000,00"
-            required
           />
-        )}
+
+        <Select label="Motivo" name="reason" options={reasons} />
+        <Select label="Status" name="status" options={statuses} />
+
+
+
+
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Link

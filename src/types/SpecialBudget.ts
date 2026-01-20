@@ -1,10 +1,10 @@
-type SpecialBudgetReason =
+export type SpecialBudgetReason =
   | "Indisponibilidade de Prestadores"
   | "Trajeto Longo "
   | "Baixa Infraestrutura"
   | "Complexidade do Serviço";
 
-type SpecialBudgetStatus = "Aguardando aprovação" | "Aprovado" | "Recusado";
+export type SpecialBudgetStatus = "Aguardando aprovação" | "Aprovado" | "Recusado";
 
 export type SpecialBudget = {
   status?: SpecialBudgetStatus;

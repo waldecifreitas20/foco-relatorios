@@ -25,13 +25,13 @@ export function Header() {
     <>
       <header
         className={`
-      bg-white 
-      block 
-      min-w-[200px] max-w-[300px] w-[25%] 
-      h-screen 
-      px-4 pb-8 
-      border-r border-neutral-200
-      `}
+        bg-white 
+        block 
+        min-w-[200px] max-w-[300px] w-[25%] 
+        h-screen 
+        px-4 pb-8 
+        border-r border-neutral-200
+        `}
       >
         <h1 className="font-bold block border-b border-neutral-200 py-6">
           <img className="block h-8 w-fit" src={boschLogo} alt="Bosch" />
