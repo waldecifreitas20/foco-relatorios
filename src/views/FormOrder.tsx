@@ -183,7 +183,7 @@ export function FormOrder() {
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Link
-            to={appRoutes.dashboard}
+            to={editMode ? appRoutes.pendencies.index : appRoutes.dashboard}
             className="
             bg-transparent 
             border-[var(--primary)] 
