@@ -8,6 +8,8 @@ export const ORDERS: Order[] = [
     protocol: "as88-5",
     service: "Guincho",
     status: "Agendado",
+    client: "Unidas Fleet",
+    partner: "Amparo",
   },
   {
     date: "2026-01-15",
@@ -16,6 +18,8 @@ export const ORDERS: Order[] = [
     protocol: "as88-5",
     service: "Guincho",
     status: "Concluído",
+    client: "Unidas Fleet",
+    partner: "Amparo",
   },
 
   {
@@ -25,9 +29,13 @@ export const ORDERS: Order[] = [
     protocol: "0s88-1",
     service: "Chaveiro",
     status: "Agendado",
+    client: "Unidas Fleet",
+    partner: "Amparo",
   },
   
   {
+    client: "Unidas Fleet",
+    partner: "Amparo",
     date: "2026-01-11",
     hour: "17:00",
     plate: "BYK0J89",
@@ -43,11 +51,15 @@ export const ORDERS: Order[] = [
     protocol: "1a2b-3",
     service: "Guincho",
     status: "Cancelado",
+    client: "Unidas Fleet",
+    partner: "Amparo",
   },
-
+  
   {
     date: "2026-01-13",
     hour: "07:30",
+    client: "Unidas Fleet",
+    partner: "Amparo",
     plate: "PHF8J57",
     protocol: "0e1f-5",
     service: "Guincho",
@@ -76,6 +88,8 @@ export const ORDERS: Order[] = [
   },
 
   {
+    client: "Unidas Fleet",
+    partner: "Amparo",
     date: "2026-01-13",
     hour: "07:30",
     plate: "PHF8J57",

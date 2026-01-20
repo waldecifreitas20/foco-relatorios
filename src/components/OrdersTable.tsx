@@ -22,13 +22,14 @@ export function OrdersTable(props: OrdersTableProps) {
 
         <p
           className="
-          grid grid-cols-6
+          grid grid-cols-7
           shadow-lg rounded-lg mb-2 
           w-full font-bold 
           bg-[var(--primary)] text-white  
           py-2
           ">
           <span className={headStyle}>Placa</span>
+          <span className={headStyle}>Cliente</span>
           <span className={headStyle}>Protocolo</span>
           <span className={headStyle}>Serviço</span>
           <span className={`${headStyle} col-span-2`}>Status</span>
@@ -48,7 +49,7 @@ export function OrdersTable(props: OrdersTableProps) {
             <Link
               to={appRoutes.orders.edit(opt.protocol)}
               className="
-              grid grid-cols-6
+              grid grid-cols-7
               shadow-md rounded-lg mb-2 
               bg-white bg-blend-color hover:bg-red-50
               cursor-pointer
@@ -60,6 +61,7 @@ export function OrdersTable(props: OrdersTableProps) {
               py-2 h-24
               ">
               <span className={"w-full block text-center text-sm"}>{opt.plate}</span>
+              <span className={cellStyle}>{opt.client}</span>
               <span className={cellStyle}>{opt.protocol}</span>
               <span className={cellStyle}>{opt.service}</span>
               <span className={`${cellStyle} col-span-2`}>{opt.status}</span>
