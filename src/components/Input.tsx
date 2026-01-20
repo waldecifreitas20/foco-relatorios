@@ -34,6 +34,7 @@ export function Input(props: InputProps) {
         px-4 py-3 
         shadow-lg rounded-lg 
         outline-none
+        focus:border-red-500
           `}
 
         placeholder={props.placeholder ?? ""}

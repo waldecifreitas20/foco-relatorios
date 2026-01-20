@@ -9,6 +9,7 @@ import type { ServiceStatus } from "../types/ServiceStatus";
 import { Link, useParams } from "react-router";
 import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
+import type { Client } from "../types/Client";
 
 const services: Service[] = [
   "Guincho",
@@ -32,6 +33,22 @@ const status: ServiceStatus[] = [
   "Em andamento",
   "Em base",
   "Serviço frustrado",
+];
+
+const clients: Client[] = [
+  "Unidas Fleet",
+  "Unidas Livre",
+  "Unidas Seminovos",
+  "Unidas Pesados",
+  "Foco",
+  "ITA",
+  "Energisa",
+  "Dahruj",
+  "Motory",
+  "NETA Auto",
+  "Localiza",
+  "GAC",
+  "GWM",
 ];
 
 
@@ -81,7 +98,7 @@ export function FormOrder() {
     <ViewContainer title={`${!editMode ? "Criar" : "Alterar"} Solicitação`}>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 max-w-[1000px]"
+        className="flex flex-col gap-4 max-w-[800px]"
       >
         <div className="flex gap-4">
           <Input value={order?.plate} name="plate" label="Placa" />
@@ -97,16 +114,25 @@ export function FormOrder() {
         <div className="flex gap-4">
           <Select
             value={order?.service}
+            name="client"
+            label="Cliente Contratante"
+            options={clients}
+          />
+          <Select
+            value={order?.service}
             name="service"
             label="Serviço"
             options={services}
           />
-          <Select
-            value={order?.status}
-            name="status"
-            label="Status"
-            options={status}
-          />
+        </div>
+        <Select
+          value={order?.status}
+          name="status"
+          label="Status"
+          options={status}
+        />
+
+        <div className="flex gap-4">
           <Input value={order?.date} name="date" type="date" label="Data" />
           <Input value={order?.hour} name="hour" type="time" label="Hora" />
         </div>
