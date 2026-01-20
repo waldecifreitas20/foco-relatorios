@@ -1,6 +1,6 @@
 export type SpecialBudgetReason =
   | "Indisponibilidade de Prestadores"
-  | "Trajeto Longo "
+  | "Trajeto Longo"
   | "Baixa Infraestrutura"
   | "Complexidade do Serviço";
 

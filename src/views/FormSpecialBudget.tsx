@@ -9,11 +9,13 @@ import { appRoutes } from "../shared/routes";
 import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
 import type { Order } from "../types/Order";
 
+
+
 const reasons: SpecialBudgetReason[] = [
   "Baixa Infraestrutura",
   "Complexidade do Serviço",
   "Indisponibilidade de Prestadores",
-  "Trajeto Longo ",
+  "Trajeto Longo",
 ];
 
 const statuses: SpecialBudgetStatus[] = [
@@ -21,6 +23,7 @@ const statuses: SpecialBudgetStatus[] = [
   "Aprovado",
   "Recusado",
 ];
+
 
 export function FormSpecialBudget() {
   const { protocol } = useParams();
@@ -53,7 +56,6 @@ export function FormSpecialBudget() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 max-w-[800px]"
       >
-
         <Select 
           label="Ticket" 
           name="protocol" 
@@ -78,8 +80,8 @@ export function FormSpecialBudget() {
           label="Valor do Orçamento"
           placeholder="R$ 1.000,00"
         />
-        <Select label="Motivo" name="reason" options={reasons.map(r => ({label: r, value: r}))} />
-        <Select label="Status" name="status" options={statuses.map(s => ({label: s, value: s}))} />
+        <Select label="Motivo" name="reason" options={reasons.map(r => ({ label: r, value: r }))} />
+        <Select label="Status" name="status" options={statuses.map(s => ({ label: s, value: s }))} />
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Link
