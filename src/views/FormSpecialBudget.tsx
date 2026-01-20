@@ -44,10 +44,6 @@ export function FormSpecialBudget() {
     setTicketOptions(orders);
   }
 
-  function handleTicketSelected(ticket: string) {
-
-  }
-
 
 
   return (
