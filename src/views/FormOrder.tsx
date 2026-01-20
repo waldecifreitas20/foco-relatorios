@@ -57,6 +57,7 @@ export function FormOrder() {
   const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
   const { protocol } = useParams();
   const [order, setOrder] = useState<Order>();
+  const [serviceStatus, setServiceStatus] = useState<ServiceStatus>();
   const editMode = protocol != undefined;
 
   
@@ -100,14 +101,28 @@ export function FormOrder() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 max-w-[800px]"
       >
+        <Input
+          readOnly={editMode}
+          blocked={editMode}
+          value={order?.protocol}
+          name="protocol"
+          label="Ticket"
+          placeholder="3300-33000-a0b1-c2d3-e4f5-g6h7-8"
+          required
+        />
+
         <div className="flex gap-4">
-          <Input value={order?.plate} name="plate" label="Placa" />
-          <Input
-            readOnly={editMode}
-            blocked={editMode}
-            value={order?.protocol}
-            name="protocol"
-            label="Protocolo"
+          <Input 
+            value={order?.plate} 
+            name="plate" 
+            label="Placa" 
+            required />
+          <Select
+            required
+            value={order?.partner}
+            name="partner"
+            label="Fornecedor"
+            options={["Amparo", "Socorreae", "Cadê Guincho"]}
           />
         </div>
 
@@ -117,25 +132,43 @@ export function FormOrder() {
             name="client"
             label="Cliente Contratante"
             options={clients}
+            required
           />
           <Select
             value={order?.service}
             name="service"
             label="Serviço"
             options={services}
+            required
           />
         </div>
+
+        <div className="flex gap-4">
+          <Input required value={order?.date} name="date" type="date" label="Data" />
+          <Input  value={order?.hour} name="hour" type="time" label="Hora" />
+        </div>
+
         <Select
           value={order?.status}
           name="status"
           label="Status"
           options={status}
+          required
+          onSelect={(option) => setServiceStatus(option as ServiceStatus)}
         />
 
-        <div className="flex gap-4">
-          <Input value={order?.date} name="date" type="date" label="Data" />
-          <Input value={order?.hour} name="hour" type="time" label="Hora" />
-        </div>
+        {serviceStatus === "Aguardando aprovação de orçamento" && (
+          <Input
+            readOnly={editMode}
+            blocked={editMode}
+            type="number"
+            value={order?.specialBudget?.cost}
+            name="cost"
+            label="Valor do orçamento"
+            placeholder="R$ 1.000,00"
+            required
+          />
+        )}
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Link

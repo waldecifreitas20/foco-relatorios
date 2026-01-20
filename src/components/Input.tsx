@@ -2,7 +2,7 @@ interface InputProps {
   type?: string;
   placeholder?: string;
   name?: string;
-  value?: string;
+  value?: string | number;
   label?: string;
   readOnly?: boolean;
   blocked?:boolean;
@@ -16,7 +16,7 @@ export function Input(props: InputProps) {
     <div className="w-full">
       {props.label && (
         <p>
-          {props.label}:
+          {props.label}{props.required && <span className="text-red-500">*</span>}:
           {props.blocked && <i className="ml-1 fa-solid fa-lock fa-xs"></i>}
         </p>
       )}

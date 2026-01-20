@@ -9,10 +9,10 @@ type SpecialBudgetStatus = "Aguardando aprovação" | "Aprovado" | "Recusado";
 export type SpecialBudget = {
   status: SpecialBudgetStatus;
   cost: number;
-  origin: string;
-  destiny: string;
-  workerBase: string;
-  reason: SpecialBudgetReason;
+  origin?: string;
+  destiny?: string;
+  workerBase?: string;
+  reason?: SpecialBudgetReason;
   
   wheelDollies?: number;
   additionalWheels?: number;
