@@ -53,21 +53,21 @@ const clients: Client[] = [
 
 
 
-export function FormOrder() {
-  const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
+export function FormSpecialBudget() {
   const { protocol } = useParams();
+  const navigateTo = useNavigate();
+
+  
   const [order, setOrder] = useState<Order>();
   const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(order?.status);
   const editMode = protocol != undefined;
-  const navigateTo = useNavigate();
   
+  const { updateOrder } = useContext(OrderContext);
+
+
 
   useEffect(() => {
-    if (editMode) {
-      setOrder(getOrder(protocol));
-    } else {
-      setOrder(undefined);
-    }
+    
   }, []);
 
 
@@ -76,37 +76,7 @@ export function FormOrder() {
   async function handleSubmit(evt: any) {
     evt.preventDefault();
 
-    const formData = new FormData(evt.target);
-    let {cost, ...order} = Object.fromEntries(formData.entries()) as any;
-
-   
-    if (cost) {
-      order = {...order, specialBudget: {
-        cost,
-        status: "Aguardando aprovação",
-      }} as Order;
-      
-    }
-
-    console.log(order);
-
     
-    var action = createOrder;
-
-    if (editMode) {
-      action = updateOrder;
-    }
-
-    try {
-     
-
-      await action(order).then(() => {
-        navigateTo(appRoutes.dashboard);
-      });
-      
-    } catch (error: any) {
-      alert(error.message);
-    }
   }
 
   return (

@@ -6,6 +6,8 @@ interface SelectProps {
   label: string;
   name: string;
   value?: string;
+  required?:boolean;
+  onSelect?: (option: string) => void;
 }
 
 export function Select(props: SelectProps) {
@@ -15,6 +17,10 @@ export function Select(props: SelectProps) {
   function handleSelected(option: string) {
     setSelected(option);
     setShowOptions(false);
+
+    if (props.onSelect) {
+      props.onSelect(option);
+    }
   }
 
   useEffect(() => {
@@ -35,9 +41,10 @@ export function Select(props: SelectProps) {
       )}
 
       <div className="relative w-full">
-        <p>{props.label}: </p>
+        <p>{props.label}{props.required && <span className="text-red-500">*</span>}: </p>
         <Input
           readOnly
+          required={props.required}
           name={props.name}
           value={selected ?? props.value}
           onClick={() => setShowOptions((old) => !old)}

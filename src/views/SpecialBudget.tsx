@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Button } from "../components/Button";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { appRoutes } from "../shared/routes";
 
 export function SpecialBudget() {
@@ -10,7 +10,8 @@ export function SpecialBudget() {
   const navigate = useNavigate();
   const { getSpecialBudgets } = useContext(OrderContext);
   const orders = getSpecialBudgets();
-
+  console.log(orders);
+  
   return (
     <ViewContainer
       title="Orçamentos Especiais"
@@ -68,7 +69,8 @@ export function SpecialBudget() {
             `;
 
             return (
-              <p
+              <Link
+              to={appRoutes.budget.create}
                 className="
                 grid grid-cols-7
                 shadow-lg rounded-lg mb-2 
@@ -83,16 +85,16 @@ export function SpecialBudget() {
                 "
               >
                 <span className={"w-full block text-center text-sm"}>{order.plate}</span>
-                <span className={cellStyle}>{order.protocol}</span>
+                <span className={cellStyle}>{order.protocol.slice(-6)}</span>
                 <span className={cellStyle}>{order.service}</span>
-                <span className={cellStyle}>R$ {order.specialBudget?.cost.toFixed(2).replace(".", ",  ")}</span>
+                <span className={cellStyle}>R$ {Number(order.specialBudget?.cost).toFixed(2).replace(".", ",  ")}</span>
                 <span className={`${cellStyle} col-span-2`}>
                   {order.specialBudget?.status}
                 </span>
                 <span className={cellStyle}>
-                  {new Date(order.date).toLocaleDateString()} às {order.hour}
+                  {new Date(order.date).toLocaleDateString()} {order.hour}
                 </span>
-              </p>
+              </Link>
             );
           })}
         </div>

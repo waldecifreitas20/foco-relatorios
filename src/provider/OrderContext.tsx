@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState, type PropsWithChildren } from "react";
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
-import type { CreateOrderDto, UpdateOrderDto } from "../dto/order.dto";
 import { api } from "../api/api";
 import type { CreateSpecialBudgetDto } from "../dto/specialbudget.dto";
 
@@ -11,8 +10,8 @@ export const OrderContext = createContext({
   getSpecialBudgets: () => [] as Order[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: CreateOrderDto) => {},
-  updateOrder: async (_order: UpdateOrderDto) => {},
+  createOrder: async (_order: Order) => {},
+  updateOrder: async (_order: Order) => {},
 });
 
 export function OrderProvider(props: PropsWithChildren) {
@@ -32,26 +31,35 @@ export function OrderProvider(props: PropsWithChildren) {
 
   }
 
-  async function createOrder(order: CreateOrderDto) {
-    api.createOrder(order)
+  async function createOrder(order: Order) {
+    /* api
+      .createOrder(order)
+      .then((res) => alert(res.status))
+      .catch((error) => {
+        console.error(error);
+        throw new Error(
+          "Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde."
+        );
+      }); */
+
+      setOrders(os => ([...os, order]));
+  }
+
+
+  async function updateOrder(order: Order) {
+   /*  await api.updateOrder(order)
     .catch(error => {
       console.error(error);
       throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
-    });
+    }); */
+  
+    setOrders(os => {
+      const index = os.findIndex((o) => o.protocol === order.protocol);
+      os[index] = order;
+      return os;
+    })
   }
 
-
-  async function updateOrder(order: UpdateOrderDto) {
-    await api.updateOrder(order)
-    .catch(error => {
-      console.error(error);
-      throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
-    });
-  }
-
-  async function createSpecialBudget(specialBudget: CreateSpecialBudgetDto) {
-    return [specialBudget]
-  }
 
 
 
