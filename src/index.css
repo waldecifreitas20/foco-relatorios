@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #c20000;
+  --primary: #007bc3;
   --primary-hover: #ac0303;
+  --border-radius: .25rem;
 }

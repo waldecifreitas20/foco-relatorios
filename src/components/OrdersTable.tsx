@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { type Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
+import { TableRow } from "./Table/TableRow";
 
 interface OrdersTableProps {
   orders: Array<Order>;
@@ -44,20 +45,8 @@ export function OrdersTable(props: OrdersTableProps) {
           `;
 
           return (
-            <Link
-              to={appRoutes.orders.edit(opt.protocol)}
-              className="
-              grid grid-cols-8
-              shadow-md rounded-lg mb-2 
-              bg-white bg-blend-color hover:bg-red-50
-              cursor-pointer
-              w-full 
-              justify-around items-center 
-              transition-all duration-200
-              border border-slate-200
-              hover:border-b-red-300
-              py-2 h-24
-              "
+            <TableRow
+              linkTo={appRoutes.orders.edit(opt.protocol)}
             >
               <span className={"w-full text-slate-500 font-normal block text-center text-sm"}>
                 {opt.plate}
@@ -70,7 +59,7 @@ export function OrdersTable(props: OrdersTableProps) {
               <span className={cellStyle}>
                 {new Date(opt.date).toLocaleDateString()} às {opt.hour}
               </span>
-            </Link>
+            </TableRow>
           );
         })}
       </div>

@@ -4,6 +4,7 @@ import { OrderContext } from "../provider/OrderContext";
 import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router";
 import { appRoutes } from "../shared/routes";
+import { TableRow } from "../components/Table/TableRow";
 
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
@@ -12,7 +13,7 @@ export function SpecialBudget() {
   const navigateTo = useNavigate();
   const orders = getSpecialBudgets();
 
-  
+
   return (
     <ViewContainer
       title="Orçamentos Especiais"
@@ -36,7 +37,6 @@ export function SpecialBudget() {
       {orders.length > 0 && (
         <div
           className="
-        bg-white
         flex flex-col flex-wrap 
         font-normal 
         w-full 
@@ -71,21 +71,7 @@ export function SpecialBudget() {
             `;
 
             return (
-              <Link
-              to={appRoutes.budget.edit(order.protocol)}
-                className="
-                grid grid-cols-8
-                shadow-lg rounded-lg mb-2 
-                bg-white hover:bg-red-50
-                cursor-pointer
-                w-full 
-                justify-around items-center 
-                text-neutral-600
-                border border-neutral-200 hover:border-b-red-200 
-                py-2 h-24
-                
-                "
-              >
+              <TableRow linkTo={appRoutes.budget.edit(order.protocol)}  extendedCells={1}>
                 <span className={"w-full block text-center text-sm"}>{order.plate}</span>
                 <span className={cellStyle}>{order.protocol.slice(-6)}</span>
                 <span className={cellStyle}>{order.client}</span>
@@ -97,7 +83,7 @@ export function SpecialBudget() {
                 <span className={cellStyle}>
                   {new Date(order.date).toLocaleDateString()} {order.hour}
                 </span>
-              </Link>
+              </TableRow>
             );
           })}
         </div>
