@@ -4,7 +4,7 @@ import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { appRoutes } from "../shared/routes";
 import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
 import type { Order } from "../types/Order";
@@ -29,15 +29,21 @@ const statuses: SpecialBudgetStatus[] = [
 export function FormSpecialBudget() {
   const { protocol } = useParams();
   const editMode = protocol != undefined;
-  const { getOrders } = useContext(OrderContext);
+  const { getOrders, addSpecialBudget } = useContext(OrderContext);
 
   const [ticketOptions, setTicketOptions] = useState<Order[]>([]);
   const [ticket, setTicket] = useState<Order>();
   const [isEditing, setIsEditing] = useState(true);
 
+  const navigate = useNavigate();
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
+
+    const formData = new FormData(evt.target);
+    let data = Object.fromEntries(formData.entries()) as any;
+
+    addSpecialBudget(data).then(() => navigate("/"));
   }
 
   function handleTicketTyping(value: string) {
@@ -59,6 +65,7 @@ export function FormSpecialBudget() {
             onClick={() => setIsEditing(true)}
             label="Ticket"
             required
+            name="protocol"
             value={ticket?.protocol}
           /> : (
             <Select

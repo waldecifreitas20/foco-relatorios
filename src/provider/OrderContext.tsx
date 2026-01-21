@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, type PropsWithChildren } from "reac
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
 import { api } from "../api/api";
-import type { CreateSpecialBudgetDto } from "../dto/specialbudget.dto";
+import type { AddSpecialBudgetDto } from "../dto/specialbudget.dto";
 
 export const OrderContext = createContext({
   getOrders: () => [] as Order[],
@@ -12,6 +12,7 @@ export const OrderContext = createContext({
   search: async (_params: SearchParams) => [] as Order[],
   createOrder: async (_order: Order) => { },
   updateOrder: async (_order: Order) => { },
+  addSpecialBudget: async (_specialBudget: AddSpecialBudgetDto) => { Promise<void> },
 });
 
 export function OrderProvider(props: PropsWithChildren) {
@@ -69,17 +70,16 @@ export function OrderProvider(props: PropsWithChildren) {
     return orders;
   }
 
-
-
   function getOrder(protocol: string) {
     return orders.find((o) => o.protocol === protocol.trim());
   }
 
 
-
   function getOrdersByPlate(plate: string) {
     return orders.filter((order) => order.plate === plate);
   }
+
+
 
   async function search(params: SearchParams) {
     await updateOrders();
@@ -120,6 +120,36 @@ export function OrderProvider(props: PropsWithChildren) {
   }
 
 
+  async function addSpecialBudget(specialBudget: AddSpecialBudgetDto) {
+    let index = -1;
+
+    console.log(specialBudget);
+
+    orders.forEach((o, i) => {
+
+      if (o.protocol === specialBudget.protocol) {
+        index = i;
+      }
+    });
+
+    setOrders(old => {
+      let order = old[index];
+
+      console.log(index);
+      console.log(order);
+      order = {
+        ...order,
+        status: specialBudget.status === "Aguardando aprovação" ? "Aguardando aprovação de orçamento" : order.status,
+        specialBudget,
+      }
+
+      old[index] = order;
+
+      return old;
+    });
+
+  }
+
 
   return (
     <OrderContext.Provider
@@ -131,6 +161,7 @@ export function OrderProvider(props: PropsWithChildren) {
         getSpecialBudgets,
         getOrder,
         updateOrder,
+        addSpecialBudget,
       }}
     >
       {props.children}
