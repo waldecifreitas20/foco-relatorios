@@ -22,8 +22,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             children={[
               <Route path={appRoutes.dashboard} element={<Dashboard />} />,
               <Route path={appRoutes.pendencies.index} element={<Orders title="Atendimentos Pendentes" onlyPendency />} />,
+              
               <Route path={appRoutes.budget.index} element={<SpecialBudget />} />,
               <Route path={appRoutes.budget.create} element={<FormSpecialBudget />} />,
+              <Route path={appRoutes.budget.edit()} element={<FormSpecialBudget />} />,
+              
               <Route path={appRoutes.orders.index} element={<Orders title="Histórico de Solicitações" />} />,
               <Route path={appRoutes.orders.create} element={<FormOrder />} />,
               <Route path={appRoutes.orders.edit()} element={<FormOrder />} />,

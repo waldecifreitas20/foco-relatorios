@@ -46,7 +46,7 @@ export function SpecialBudget() {
         >
           <p
             className="
-          grid grid-cols-7
+          grid grid-cols-8
           shadow-lg rounded-lg mb-2 
           w-full font-bold 
           bg-[var(--primary)] text-white  
@@ -55,6 +55,7 @@ export function SpecialBudget() {
           >
             <span className={"w-full block text-center}"}>Placa</span>
             <span className={headStyle}>Protocolo</span>
+            <span className={headStyle}>Cliente</span>
             <span className={headStyle}>Serviço</span>
             <span className={headStyle}>Custo</span>
             <span className={`${headStyle} col-span-2`}>Status</span>
@@ -71,22 +72,23 @@ export function SpecialBudget() {
 
             return (
               <Link
-              to={appRoutes.budget.create}
+              to={appRoutes.budget.edit(order.protocol)}
                 className="
-                grid grid-cols-7
+                grid grid-cols-8
                 shadow-lg rounded-lg mb-2 
-                bg-white hover:bg-neutral-50
+                bg-white hover:bg-red-50
                 cursor-pointer
                 w-full 
                 justify-around items-center 
                 text-neutral-600
-                border border-neutral-200 
+                border border-neutral-200 hover:border-b-red-200 
                 py-2 h-24
                 
                 "
               >
                 <span className={"w-full block text-center text-sm"}>{order.plate}</span>
                 <span className={cellStyle}>{order.protocol.slice(-6)}</span>
+                <span className={cellStyle}>{order.client}</span>
                 <span className={cellStyle}>{order.service}</span>
                 <span className={cellStyle}>R$ {Number(order.specialBudget?.cost).toFixed(2).replace(".", ",  ")}</span>
                 <span className={`${cellStyle} col-span-2`}>
