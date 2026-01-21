@@ -3,5 +3,5 @@
 :root {
   --primary: #007bc3;
   --primary-hover: #ac0303;
-  --border-radius: .25rem;
+  --border-radius: 6px;
 }

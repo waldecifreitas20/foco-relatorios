@@ -5,6 +5,7 @@ import { Button } from "../components/Button";
 import { Link, useNavigate } from "react-router";
 import { appRoutes } from "../shared/routes";
 import { TableRow } from "../components/Table/TableRow";
+import { TableHead } from "../components/Table/TableHead";
 
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
@@ -44,15 +45,7 @@ export function SpecialBudget() {
        
         text-center"
         >
-          <p
-            className="
-          grid grid-cols-8
-          shadow-lg rounded-lg mb-2 
-          w-full font-bold 
-          bg-[var(--primary)] text-white  
-          py-2
-          "
-          >
+          <TableHead extendedCells={1}>
             <span className={"w-full block text-center}"}>Placa</span>
             <span className={headStyle}>Protocolo</span>
             <span className={headStyle}>Cliente</span>
@@ -60,7 +53,7 @@ export function SpecialBudget() {
             <span className={headStyle}>Custo</span>
             <span className={`${headStyle} col-span-2`}>Status</span>
             <span className={headStyle}>Data & Hora</span>
-          </p>
+          </TableHead>
 
           {orders.map((order) => {
             const cellStyle = `
@@ -71,7 +64,7 @@ export function SpecialBudget() {
             `;
 
             return (
-              <TableRow linkTo={appRoutes.budget.edit(order.protocol)}  extendedCells={1}>
+              <TableRow linkTo={appRoutes.budget.edit(order.protocol)} extendedCells={1}>
                 <span className={"w-full block text-center text-sm"}>{order.plate}</span>
                 <span className={cellStyle}>{order.protocol.slice(-6)}</span>
                 <span className={cellStyle}>{order.client}</span>

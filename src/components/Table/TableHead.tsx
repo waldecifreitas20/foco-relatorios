@@ -13,10 +13,10 @@ export function TableHead(props: TableHeadProps) {
       <p
         className={`
         grid ${gridCols}
-        shadow-lg rounded-lg mb-2 
+        rounded-[var(--border-radius)] mb-2 
         w-full font-bold 
         bg-[var(--primary)] text-white  
-        py-2  
+        py-3  
         `}
       >{props.children}</p>
     </>

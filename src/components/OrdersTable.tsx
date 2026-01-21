@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { type Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
 import { TableRow } from "./Table/TableRow";
+import { TableHead } from "./Table/TableHead";
 
 interface OrdersTableProps {
   orders: Array<Order>;
@@ -19,13 +20,7 @@ export function OrdersTable(props: OrdersTableProps) {
         overflow-clip        
         text-center"
       >
-        <p
-          className="
-          grid grid-cols-8
-          shadow-lg rounded-lg mb-2 w-full 
-          bg-[var(--primary)] text-white  
-          py-2
-          "
+        <TableHead extendedCells={1}
         >
           <span className={headStyle}>Placa</span>
           <span className={headStyle}>Fornecedor</span>
@@ -34,7 +29,7 @@ export function OrdersTable(props: OrdersTableProps) {
           <span className={headStyle}>Serviço</span>
           <span className={`${headStyle} col-span-2`}>Status</span>
           <span className={headStyle}>Data & Hora</span>
-        </p>
+        </TableHead>
 
         {props.orders.map((opt) => {
           const cellStyle = `
@@ -46,7 +41,7 @@ export function OrdersTable(props: OrdersTableProps) {
 
           return (
             <TableRow
-              linkTo={appRoutes.orders.edit(opt.protocol)}
+              linkTo={appRoutes.orders.edit(opt.protocol)} extendedCells={1}
             >
               <span className={"w-full text-slate-500 font-normal block text-center text-sm"}>
                 {opt.plate}
