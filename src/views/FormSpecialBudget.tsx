@@ -28,13 +28,17 @@ const statuses: SpecialBudgetStatus[] = [
 
 export function FormSpecialBudget() {
   const { protocol } = useParams();
+  const navigate = useNavigate();
   const editMode = protocol != undefined;
-  const { getOrders, addSpecialBudget } = useContext(OrderContext);
 
+  const { getOrder, addSpecialBudget } = useContext(OrderContext);
   const [order, setOrder] = useState<Order>();
 
-  const navigate = useNavigate();
-
+  useEffect(() => {
+    if (editMode) {
+      setOrder(() => getOrder(protocol));
+    }
+  }, []);
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
@@ -45,14 +49,11 @@ export function FormSpecialBudget() {
     addSpecialBudget(data).then(() => navigate("/"));
   }
 
-
-function handleSelectOrder(protocol: string) {
-  setOrder(() => {
-    return getOrders().find(o => o.protocol === protocol);
-  });
-}
-
-
+  function handleSelectOrder(protocol: string) {
+    setOrder(() => {
+      return getOrder(protocol);
+    });
+  }
 
   return (
     <ViewContainer title={`${!editMode ? "Criar" : "Alterar"} Solicitação`}>
@@ -60,8 +61,11 @@ function handleSelectOrder(protocol: string) {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 max-w-[800px]"
       >
-        <InputableSelect name="protocol" onSelect={handleSelectOrder}/>
-
+        <InputableSelect
+          name="protocol"
+          onSelect={handleSelectOrder}
+          initialValue={protocol}
+        />
 
         <div className="flex gap-4">
           <Input
@@ -86,17 +90,20 @@ function handleSelectOrder(protocol: string) {
           type="number"
           label="Valor do Orçamento"
           placeholder="R$ 1.000,00"
+          value={order?.specialBudget?.cost}
         />
         <Select
           label="Motivo"
           name="reason"
           required
+          value={order?.specialBudget?.reason}
           options={reasons.map((r) => ({ label: r, value: r }))}
         />
         <Select
           label="Status"
           name="status"
           required
+          value={order?.specialBudget?.status}
           options={statuses.map((s) => ({ label: s, value: s }))}
         />
 

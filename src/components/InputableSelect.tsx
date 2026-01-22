@@ -4,11 +4,12 @@ import { Dropdown, type DropdownOption } from "./Dropdown";
 
 interface InputableSelectProps {
   name: string;
+  initialValue?: string;
   onSelect: (option: any) => void;
 }
 
 export function InputableSelect(props: InputableSelectProps) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(props.initialValue);
   const [showDropdown, setShowDropdown] = useState(false);
   const [options, setOptions] = useState<DropdownOption[]>([]);
 
