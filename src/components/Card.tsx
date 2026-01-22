@@ -14,7 +14,7 @@ export function Card(props: CardProps) {
         justify-between py-8 p-2 
         font-medium 
         w-full 
-        rounded-lg text-center">
+        rounded-[var(--border-radius)] text-center">
         <p>{props.label}</p>
         <p className={`${props.large ? 'text-6xl': 'text-4xl'} text-[var(--primary)]`}>{props.value}</p>
       </div>

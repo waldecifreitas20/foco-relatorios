@@ -34,7 +34,7 @@ export function Input(props: InputProps) {
         px-4 py-3 
         rounded-[var(--border-radius)] 
         outline-none
-        focus:border-red-500
+        focus:border-[var(--primary)]
         `}
         
         placeholder={props.placeholder ?? ""}
