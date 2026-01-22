@@ -4,15 +4,11 @@ import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
-import type { Service } from "../types/Service";
 import type { ServiceStatus } from "../types/ServiceStatus";
 import { Link, useNavigate, useParams } from "react-router";
 import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
-import type { Client } from "../types/Client";
 import { CLIENTS, PROVIDERS, SERVICES, STATUS } from "../mock/data";
-
-
 
 
 
@@ -20,10 +16,11 @@ export function FormOrder() {
   const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
   const { protocol } = useParams();
   const [order, setOrder] = useState<Order>();
-  const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(order?.status);
+  const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(
+    order?.status
+  );
   const editMode = protocol != undefined;
   const navigateTo = useNavigate();
-
 
   useEffect(() => {
     if (editMode) {
@@ -33,28 +30,21 @@ export function FormOrder() {
     }
   }, []);
 
-
-
-
   async function handleSubmit(evt: any) {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
     let { cost, ...order } = Object.fromEntries(formData.entries()) as any;
 
-
     if (cost) {
       order = {
-        ...order, specialBudget: {
+        ...order,
+        specialBudget: {
           cost,
           status: "Aguardando aprovação",
-        }
+        },
       } as Order;
-
     }
-
-    console.log(order);
-
 
     var action = createOrder;
 
@@ -63,12 +53,9 @@ export function FormOrder() {
     }
 
     try {
-
-
       await action(order).then(() => {
         navigateTo(appRoutes.dashboard);
       });
-
     } catch (error: any) {
       alert(error.message);
     }
@@ -91,17 +78,13 @@ export function FormOrder() {
         />
 
         <div className="flex gap-4">
-          <Input
-            value={order?.plate}
-            name="plate"
-            label="Placa"
-            required />
+          <Input value={order?.plate} name="plate" label="Placa" required />
           <Select
             required
             value={order?.serviceProvider}
-            name="partner"
+            name="serviceProvider"
             label="Fornecedor"
-            options={PROVIDERS.map(p => ({ label: p, value: p }))}
+            options={PROVIDERS.map((p) => ({ label: p, value: p }))}
           />
         </div>
 
@@ -110,20 +93,26 @@ export function FormOrder() {
             value={order?.client}
             name="client"
             label="Cliente Contratante"
-            options={CLIENTS.map(c => ({ label: c, value: c }))}
+            options={CLIENTS.map((c) => ({ label: c, value: c }))}
             required
           />
           <Select
             value={order?.service}
             name="service"
             label="Serviço"
-            options={SERVICES.map(s => ({ label: s, value: s }))}
+            options={SERVICES.map((s) => ({ label: s, value: s }))}
             required
           />
         </div>
 
         <div className="flex gap-4">
-          <Input required value={order?.date} name="date" type="date" label="Data" />
+          <Input
+            required
+            value={order?.date}
+            name="date"
+            type="date"
+            label="Data"
+          />
           <Input value={order?.hour} name="hour" type="time" label="Hora" />
         </div>
 
@@ -131,7 +120,7 @@ export function FormOrder() {
           value={order?.status}
           name="status"
           label="Status"
-          options={STATUS.map(s => ({ label: s, value: s }))}
+          options={STATUS.map((s) => ({ label: s, value: s }))}
           required
           onSelect={(option) => setServiceStatus(option as ServiceStatus)}
         />
