@@ -10,7 +10,7 @@ export type Order = {
   protocol: string;
   service: Service;
   status: ServiceStatus;
-  serviceProvider: "Socorreae" | "Amparo" | "Cadê Guincho";
+  providerProtocol: string;
   date: string;
   hour?: string;
   mta?: MtaRequest;

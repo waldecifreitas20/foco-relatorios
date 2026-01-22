@@ -8,7 +8,7 @@ import type { ServiceStatus } from "../types/ServiceStatus";
 import { Link, useNavigate, useParams } from "react-router";
 import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
-import { CLIENTS, PROVIDERS, SERVICES, STATUS } from "../mock/data";
+import { CLIENTS, SERVICES, STATUS } from "../mock/data";
 
 
 
@@ -79,12 +79,12 @@ export function FormOrder() {
 
         <div className="flex gap-4">
           <Input value={order?.plate} name="plate" label="Placa" required />
-          <Select
+          <Input
             required
-            value={order?.serviceProvider}
-            name="serviceProvider"
-            label="Fornecedor"
-            options={PROVIDERS.map((p) => ({ label: p, value: p }))}
+            value={order?.providerProtocol}
+            name="providerProtocol"
+            label="Protocolo Fornecedor"
+            placeholder="AMP009999"
           />
         </div>
 

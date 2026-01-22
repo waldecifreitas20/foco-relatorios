@@ -1,7 +1,6 @@
 import type { Client } from "../types/Client";
 import type { Order } from "../types/Order";
 import type { Service } from "../types/Service";
-import type { ServiceProvider } from "../types/ServiceProvider";
 import type { ServiceStatus } from "../types/ServiceStatus";
 
 export const ORDERS: Order[] = [
@@ -13,7 +12,7 @@ export const ORDERS: Order[] = [
     service: "Guincho",
     status: "Agendado",
     client: "Unidas Fleet",
-    serviceProvider: "Amparo",
+    providerProtocol: "AMP002900",
   },
   {
     date: "2026-01-15",
@@ -23,7 +22,7 @@ export const ORDERS: Order[] = [
     service: "Guincho",
     status: "Concluído",
     client: "Unidas Fleet",
-    serviceProvider: "Amparo",
+    providerProtocol: "AMP001900",
   },
 
   {
@@ -34,12 +33,12 @@ export const ORDERS: Order[] = [
     service: "Chaveiro",
     status: "Agendado",
     client: "Unidas Fleet",
-    serviceProvider: "Amparo",
+    providerProtocol: "AMP008900",
   },
   
   {
     client: "Unidas Fleet",
-    serviceProvider: "Amparo",
+    providerProtocol: "SAE089000",
     date: "2026-01-11",
     hour: "17:00",
     plate: "BYK0J89",
@@ -56,16 +55,16 @@ export const ORDERS: Order[] = [
     service: "Guincho",
     status: "Cancelado",
     client: "Unidas Fleet",
-    serviceProvider: "Amparo",
+    providerProtocol: "SAE007900",
   },
   
   {
     date: "2026-01-13",
     hour: "07:30",
     client: "Unidas Fleet",
-    serviceProvider: "Amparo",
-    plate: "PHF8J57",
-    protocol: "0e1f-5",
+    providerProtocol: "6576645",
+    plate: "DGF8957",
+    protocol: "0p6f-9",
     service: "Guincho",
     status: "Em andamento",
     mta: {
@@ -83,7 +82,7 @@ export const ORDERS: Order[] = [
       destiny: "R. João Nogueira 45, São Paulo - SP  Cep 55511-555",
       origin:  "Av. das Amoreiras 987, Campinas - SP  Cep 55511-555",
       workerBase:  "R. dos Coqueiros 123, Campinas - SP  Cep 55511-555",
-      reason: "Trajeto Longo ",
+      reason: "Trajeto Longo",
       explanation: "Necessário autorização para trajeto acima de 300km",
       cost: 10130.75,
       status: "Recusado",
@@ -93,7 +92,7 @@ export const ORDERS: Order[] = [
 
   {
     client: "Unidas Fleet",
-    serviceProvider: "Amparo",
+    providerProtocol: "68768",
     date: "2026-01-13",
     hour: "07:30",
     plate: "PHF8J57",
@@ -114,7 +113,7 @@ export const ORDERS: Order[] = [
       destiny: "R. João Nogueira 45, São Paulo - SP  Cep 55511-555",
       origin:  "Av. das Amoreiras 987, Campinas - SP  Cep 55511-555",
       workerBase:  "R. dos Coqueiros 123, Campinas - SP  Cep 55511-555",
-      reason: "Trajeto Longo ",
+      reason: "Trajeto Longo",
       explanation: "Necessário autorização para trajeto acima de 300km",
       cost: 2530,
       status: "Aguardando aprovação",
@@ -162,5 +161,3 @@ export const CLIENTS: Client[] = [
   "GAC",
   "GWM",
 ];
-
-export const PROVIDERS: ServiceProvider[] = ["Amparo", "Cadê Guincho", "Socorreae"];

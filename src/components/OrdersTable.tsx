@@ -39,6 +39,13 @@ export function OrdersTable(props: OrdersTableProps) {
             border-l border-slate-200
           `;
 
+          console.log(opt.providerProtocol);
+          
+
+          const providerName = Number(opt.providerProtocol) ? "Cadê Guincho" : (
+            opt.providerProtocol.includes("AMP")? "Amparo" : "Socorreae"
+          )
+
           return (
             <TableRow
               linkTo={appRoutes.orders.edit(opt.protocol)}
@@ -51,7 +58,7 @@ export function OrdersTable(props: OrdersTableProps) {
               >
                 {opt.plate}
               </span>
-              <span className={cellStyle}>{opt.serviceProvider}</span>
+              <span className={cellStyle}>{providerName}</span>
               <span className={cellStyle}>{opt.client}</span>
               <span className={cellStyle}>{opt.protocol}</span>
               <span className={cellStyle}>{opt.service}</span>
