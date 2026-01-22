@@ -4,7 +4,7 @@ interface TableHeadProps extends PropsWithChildren {
   extendedCells?: number;
 }
 
-export function TableHead(props: TableHeadProps) {git
+export function TableHead(props: TableHeadProps) {
 
   return (
     <>
