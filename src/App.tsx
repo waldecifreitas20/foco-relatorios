@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <p
-        className="block w-screen h-1 absolute top-0"
+        className="block w-screen h-2 absolute top-0"
         style={{
           background: `url(${topBackground})`,
           backgroundRepeat: "no-repeat",
