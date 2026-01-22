@@ -46,21 +46,21 @@ export function Header() {
           <Link
             to={appRoutes.orders.create}
             className="
-          text-white
-          bg-[var(--primary)]
-          hover:bg-[var(--primary-hover)]
+            text-white
+            bg-[var(--primary)]
+            hover:bg-[var(--primary-hover)]
 
-          mt-10 mb-5
-          shadow-lg shadow-black/50
+            mt-10 mb-5
+            shadow-lg shadow-black/50
 
-          cursor-pointer 
-          rounded-md 
+            cursor-pointer 
+            rounded-md 
 
-          w-full 
-          px-4 py-3 
-          flex justify-between items-center
-        "
-        onClick={() => setActive(-1)}
+            w-full 
+            px-4 py-3 
+            flex justify-between items-center
+            "
+            onClick={() => setActive(-1)}
           >
             Novo Atendimento
             <i className="fa-solid fa-plus"></i>
@@ -69,11 +69,9 @@ export function Header() {
           {/* MENU OPTIONS */}
           <div
             className="
-        overflow-clip 
-        h-full text-slate-400 font-medium 
-        
-        
-        "
+            overflow-clip 
+            h-full text-slate-400 font-medium 
+            "
           >
             {menuOption.map((opt, i) => {
               return (
@@ -82,23 +80,16 @@ export function Header() {
                   onClick={() => setActive(i)}
                   className={`
             
-            ${
-              activeIndex === i
-                ? "text-[var(--primary)] bg-slate-50 pl-8 border-[var(--primary)]"
-                : "hover:text-slate-600 border-transparent"
-            }
-            border-l-4
-            transition-all duration-300
-            cursor-pointer 
-            block 
-            w-full 
-            px-4 py-3
-            
-            
-            `}
-                >
-                  {opt.label}
-                </Link>
+                  ${activeIndex === i
+                    ? "text-[var(--primary)] bg-slate-50 pl-8 border-[var(--primary)]"
+                    : "hover:text-slate-600 border-transparent"}
+                  border-l-4
+                  transition-all duration-300
+                  cursor-pointer 
+                  block 
+                  w-full 
+                  px-4 py-3
+                  `}>{opt.label}</Link>
               );
             })}
           </div>

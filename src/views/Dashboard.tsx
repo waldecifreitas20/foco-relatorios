@@ -42,7 +42,7 @@ export function Dashboard() {
           className="
           bg-white 
           mb-10 
-          border border-neutral-200 shadow-lg  rounded-lg 
+          border border-slate-200 shadow-lg  rounded-lg 
           flex flex-wrap 
           py-4 
           justify-center w-full
@@ -51,9 +51,13 @@ export function Dashboard() {
            ">
           {generalStats.map((stat, i) => {
             return (
-              <div className={`block w-full ${i > 0 && 'border-l border-neutral-200'} p-2 text-center`}>
+              <div
+                className={`block w-full ${
+                  i > 0 && "border-l border-slate-200"
+                } p-2 text-center`}
+              >
                 <p>{stat.label}</p>
-                <p className="text-4xl text-red-600">{stat.value}</p>
+                <p className="text-4xl text-[var(--primary)]">{stat.value}</p>
               </div>
             );
           })}

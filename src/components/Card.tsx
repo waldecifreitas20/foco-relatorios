@@ -17,7 +17,7 @@ export function Card(props: CardProps) {
         shadow-lg 
         rounded-lg text-center">
         <p>{props.label}</p>
-        <p className={`${props.large ? 'text-6xl': 'text-4xl'} text-red-600`}>{props.value}</p>
+        <p className={`${props.large ? 'text-6xl': 'text-4xl'} text-[var(--primary)]`}>{props.value}</p>
       </div>
     </>
   );
