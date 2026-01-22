@@ -65,7 +65,7 @@ export function Select(props: SelectProps) {
         />
 
         {showOptions && (
-          <div className="absolute shadow-xl w-full border border-neutral-200 bg-white rounded-b-lg z-100">
+          <div className="absolute w-full border border-neutral-200 bg-white rounded-b-lg z-100">
             {props.options.map((opt) => {
               return (
                 <button

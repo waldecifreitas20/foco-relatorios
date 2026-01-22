@@ -32,7 +32,7 @@ export function Input(props: InputProps) {
         border border-neutral-200 
         w-full block 
         px-4 py-3 
-        shadow-lg rounded-lg 
+        rounded-[var(--border-radius)] 
         outline-none
         focus:border-red-500
         `}

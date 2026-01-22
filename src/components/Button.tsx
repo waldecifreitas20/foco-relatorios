@@ -8,7 +8,7 @@ interface ButtonProps  extends PropsWithChildren{
 export function Button(props: ButtonProps) {
   return (
     <button
-        onClick={props.onClick}
+      onClick={props.onClick}
       className={`
     ${
       props.outlined
@@ -17,7 +17,7 @@ export function Button(props: ButtonProps) {
     }
     cursor-pointer
     hover:bg-[var(--primary-hover)]
-    w-full py-3 px-10 rounded-lg shadow-lg border
+    w-full py-3 px-10 rounded-[var(--border-radius)]  border
     `}
     >
       {props.children}

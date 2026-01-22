@@ -51,10 +51,9 @@ export function Header() {
             hover:bg-[var(--primary-hover)]
 
             mt-10 mb-5
-            shadow-lg shadow-black/50
 
             cursor-pointer 
-            rounded-md 
+            rounded-[var(--border-radius)] 
 
             w-full 
             px-4 py-3 

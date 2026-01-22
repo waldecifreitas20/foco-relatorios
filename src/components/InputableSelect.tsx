@@ -46,8 +46,7 @@ export function InputableSelect(props: InputableSelectProps) {
         className="bg-white
       border border-neutral-200 
       w-full block 
-      px-4 py-3 
-      shadow-lg rounded-lg 
+      px-4 py-3 rounded-lg 
       outline-none
       focus:border-red-500"
         value={inputValue}

@@ -118,7 +118,7 @@ export function FormSpecialBudget() {
             block text-center
             cursor-pointer
             hover:bg-[var(--primary-hover)]
-            w-full py-3 px-10 rounded-lg shadow-lg border
+            w-full py-3 px-10 rounded-[var(--border-radius)] border
             "
           >
             Cancelar

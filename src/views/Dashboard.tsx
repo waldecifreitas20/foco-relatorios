@@ -42,7 +42,7 @@ export function Dashboard() {
           className="
           bg-white 
           mb-10 
-          border border-slate-200 shadow-lg  rounded-lg 
+          border border-slate-200 rounded-lg 
           flex flex-wrap 
           py-4 
           justify-center w-full
