@@ -31,7 +31,7 @@ export function Input(props: InputProps) {
         ${props.blocked ? "bg-slate-100 cursor-not-allowed" : "bg-white "}
         border border-neutral-200 
         w-full block 
-        px-4 py-3 
+        px-4 py-2
         rounded-[var(--border-radius)] 
         outline-none
         focus:border-[var(--primary)]
