@@ -83,32 +83,34 @@ export function OrderProvider(props: PropsWithChildren) {
 
   async function search(params: SearchParams) {
     await updateOrders();
-
-    const results: Order[] = [];
+    let results: Order[] = [];
 
     if (params.plate !== "") {
-      orders.forEach((o) => {
-        if (o.plate.includes(params.plate)) {
-          results.push(o);
-        }
-      });
-    }
-
+      results = orders.filter((o) => o.plate.includes(params.plate));
+    } 
+    
     if (params.service !== "") {
-      orders.forEach((o) => {
-        if (o.service === params.service) {
-          results.push(o);
-        }
-      });
+
+      if(results.length === 0) {
+        results = orders.filter((o) => o.service === params.service);
+      } else {
+        results = results.filter((o) => o.service === params.service);
+      }
+
+    }
+    
+    if (params.status !== "") {
+
+      if(results.length === 0) {
+        results = orders.filter((o) => o.status === params.status);
+      } else {
+        results = results.filter((o) => o.status === params.status);
+      }
+
     }
 
-    if (params.status !== "") {
-      orders.forEach((o) => {
-        if (o.status === params.status) {
-          results.push(o);
-        }
-      });
-    }
+    
+
 
     return results;
   }
