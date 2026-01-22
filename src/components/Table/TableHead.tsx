@@ -4,15 +4,13 @@ interface TableHeadProps extends PropsWithChildren {
   extendedCells?: number;
 }
 
-export function TableHead(props: TableHeadProps) {
-  const cols = (props.children as []).length + (props.extendedCells ?? 0);
-  const gridCols = `grid-cols-${cols}`.toString();
+export function TableHead(props: TableHeadProps) {git
 
   return (
     <>
       <p
         className={`
-        grid ${gridCols}
+        grid grid-cols-8
         rounded-[var(--border-radius)] mb-2 
         w-full font-bold 
         bg-[var(--primary)] text-white  

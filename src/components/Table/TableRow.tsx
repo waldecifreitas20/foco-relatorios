@@ -7,15 +7,13 @@ interface TableRowProps extends PropsWithChildren {
 }
 
 export function TableRow(props: TableRowProps) {
-  const cols = (props.children as []).length + (props.extendedCells ?? 0);
-  const gridCols = `grid-cols-${cols}`.toString();
 
   return (
     <>
       <Link
         to={props.linkTo}
         className={`
-        grid ${gridCols}
+        grid grid-cols-8
         mb-2 
         bg-white hover:bg-[var(--primary)]/5
         cursor-pointer

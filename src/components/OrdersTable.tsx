@@ -41,9 +41,14 @@ export function OrdersTable(props: OrdersTableProps) {
 
           return (
             <TableRow
-              linkTo={appRoutes.orders.edit(opt.protocol)} extendedCells={1}
+              linkTo={appRoutes.orders.edit(opt.protocol)}
+              extendedCells={2}
             >
-              <span className={"w-full text-slate-500 font-normal block text-center text-sm"}>
+              <span
+                className={
+                  "w-full text-slate-500 font-normal block text-center text-sm"
+                }
+              >
                 {opt.plate}
               </span>
               <span className={cellStyle}>{opt.serviceProvider}</span>
