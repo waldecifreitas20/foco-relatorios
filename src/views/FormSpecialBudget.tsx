@@ -8,7 +8,7 @@ import { Link, useNavigate, useParams } from "react-router";
 import { appRoutes } from "../shared/routes";
 import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
 import type { Order } from "../types/Order";
-import { MutableInput } from "../components/MutableInput";
+import { InputableSelect } from "../components/InputableSelect";
 
 
 
@@ -31,11 +31,10 @@ export function FormSpecialBudget() {
   const editMode = protocol != undefined;
   const { getOrders, addSpecialBudget } = useContext(OrderContext);
 
-  const [ticketOptions, setTicketOptions] = useState<Order[]>([]);
-  const [ticket, setTicket] = useState<Order>();
-  const [isEditing, setIsEditing] = useState(true);
+  const [order, setOrder] = useState<Order>();
 
   const navigate = useNavigate();
+
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
@@ -46,10 +45,12 @@ export function FormSpecialBudget() {
     addSpecialBudget(data).then(() => navigate("/"));
   }
 
-  function handleTicketTyping(value: string) {
-    const orders = getOrders().filter((o) => o.protocol.includes(value));
-    setTicketOptions(orders);
-  }
+
+function handleSelectOrder(protocol: string) {
+  setOrder(() => {
+    return getOrders().find(o => o.protocol === protocol);
+  });
+}
 
 
 
@@ -59,37 +60,24 @@ export function FormSpecialBudget() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 max-w-[800px]"
       >
+        <InputableSelect name="protocol" onSelect={handleSelectOrder}/>
 
-        {!isEditing && ticket  !== undefined  ?
-          <MutableInput
-            onClick={() => setIsEditing(true)}
-            label="Ticket"
-            required
-            name="protocol"
-            value={ticket?.protocol}
-          /> : (
-            <Select
-              required
-              label="Ticket"
-              name="protocol"
-              options={ticketOptions.map(o => ({
-                label: `${o.protocol} - ${o.plate} - ${o.service}`,
-                value: o,
-              }))}
-              inputEnable
-              value={ticket?.protocol}
-              onTyping={handleTicketTyping}
-              onSelect={(order) => {
-                setTicket(order as Order)
-                setIsEditing(false);
-              }}
-
-            />
-          )}
 
         <div className="flex gap-4">
-          <Input value={ticket?.plate} readOnly blocked name="plate" label="Placa" />
-          <Input value={ticket?.client} readOnly blocked name="client" label="Cliente Contratante" />
+          <Input
+            value={order?.plate}
+            readOnly
+            blocked
+            name="plate"
+            label="Placa"
+          />
+          <Input
+            value={order?.client}
+            readOnly
+            blocked
+            name="client"
+            label="Cliente Contratante"
+          />
         </div>
 
         <Input
@@ -99,8 +87,18 @@ export function FormSpecialBudget() {
           label="Valor do Orçamento"
           placeholder="R$ 1.000,00"
         />
-        <Select label="Motivo" name="reason" options={reasons.map(r => ({ label: r, value: r }))} />
-        <Select label="Status" name="status" options={statuses.map(s => ({ label: s, value: s }))} />
+        <Select
+          label="Motivo"
+          name="reason"
+          required
+          options={reasons.map((r) => ({ label: r, value: r }))}
+        />
+        <Select
+          label="Status"
+          name="status"
+          required
+          options={statuses.map((s) => ({ label: s, value: s }))}
+        />
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Link
