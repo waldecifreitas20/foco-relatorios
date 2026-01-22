@@ -6,7 +6,6 @@ import type { Service } from "../types/Service";
 import { Card } from "../components/Card";
 
 export function Dashboard() {
-  const todayDate = new Date(Date.now()).toLocaleDateString();
   const orders = useContext(OrderContext).getOrders();
 
   const generalStats = [
@@ -35,7 +34,7 @@ export function Dashboard() {
 
   return (
     <>
-      <ViewContainer title="Visão Geral" subtitle={`Estatísticas da data ${todayDate}`}>
+      <ViewContainer title="Visão Geral" subtitle="Todos os atendimentos">
 
         {/* daily statistics */}
         <div

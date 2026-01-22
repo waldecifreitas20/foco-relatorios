@@ -17,7 +17,7 @@ export function Button(props: ButtonProps) {
     }
     cursor-pointer
     hover:bg-[var(--primary-hover)]
-    w-full py-3 px-10 rounded-[var(--border-radius)]  border
+    w-full py-2 px-10 rounded-[var(--border-radius)] border
     `}
     >
       {props.children}

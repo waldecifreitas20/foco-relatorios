@@ -5,6 +5,9 @@ import { Dropdown, type DropdownOption } from "./Dropdown";
 interface InputableSelectProps {
   name: string;
   initialValue?: string;
+  label?: string;
+  required?: boolean;
+  blocked?:boolean
   onSelect: (option: any) => void;
 }
 
@@ -40,24 +43,28 @@ export function InputableSelect(props: InputableSelectProps) {
 
   return (
     <div className="w-full relative">
+      {props.label && (
+        <p>
+          {props.label}
+          {props.required && <span className="text-red-500">*</span>}:
+          {props.blocked && <i className="ml-1 fa-solid fa-lock fa-xs"></i>}
+        </p>
+      )}
       <input
         type="text"
         name={props.name}
         className="bg-white
-      border border-neutral-200 
-      w-full block 
-      px-4 py-3 rounded-lg 
-      outline-none
-      focus:border-red-500"
+        border border-slate-200 
+        w-full block 
+        px-4 py-2 rounded-[var(--border-radius)] 
+        outline-none
+        focus:border-[var(--primary)]"
         value={inputValue}
         onChange={handleInputChange}
       />
 
       {showDropdown && (
-        <Dropdown
-          onClickOption={handleSelectOption}
-          options={options}
-        />
+        <Dropdown onClickOption={handleSelectOption} options={options} />
       )}
     </div>
   );

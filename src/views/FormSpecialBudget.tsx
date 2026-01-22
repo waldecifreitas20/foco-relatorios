@@ -11,7 +11,6 @@ import type { Order } from "../types/Order";
 import { InputableSelect } from "../components/InputableSelect";
 
 
-
 const reasons: SpecialBudgetReason[] = [
   "Baixa Infraestrutura",
   "Complexidade do Serviço",
