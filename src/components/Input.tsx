@@ -17,11 +17,13 @@ export function Input(props: InputProps) {
     <div className="w-full">
       {props.label && (
         <p>
-          {props.label}{props.required && <span className="text-red-500">*</span>}:
+          {props.label}
+          {props.required && <span className="text-red-500">*</span>}:
           {props.blocked && <i className="ml-1 fa-solid fa-lock fa-xs"></i>}
         </p>
       )}
       <input
+        step={0.01}
         name={props.name ?? ""}
         type={props.type ?? "text"}
         defaultValue={props.value}
@@ -36,7 +38,6 @@ export function Input(props: InputProps) {
         outline-none
         focus:border-[var(--primary)]
         `}
-        
         placeholder={props.placeholder ?? ""}
         onClick={() => props.onClick!()}
         onChange={props.onChange}
