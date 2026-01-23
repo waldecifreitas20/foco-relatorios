@@ -13,10 +13,12 @@ export function Dashboard() {
   const isLoading = useRef(true);
 
   useEffect(() => {
-    getOrders().then((o) => {
+    getOrders().then((res) => {
+      console.log(res);
+      
       setOrders(() => {
         isLoading.current = false;
-        return [];
+        return res;
       });
     });
   }, []);
