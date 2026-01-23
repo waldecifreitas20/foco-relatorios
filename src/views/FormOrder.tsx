@@ -5,32 +5,32 @@ import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
 import type { ServiceStatus } from "../types/ServiceStatus";
-import { Link, useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
 import { CLIENTS, SERVICES, STATUS } from "../mock/data";
-
+import { RouterContext } from "../provider/RouterContext";
 
 
 export function FormOrder() {
   const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
   const { protocol } = useParams();
   const [order, setOrder] = useState<Order>();
-  const [serviceStatus, setServiceStatus] = useState<ServiceStatus | undefined>(
-    order?.status
-  );
+  const [serviceStatus, setServiceStatus] = useState<ServiceStatus>();
   const editMode = protocol != undefined;
-  const navigateTo = useNavigate();
+  const { back, goTo } = useContext(RouterContext);
 
   useEffect(() => {
     if (editMode) {
-      const order = getOrder(protocol); 
+      const order = getOrder(protocol);
       setOrder(order);
       setServiceStatus(order?.status);
     } else {
       setOrder(undefined);
     }
   }, []);
+
+
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
@@ -56,7 +56,7 @@ export function FormOrder() {
 
     try {
       await action(order).then(() => {
-        navigateTo(appRoutes.dashboard);
+        goTo(appRoutes.dashboard);
       });
     } catch (error: any) {
       alert(error.message);
@@ -138,21 +138,15 @@ export function FormOrder() {
         )}
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
-          <Link
-            to={editMode ? appRoutes.pendencies.index : appRoutes.dashboard}
-            className="
-            bg-transparent 
-            border-[var(--primary)] 
-            text-[var(--primary)] 
-            hover:text-white
-            block text-center
-            cursor-pointer
-            hover:bg-[var(--primary-hover)]
-            w-full py-3 px-10 rounded-[var(--border-radius)] border
-            "
+          <Button
+            onClick={(evt) => {
+              evt.preventDefault();
+              back();
+            }}
+            outlined
           >
             Cancelar
-          </Link>
+          </Button>
 
           <Button>{editMode ? "Salvar" : "Registrar"}</Button>
         </div>
