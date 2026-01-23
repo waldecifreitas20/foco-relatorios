@@ -6,13 +6,21 @@ import { useNavigate } from "react-router";
 import { appRoutes } from "../shared/routes";
 import { TableRow } from "../components/Table/TableRow";
 import { TableHead } from "../components/Table/TableHead";
+import type { Order } from "../types/Order";
 
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
-  const { getSpecialBudgets } = useContext(OrderContext);
+  const { getSpecialBudgets, getOrder } = useContext(OrderContext);
   const navigateTo = useNavigate();
-  const orders = getSpecialBudgets();
 
+  const specialBudgets = getSpecialBudgets();
+  const orders = specialBudgets.map(specialBudget => {
+    const { specialBudgets, ...order } = getOrder(specialBudget.orderProtocol) as any as Order;
+    return {
+      ...order,
+      specialBudget
+    }
+  });
 
   return (
     <ViewContainer

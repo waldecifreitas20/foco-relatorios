@@ -4,11 +4,12 @@ import type { SearchParams } from "../components/SearchBar";
 import { api } from "../api/api";
 import type { AddSpecialBudgetDto } from "../dto/specialbudget.dto";
 import type { CreateOrderDto } from "../dto/order.dto";
+import type { SpecialBudget } from "../types/SpecialBudget";
 
 export const OrderContext = createContext({
   getOrders: async () => [] as Order[],
   getOrdersByPlate: (_plate: string) => [] as Order[],
-  getSpecialBudgets: () => [] as Order[],
+  getSpecialBudgets: () => [] as SpecialBudget[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
   createOrder: async (_order: CreateOrderDto) => { },
@@ -26,8 +27,8 @@ export function OrderProvider(props: PropsWithChildren) {
   /* API FUNCTIONS */
   async function createOrder(order: CreateOrderDto) {
     try {
-      const {specialBudget, ...onlyOrder} = order;
-      
+      const { specialBudget, ...onlyOrder } = order;
+
       if (specialBudget) {
         specialBudget.cost = Number(specialBudget.cost);
       }
@@ -36,7 +37,7 @@ export function OrderProvider(props: PropsWithChildren) {
         ...onlyOrder,
         specialBudget
       });
-      console.log(response);
+
       if (response.status !== 200) {
         throw new Error();
       }
@@ -101,7 +102,15 @@ export function OrderProvider(props: PropsWithChildren) {
 
 
   function getSpecialBudgets() {
-    return orders.filter((o) => o.specialBudget !== undefined);
+    const specialBudgets: SpecialBudget[] = [];
+
+    orders.forEach(o => {
+      if (o.specialBudgets !== undefined) {
+        specialBudgets.push(...o.specialBudgets);
+      }
+    });
+
+    return specialBudgets;
   }
 
 
