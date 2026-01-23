@@ -61,6 +61,8 @@ export function FormSpecialBudget() {
         className="flex flex-col gap-4 max-w-[800px]"
       >
         <InputableSelect
+          label="Ticket"
+          required
           name="protocol"
           onSelect={handleSelectOrder}
           initialValue={protocol}
