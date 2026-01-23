@@ -5,10 +5,10 @@ import logo from "../assets/logo.png";
 import { RouterContext } from "../provider/RouterContext";
 
 const menuOption = [
-  { label: "Visão Geral", link: appRoutes.dashboard },
-  { label: "Pendências", link: appRoutes.pendencies.index },
-  { label: "Orçamentos Especiais", link: appRoutes.budget.index },
-  { label: "Atendimentos", link: appRoutes.orders.index },
+  { label: "Visão Geral", link: appRoutes.dashboard, icon: <i className="fa-solid fa-chart-line"></i> },
+  { label: "Pendências", link: appRoutes.pendencies.index, icon: <i className="fa-solid fa-hourglass-half"></i> },
+  { label: "Orçamentos Especiais", link: appRoutes.budget.index, icon: <i className="fa-solid fa-sack-dollar"></i> },
+  { label: "Atendimentos", link: appRoutes.orders.index, icon: <i className="fa-solid fa-list"></i> },
 ];
 
 export function Header() {
@@ -90,12 +90,13 @@ export function Header() {
                   border-l-4
                   transition-all duration-300
                   cursor-pointer 
-                  block text-left
+                  flex justify-between items-center text-left
                   w-full 
                   px-4 py-3
                   `}
                 >
                   {opt.label}
+                  {opt.icon}
                 </p>
               );
             })}
