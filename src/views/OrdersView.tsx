@@ -15,19 +15,24 @@ export function Orders(props: OrdersProps) {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    const allOrders = getOrders();
+    getOrders()
+    .then((allOrders) => {
 
-    if (props.onlyPendency) {
-      setOrders(() => {
-        return allOrders.filter(o => {
-          return o.status !== "Concluído" &&
-            o.status !== "Cancelado" &&
-            o.status !== "Serviço frustrado";
+      if (props.onlyPendency) {
+        setOrders(() => {
+          return allOrders.filter((o) => {
+            return (
+              o.status !== "Concluído" &&
+              o.status !== "Cancelado" &&
+              o.status !== "Serviço frustrado"
+            );
+          });
         });
-      })
-    } else {
-      setOrders(getOrders());
-    }
+
+      } else {
+        setOrders(allOrders);
+      }
+    });
   }, [props.onlyPendency]);
 
 

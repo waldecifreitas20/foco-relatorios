@@ -18,14 +18,16 @@ export function InputableSelect(props: InputableSelectProps) {
 
   const { getOrders } = useContext(OrderContext);
 
-  function handleInputChange(evt: any) {
+  async function handleInputChange(evt: any) {
     const value = evt.target.value;
 
     setShowDropdown(() => value.length > 0);
     setInputValue(value);
 
+    const orders = await getOrders().then((orders) =>
+      orders.filter((o) => o.protocol.includes(value))
+    );
     setOptions(() => {
-      const orders = getOrders().filter((o) => o.protocol.includes(value));
       return orders.map((o) => ({
         label: `${o.protocol} - ${o.plate} - ${o.service}`,
         value: o.protocol,
