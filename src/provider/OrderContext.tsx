@@ -3,154 +3,93 @@ import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
 import { api } from "../api/api";
 import type { AddSpecialBudgetDto } from "../dto/specialbudget.dto";
+import type { CreateOrderDto } from "../dto/order.dto";
 
 export const OrderContext = createContext({
-  getOrders: () => [] as Order[],
+  getOrders: async () => [] as Order[],
   getOrdersByPlate: (_plate: string) => [] as Order[],
   getSpecialBudgets: () => [] as Order[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: Order) => { },
-  updateOrder: async (_order: Order) => { },
-  addSpecialBudget: async (_specialBudget: AddSpecialBudgetDto) => { Promise<void> },
+  createOrder: async (_order: Order) => {},
+  addSpecialBudget: async (_specialBudget: AddSpecialBudgetDto) => {
+    Promise<void>;
+  },
 });
 
 export function OrderProvider(props: PropsWithChildren) {
   const [orders, setOrders] = useState<Order[]>([]);
-  console.log(orders);
 
   useEffect(() => {
-    updateOrders();
+    api.getOrders().then(({orders}) => setOrders(orders));
   }, []);
 
 
-
   /* API FUNCTIONS */
-  async function updateOrders() {
-    await api.getOrders(orders => {
-      return setOrders(orders);
-    });
-
+  async function createOrder(order: CreateOrderDto) {
+    try {
+      const response = await api.createOrder(order);
+      console.log(response);
+      
+      alert("Atendimento criado com sucesso!");
+    } catch (error) {
+      console.log(error);
+      alert("Não foi possível registrar este atendimento. Tente novamente mais tarde");
+    }
   }
 
-  async function createOrder(order: Order) {
-    /* api
-      .createOrder(order)
-      .then((res) => alert(res.status))
-      .catch((error) => {
-        console.error(error);
-        throw new Error(
-          "Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde."
-        );
-      }); */
+  async function addSpecialBudget(specialBudget: AddSpecialBudgetDto) {}
 
-    setOrders(os => ([...os, order]));
+  async function search(params: SearchParams) {
+    let results: Order[] = [];
+
+    if (params.plate !== "") {
+      results = orders.filter((o) => o.plate.includes(params.plate));
+    }
+
+    if (params.service !== "") {
+      if (results.length === 0) {
+        results = orders.filter((o) => o.service === params.service);
+      } else {
+        results = results.filter((o) => o.service === params.service);
+      }
+    }
+
+    if (params.status !== "") {
+      if (results.length === 0) {
+        results = orders.filter((o) => o.status === params.status);
+      } else {
+        results = results.filter((o) => o.status === params.status);
+      }
+    }
+
+    return results;
   }
 
-
-  async function updateOrder(order: Order) {
-    /*  await api.updateOrder(order)
-     .catch(error => {
-       console.error(error);
-       throw new Error("Não foi possível salvar os dados deste atendimento. Tente novamente mais tarde.")
-     }); */
-
-    setOrders(os => {
-      const index = os.findIndex((o) => o.protocol === order.protocol);
-      os[index] = order;
-      return os;
-    })
-  }
-
-
-
-
-  /* INTERNAL FUNCTIONS */
-  function getOrders() {
-    return orders;
+  async function getOrders() {
+    try {
+      const {orders: updatedOrders} = await api.getOrders();
+      setOrders(updatedOrders);
+      return updatedOrders;
+    } catch (error) {
+      console.log(error);
+      return orders;
+    }
   }
 
   function getOrder(protocol: string) {
     return orders.find((o) => o.protocol === protocol.trim());
   }
 
-
   function getOrdersByPlate(plate: string) {
     return orders.filter((order) => order.plate === plate);
   }
-
-
-
-  async function search(params: SearchParams) {
-    await updateOrders();
-    let results: Order[] = [];
-
-    if (params.plate !== "") {
-      results = orders.filter((o) => o.plate.includes(params.plate));
-    } 
-    
-    if (params.service !== "") {
-
-      if(results.length === 0) {
-        results = orders.filter((o) => o.service === params.service);
-      } else {
-        results = results.filter((o) => o.service === params.service);
-      }
-
-    }
-    
-    if (params.status !== "") {
-
-      if(results.length === 0) {
-        results = orders.filter((o) => o.status === params.status);
-      } else {
-        results = results.filter((o) => o.status === params.status);
-      }
-
-    }
-
-    
-
-
-    return results;
-  }
-
 
 
   function getSpecialBudgets() {
     return orders.filter((o) => o.specialBudget !== undefined);
   }
 
-
-  async function addSpecialBudget(specialBudget: AddSpecialBudgetDto) {
-    let index = -1;
-
-    console.log(specialBudget);
-
-    orders.forEach((o, i) => {
-
-      if (o.protocol === specialBudget.protocol) {
-        index = i;
-      }
-    });
-
-    setOrders(old => {
-      let order = old[index];
-
-      console.log(index);
-      console.log(order);
-      order = {
-        ...order,
-        status: specialBudget.status === "Aguardando aprovação" ? "Aguardando aprovação de orçamento" : order.status,
-        specialBudget,
-      }
-
-      old[index] = order;
-
-      return old;
-    });
-
-  }
 
 
   return (
@@ -162,7 +101,6 @@ export function OrderProvider(props: PropsWithChildren) {
         createOrder,
         getSpecialBudgets,
         getOrder,
-        updateOrder,
         addSpecialBudget,
       }}
     >
