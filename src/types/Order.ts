@@ -14,5 +14,5 @@ export type Order = {
   date: string;
   hour?: string;
   mta?: MtaRequest;
-  specialBudget?: SpecialBudget;
+  specialBudgets: SpecialBudget[];
 };
