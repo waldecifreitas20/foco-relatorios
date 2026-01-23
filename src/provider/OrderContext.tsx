@@ -11,26 +11,36 @@ export const OrderContext = createContext({
   getSpecialBudgets: () => [] as Order[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
-  createOrder: async (_order: Order) => {},
-  addSpecialBudget: async (_specialBudget: AddSpecialBudgetDto) => {
-    Promise<void>;
-  },
+  createOrder: async (_order: CreateOrderDto) => { },
+  addSpecialBudget: async (_specialBudget: AddSpecialBudgetDto) => { },
 });
 
 export function OrderProvider(props: PropsWithChildren) {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    api.getOrders().then(({orders}) => setOrders(orders));
+    api.getOrders().then(({ orders }) => setOrders(orders));
   }, []);
 
 
   /* API FUNCTIONS */
   async function createOrder(order: CreateOrderDto) {
     try {
-      const response = await api.createOrder(order);
-      console.log(response);
+      const {specialBudget, ...onlyOrder} = order;
       
+      if (specialBudget) {
+        specialBudget.cost = Number(specialBudget.cost);
+      }
+
+      const response = await api.createOrder({
+        ...onlyOrder,
+        specialBudget
+      });
+      console.log(response);
+      if (response.status !== 200) {
+        throw new Error();
+      }
+
       alert("Atendimento criado com sucesso!");
     } catch (error) {
       console.log(error);
@@ -38,7 +48,8 @@ export function OrderProvider(props: PropsWithChildren) {
     }
   }
 
-  async function addSpecialBudget(specialBudget: AddSpecialBudgetDto) {}
+  async function addSpecialBudget(specialBudget: AddSpecialBudgetDto) { }
+
 
   async function search(params: SearchParams) {
     let results: Order[] = [];
@@ -68,7 +79,10 @@ export function OrderProvider(props: PropsWithChildren) {
 
   async function getOrders() {
     try {
-      const {orders: updatedOrders} = await api.getOrders();
+      if (orders.length > 0) {
+        return orders;
+      }
+      const { orders: updatedOrders } = await api.getOrders();
       setOrders(updatedOrders);
       return updatedOrders;
     } catch (error) {
