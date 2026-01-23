@@ -65,7 +65,7 @@ export function Select(props: SelectProps) {
         />
 
         {showOptions && (
-          <div className="absolute w-full border border-neutral-200 bg-white rounded-b-lg z-100">
+          <div className="absolute w-full shadow-2xl border border-neutral-200 bg-white rounded-b-lg z-100">
             {props.options.map((opt) => {
               return (
                 <button
@@ -74,7 +74,7 @@ export function Select(props: SelectProps) {
                   w-full py-1 px-2
                   text-sm cursor-pointer 
                   hover:bg-neutral-100
-                  font-light border-t border-neutral-200
+                  font-light 
                   "
                   onClick={() => handleSelected(opt.value)}
                 >
