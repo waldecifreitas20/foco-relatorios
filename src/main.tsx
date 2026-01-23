@@ -10,30 +10,56 @@ import { OrderProvider } from "./provider/OrderContext.tsx";
 import { SpecialBudget } from "./views/SpecialBudget.tsx";
 import { FormSpecialBudget } from "./views/FormSpecialBudget.tsx";
 import { appRoutes } from "./shared/routes.ts";
+import { RouterProvider } from "./provider/RouterContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <OrderProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={<App />}
-            children={[
-              <Route path={appRoutes.dashboard} element={<Dashboard />} />,
-              <Route path={appRoutes.pendencies.index} element={<Orders title="Atendimentos Pendentes" onlyPendency />} />,
-              
-              <Route path={appRoutes.budget.index} element={<SpecialBudget />} />,
-              <Route path={appRoutes.budget.create} element={<FormSpecialBudget />} />,
-              <Route path={appRoutes.budget.edit()} element={<FormSpecialBudget />} />,
-              
-              <Route path={appRoutes.orders.index} element={<Orders title="Histórico de Solicitações" />} />,
-              <Route path={appRoutes.orders.create} element={<FormOrder />} />,
-              <Route path={appRoutes.orders.edit()} element={<FormOrder />} />,
-            ]}
-          />
-        </Routes>
-      </BrowserRouter>
-    </OrderProvider>
+    <BrowserRouter>
+      <RouterProvider>
+        <OrderProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={<App />}
+              children={[
+                <Route path={appRoutes.dashboard} element={<Dashboard />} />,
+                <Route
+                  path={appRoutes.pendencies.index}
+                  element={
+                    <Orders title="Atendimentos Pendentes" onlyPendency />
+                  }
+                />,
+
+                <Route
+                  path={appRoutes.budget.index}
+                  element={<SpecialBudget />}
+                />,
+                <Route
+                  path={appRoutes.budget.create}
+                  element={<FormSpecialBudget />}
+                />,
+                <Route
+                  path={appRoutes.budget.edit()}
+                  element={<FormSpecialBudget />}
+                />,
+
+                <Route
+                  path={appRoutes.orders.index}
+                  element={<Orders title="Histórico de Solicitações" />}
+                />,
+                <Route
+                  path={appRoutes.orders.create}
+                  element={<FormOrder />}
+                />,
+                <Route
+                  path={appRoutes.orders.edit()}
+                  element={<FormOrder />}
+                />,
+              ]}
+            />
+          </Routes>
+        </OrderProvider>
+      </RouterProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

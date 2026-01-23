@@ -87,7 +87,7 @@ export function SearchBar(props: SearchBarProps) {
       </div>
 
       <div>
-        <Button> Pesquisar</Button>
+        <Button><i className="fa-solid fa-magnifying-glass"></i></Button>
       </div>
     </form>
   );
