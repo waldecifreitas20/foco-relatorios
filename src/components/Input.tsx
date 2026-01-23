@@ -5,11 +5,17 @@ interface InputProps {
   value?: string | number;
   label?: string;
   readOnly?: boolean;
-  blocked?:boolean;
-  required?:boolean;
+  blocked?: boolean;
+  required?: boolean;
   onClick?: () => void;
-  onChange?: (evt:any) => void;
+  onChange?: (evt: any) => void;
 }
+
+
+
+
+
+
 
 export function Input(props: InputProps) {
 
@@ -23,7 +29,7 @@ export function Input(props: InputProps) {
         </p>
       )}
       <input
-        step={0.01}
+        step={props.type === "number" ? 0.01 : undefined}
         name={props.name ?? ""}
         type={props.type ?? "text"}
         defaultValue={props.value}
