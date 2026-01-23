@@ -24,7 +24,9 @@ export function FormOrder() {
 
   useEffect(() => {
     if (editMode) {
-      setOrder(getOrder(protocol));
+      const order = getOrder(protocol); 
+      setOrder(order);
+      setServiceStatus(order?.status);
     } else {
       setOrder(undefined);
     }
