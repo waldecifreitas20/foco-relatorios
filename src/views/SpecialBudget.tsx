@@ -2,16 +2,16 @@ import { useContext } from "react";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Button } from "../components/Button";
-import { useNavigate } from "react-router";
 import { appRoutes } from "../shared/routes";
 import { TableRow } from "../components/Table/TableRow";
 import { TableHead } from "../components/Table/TableHead";
 import type { Order } from "../types/Order";
+import { RouterContext } from "../provider/RouterContext";
 
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
   const { getSpecialBudgets, getOrder } = useContext(OrderContext);
-  const navigateTo = useNavigate();
+  const { goTo } = useContext(RouterContext);
 
   const specialBudgets = getSpecialBudgets();
   const orders = specialBudgets.map(specialBudget => {
@@ -27,7 +27,7 @@ export function SpecialBudget() {
       title="Orçamentos Especiais"
       trailing={
         <div className="ml-auto w-fit">
-          <Button onClick={() => navigateTo(appRoutes.budget.create)}>Novo Orçamento</Button>
+          <Button onClick={() => goTo(appRoutes.budget.create)}>Novo Orçamento</Button>
         </div>
       }
     >

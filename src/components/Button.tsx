@@ -3,12 +3,16 @@ import type { PropsWithChildren } from "react";
 interface ButtonProps  extends PropsWithChildren{
   outlined?: boolean;
   onClick?: (evt:any) => void;
+  noSubmit?: boolean;
 }
 
 export function Button(props: ButtonProps) {
+
+
   return (
     <button
-      onClick={props.onClick}
+    type={props.noSubmit ? "button" : "submit"}
+    onClick={props.onClick}
       className={`
     ${
       props.outlined

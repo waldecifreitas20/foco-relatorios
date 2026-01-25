@@ -4,11 +4,12 @@ import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { appRoutes } from "../shared/routes";
 import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
 import type { Order } from "../types/Order";
 import { InputableSelect } from "../components/InputableSelect";
+import { RouterContext } from "../provider/RouterContext";
 
 
 const reasons: SpecialBudgetReason[] = [
@@ -27,13 +28,12 @@ const statuses: SpecialBudgetStatus[] = [
 
 export function FormSpecialBudget() {
   const { protocol } = useParams();
-  const navigate = useNavigate();
+  const {back, goTo} = useContext(RouterContext);
   const editMode = protocol != undefined;
 
   const { getOrder, addSpecialBudget } = useContext(OrderContext);
   const [order, setOrder] = useState<Order>();
 
-  console.log(order);
   
   useEffect(() => {
     if (editMode) {
@@ -47,7 +47,7 @@ export function FormSpecialBudget() {
     const formData = new FormData(evt.target);
     let data = Object.fromEntries(formData.entries()) as any;
 
-    addSpecialBudget(data).then(() => navigate("/"));
+    addSpecialBudget(data).then(() => back());
   }
 
   function handleSelectOrder(protocol: string) {
@@ -111,21 +111,13 @@ export function FormSpecialBudget() {
         />
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
-          <Link
-            to={appRoutes.dashboard}
-            className="
-            bg-transparent 
-            border-[var(--primary)] 
-            text-[var(--primary)] 
-            hover:text-white
-            block text-center
-            cursor-pointer
-            hover:bg-[var(--primary-hover)]
-            w-full py-3 px-10 rounded-[var(--border-radius)] border
-            "
+          <Button
+            noSubmit
+            outlined
+            onClick={() => back()}
           >
             Cancelar
-          </Link>
+          </Button>
 
           <Button>{editMode ? "Salvar" : "Registrar"}</Button>
         </div>

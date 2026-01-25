@@ -11,15 +11,15 @@ export function RouterProvider(props: PropsWithChildren) {
   const navigate = useNavigate();
 
   function goTo(path: string) {
-
     history.current.push(path);
     navigate(path);
   }
 
-  function back() {
+  function back() {    
+    if (history.current.length > 1) {
+      history.current.pop();
+      const path = history.current.pop() as string;
 
-    if (history.current.length > 0) {
-      let path = history.current.pop() as string;
       goTo(path);
     } else {
       goTo("/");
