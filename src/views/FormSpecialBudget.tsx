@@ -33,6 +33,8 @@ export function FormSpecialBudget() {
   const { getOrder, addSpecialBudget } = useContext(OrderContext);
   const [order, setOrder] = useState<Order>();
 
+  console.log(order);
+  
   useEffect(() => {
     if (editMode) {
       setOrder(() => getOrder(protocol));
@@ -91,20 +93,20 @@ export function FormSpecialBudget() {
           type="number"
           label="Valor do Orçamento"
           placeholder="R$ 1.000,00"
-          value={order?.specialBudget?.cost}
+          value={order?.specialBudgets?.[0]?.cost}
         />
         <Select
           label="Motivo"
           name="reason"
           required
-          value={order?.specialBudget?.reason}
+          value={editMode? (order?.specialBudgets?.[0]?.reason ?? "Não Informado"): undefined}
           options={reasons.map((r) => ({ label: r, value: r }))}
         />
         <Select
           label="Status"
           name="status"
           required
-          value={order?.specialBudget?.status}
+          value={order?.specialBudgets?.[0]?.status}
           options={statuses.map((s) => ({ label: s, value: s }))}
         />
 
