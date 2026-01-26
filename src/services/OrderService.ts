@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { GetAllOrdersDto } from "../dto/order.dto";
+import type { CreateOrderDto, GetAllOrdersDto } from "../dto/order.dto";
 import type { Order } from "../types/Order";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -13,7 +13,6 @@ async function getAll(): Promise<GetAllOrdersDto> {
       throw new Error();
     }
 
-
     return { orders: data.orders as Order[] };
 
   } catch (error) {
@@ -23,6 +22,16 @@ async function getAll(): Promise<GetAllOrdersDto> {
 }
 
 
+async function createOrder(order: CreateOrderDto) {
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+
 export const orderService = {
   getAll,
+  createOrder
 };

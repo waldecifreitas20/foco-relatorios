@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
-import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
 import type { ServiceStatus } from "../types/ServiceStatus";
 import { useParams } from "react-router";
@@ -10,17 +9,20 @@ import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
 import { CLIENTS, SERVICES, STATUS } from "../mock/data";
 import { RouterContext } from "../provider/RouterContext";
+import { orderService } from "../services/OrderService";
 
 
 export function FormOrder() {
-  const { createOrder, getOrder, updateOrder } = useContext(OrderContext);
   const { protocol } = useParams();
-  const [order, setOrder] = useState<Order>();
-  const [serviceStatus, setServiceStatus] = useState<ServiceStatus>();
   const editMode = protocol != undefined;
+  // const { getOrder, updateOrder } = useContext(OrderContext);
+  
+  const [order, setOrder] = useState<Order>();
   const { back, goTo } = useContext(RouterContext);
-
-  useEffect(() => {
+  const serviceStatuses = getServiceStatuses();
+ 
+  
+  /* useEffect(() => {
     if (editMode) {
       const order = getOrder(protocol);
       setOrder(order);
@@ -29,30 +31,29 @@ export function FormOrder() {
       setOrder(undefined);
     }
   }, []);
+ */
+  function getServiceStatuses() {
+    let statuses = [...STATUS];
 
+    if (!editMode) {
+      statuses = statuses.filter(s => s !== "Aguardando aprovação de orçamento");
+    }
+
+    return statuses.map((s) => ({ label: s, value: s }));
+  }
 
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
-    let { cost, ...order } = Object.fromEntries(formData.entries()) as any;
+    let order = Object.fromEntries(formData.entries()) as any;
 
-    if (cost) {
-      order = {
-        ...order,
-        specialBudget: {
-          cost,
-          status: "Aguardando aprovação",
-        },
-      } as Order;
-    }
+    var action = orderService.createOrder;
 
-    var action = createOrder;
-
-    if (editMode) {
-      action = updateOrder;
-    }
+    // if (editMode) {
+    //   action = updateOrder;
+    // }
 
     try {
       await action(order).then(() => {
@@ -122,20 +123,9 @@ export function FormOrder() {
           value={order?.status}
           name="status"
           label="Status"
-          options={STATUS.map((s) => ({ label: s, value: s }))}
+          options={serviceStatuses}
           required
-          onSelect={(option) => setServiceStatus(option as ServiceStatus)}
         />
-
-        {serviceStatus === "Aguardando aprovação de orçamento" && (
-          <Input
-            value={order?.specialBudget?.cost}
-            name="cost"
-            label="Valor do orçamento"
-            placeholder="R$ 1.000,00"
-            required
-          />
-        )}
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Button
