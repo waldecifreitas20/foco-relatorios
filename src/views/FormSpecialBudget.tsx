@@ -9,6 +9,7 @@ import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialB
 import type { Order } from "../types/Order";
 import { OrderSearcher } from "../components/OrderSearcher";
 import { RouterContext } from "../provider/RouterContext";
+import { specialBudgetService } from "../services/SpecialBudgetService";
 
 
 const reasons: SpecialBudgetReason[] = [
@@ -30,7 +31,7 @@ export function FormSpecialBudget() {
   const {back, goTo} = useContext(RouterContext);
   const editMode = protocol != undefined;
 
-  const { getOrder, addSpecialBudget } = useContext(OrderContext);
+  const { getOrder } = useContext(OrderContext);
   const [order, setOrder] = useState<Order>();
 
   
@@ -46,7 +47,8 @@ export function FormSpecialBudget() {
     const formData = new FormData(evt.target);
     let data = Object.fromEntries(formData.entries()) as any;
 
-    addSpecialBudget(data).then(() => back());
+    specialBudgetService.create(data)
+    .then(() => back()).catch(error => alert(error));
   }
 
   function handleSelectOrder(protocol: string) {

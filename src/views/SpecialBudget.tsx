@@ -7,7 +7,7 @@ import { TableRow } from "../components/Table/TableRow";
 import { TableHead } from "../components/Table/TableHead";
 import type { Order } from "../types/Order";
 import { RouterContext } from "../provider/RouterContext";
-import { specialBudgetService } from "../services/SpecialBudget";
+import { specialBudgetService } from "../services/SpecialBudgetService";
 import type { SpecialBudget } from "../types/SpecialBudget";
 
 export function SpecialBudget() {
