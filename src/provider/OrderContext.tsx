@@ -44,7 +44,6 @@ export function OrderProvider(props: PropsWithChildren) {
 
       alert("Atendimento criado com sucesso!");
     } catch (error) {
-      console.log(error);
       alert("Não foi possível registrar este atendimento. Tente novamente mais tarde");
     }
   }
@@ -87,7 +86,6 @@ export function OrderProvider(props: PropsWithChildren) {
       setOrders(updatedOrders);
       return updatedOrders;
     } catch (error) {
-      console.log(error);
       return orders;
     }
   }

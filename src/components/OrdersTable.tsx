@@ -38,8 +38,7 @@ export function OrdersTable(props: OrdersTableProps) {
             text-center text-sm text-slate-500 font-normal
             border-l border-slate-200
           `;
-
-          
+        
 
           const providerName = Number(opt.providerProtocol) ? "Cadê Guincho" : (
             opt.providerProtocol.includes("AMP")? "Amparo" : "Socorreae"

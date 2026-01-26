@@ -13,9 +13,7 @@ export function Dashboard() {
   const isLoading = useRef(true);
 
   useEffect(() => {
-    getOrders().then((res) => {
-      console.log(res);
-      
+    getOrders().then((res) => {      
       setOrders(() => {
         isLoading.current = false;
         return res;

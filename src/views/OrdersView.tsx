@@ -37,7 +37,6 @@ export function Orders(props: OrdersProps) {
 
 
   function handleSearch(result: Order[]) {
-    console.log(result);
     setOrders(result);
   }
 

@@ -58,7 +58,6 @@ export function SearchBar(props: SearchBarProps) {
     const formData = new FormData(evt.target);
     const data = Object.fromEntries(formData.entries());
     const result = await search(data as SearchParams);
-    console.log(result);
 
     props.onResult(result);
   }
