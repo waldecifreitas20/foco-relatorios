@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { OrderContext } from "../provider/OrderContext";
 import { Dropdown, type DropdownOption } from "./Dropdown";
 
-interface InputableSelectProps {
+interface OrderSearcherProps {
   name: string;
   initialValue?: string;
   label?: string;
@@ -11,7 +11,7 @@ interface InputableSelectProps {
   onSelect: (option: any) => void;
 }
 
-export function InputableSelect(props: InputableSelectProps) {
+export function OrderSearcher(props: OrderSearcherProps) {
   const [inputValue, setInputValue] = useState(props.initialValue);
   const [showDropdown, setShowDropdown] = useState(false);
   const [options, setOptions] = useState<DropdownOption[]>([]);

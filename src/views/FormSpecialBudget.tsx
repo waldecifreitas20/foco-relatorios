@@ -4,11 +4,10 @@ import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
-import { Link, useParams } from "react-router";
-import { appRoutes } from "../shared/routes";
+import { useParams } from "react-router";
 import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
 import type { Order } from "../types/Order";
-import { InputableSelect } from "../components/InputableSelect";
+import { OrderSearcher } from "../components/OrderSearcher";
 import { RouterContext } from "../provider/RouterContext";
 
 
@@ -62,7 +61,7 @@ export function FormSpecialBudget() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 max-w-[800px]"
       >
-        <InputableSelect
+        <OrderSearcher
           label="Ticket"
           required
           name="protocol"
