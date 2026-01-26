@@ -6,6 +6,7 @@ import type { Service } from "../types/Service";
 import { Card } from "../components/Card";
 import type { Order } from "../types/Order";
 import { Fallback } from "../components/Fallback";
+import { orderService } from "../services/OrderService";
 
 export function Dashboard() {
   const { getOrders } = useContext(OrderContext);
@@ -13,12 +14,14 @@ export function Dashboard() {
   const isLoading = useRef(true);
 
   useEffect(() => {
-    getOrders().then((res) => {      
+    getOrders().then((res) => {
       setOrders(() => {
         isLoading.current = false;
         return res;
       });
     });
+
+    orderService.getAll();
   }, []);
 
   const generalStats = [
@@ -76,9 +79,8 @@ export function Dashboard() {
           {generalStats.map((stat, i) => {
             return (
               <div
-                className={`block w-full ${
-                  i > 0 && "border-l border-slate-200"
-                } p-2 text-center`}
+                className={`block w-full ${i > 0 && "border-l border-slate-200"
+                  } p-2 text-center`}
               >
                 <p>{stat.label}</p>
                 <Fallback display={!isLoading.current}>
@@ -104,8 +106,8 @@ export function Dashboard() {
           {otherServices.map((stat) => {
             return (
               <Fallback display={!isLoading.current}>
-              <Card label={stat.label} value={stat.value} />
-            </Fallback>
+                <Card label={stat.label} value={stat.value} />
+              </Fallback>
             );
           })}
         </div>
