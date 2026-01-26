@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
@@ -10,33 +10,33 @@ import { appRoutes } from "../shared/routes";
 import { CLIENTS, SERVICES, STATUS } from "../mock/data";
 import { RouterContext } from "../provider/RouterContext";
 import { orderService } from "../services/OrderService";
+import { OrderContext } from "../provider/OrderContext";
 
 
 export function FormOrder() {
   const { protocol } = useParams();
   const editMode = protocol != undefined;
-  // const { getOrder, updateOrder } = useContext(OrderContext);
-  
+  const { getOrder } = useContext(OrderContext);
+
   const [order, setOrder] = useState<Order>();
   const { back, goTo } = useContext(RouterContext);
   const serviceStatuses = getServiceStatuses();
- 
-  
-  /* useEffect(() => {
+
+
+  useEffect(() => {
     if (editMode) {
       const order = getOrder(protocol);
       setOrder(order);
-      setServiceStatus(order?.status);
     } else {
       setOrder(undefined);
     }
   }, []);
- */
+
   function getServiceStatuses() {
     let statuses = [...STATUS];
 
     statuses = statuses.filter(s => s !== "Aguardando aprovação de orçamento");
-    
+
     return statuses.map((s) => ({ label: s, value: s }));
   }
 
@@ -46,16 +46,18 @@ export function FormOrder() {
 
     const formData = new FormData(evt.target);
     let order = Object.fromEntries(formData.entries()) as any;
+    const { createOrder, updateOrder } = orderService;
 
-    var action = orderService.createOrder;
-
-    // if (editMode) {
-    //   action = updateOrder;
-    // }
 
     try {
-      await action(order);
+      if (editMode) {
+        await updateOrder(order);
+      } else {
+        await createOrder(order);
+      }
+
       goTo(appRoutes.dashboard);
+
     } catch (error: any) {
       alert(error.message);
     }

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import type { CreateOrderDto, GetAllOrdersDto } from "../dto/order.dto";
+import type { CreateOrderDto, GetAllOrdersDto, UpdateOrderDto } from "../dto/order.dto";
 import type { Order } from "../types/Order";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -41,7 +41,17 @@ async function createOrder(order: CreateOrderDto) {
 }
 
 
+async function updateOrder(patch: UpdateOrderDto) {
+  await axios
+    .patch(`${BASE_ROUTE}/update`, patch)
+    .catch((err: AxiosError<any>) => {
+      const errorMessage = err.response?.data?.error?.toString() ?? "Não foi possivel concluir solicitação";
+      throw new Error(errorMessage);
+    })
+}
+
 export const orderService = {
   getAll,
-  createOrder
+  createOrder,
+  updateOrder
 };
