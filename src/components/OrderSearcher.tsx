@@ -7,7 +7,7 @@ interface OrderSearcherProps {
   initialValue?: string;
   label?: string;
   required?: boolean;
-  blocked?:boolean
+  blocked?: boolean
   onSelect: (option: any) => void;
 }
 
@@ -27,6 +27,7 @@ export function OrderSearcher(props: OrderSearcherProps) {
     const orders = await getOrders().then((orders) =>
       orders.filter((o) => o.protocol.includes(value))
     );
+
     setOptions(() => {
       return orders.map((o) => ({
         label: `${o.protocol} - ${o.plate} - ${o.service}`,
@@ -36,7 +37,7 @@ export function OrderSearcher(props: OrderSearcherProps) {
   }
 
 
-  function handleSelectOption(option: DropdownOption)  {
+  function handleSelectOption(option: DropdownOption) {
     setShowDropdown(false);
     setInputValue(option.value);
     props.onSelect(option.value);
@@ -55,13 +56,17 @@ export function OrderSearcher(props: OrderSearcherProps) {
       <input
         type="text"
         name={props.name}
-        className="bg-white
+        className={`
+        
         border border-slate-200 
         w-full block 
         px-4 py-2 rounded-[var(--border-radius)] 
         outline-none
-        focus:border-[var(--primary)]"
+        focus:border-[var(--primary)]
+        ${props.blocked ? "bg-slate-100": "bg-white"}
+        `}
         value={inputValue}
+        readOnly={props.blocked}
         onChange={handleInputChange}
       />
 
