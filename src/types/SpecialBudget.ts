@@ -7,6 +7,7 @@ export type SpecialBudgetReason =
 export type SpecialBudgetStatus = "Aguardando aprovação" | "Aprovado" | "Recusado";
 
 export type SpecialBudget = {
+  id: number;
   status?: SpecialBudgetStatus;
   orderProtocol: string;
   cost: number;
