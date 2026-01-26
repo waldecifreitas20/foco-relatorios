@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import type { CreateOrderDto, GetAllOrdersDto } from "../dto/order.dto";
 import type { Order } from "../types/Order";
 
@@ -23,11 +23,21 @@ async function getAll(): Promise<GetAllOrdersDto> {
 
 
 async function createOrder(order: CreateOrderDto) {
-  try {
-    
-  } catch (error) {
-    
-  }
+  await axios.post(`${BASE_ROUTE}/create`, {
+    plate: order.plate,
+    protocol: order.protocol,
+    client: order.client,
+    providerProtocol: order.providerProtocol,
+    status: order.status,
+    service: order.service,
+    date: order.date,
+    hour: order.hour,
+  }).catch((err: AxiosError<any>) => {
+    const errorMessage = err.response?.data?.error?.toString() ?? "Não foi possivel concluir solicitação";
+    throw new Error(errorMessage);
+  });
+
+  return true;
 }
 
 

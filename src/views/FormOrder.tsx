@@ -54,9 +54,8 @@ export function FormOrder() {
     // }
 
     try {
-      await action(order).then(() => {
-        goTo(appRoutes.dashboard);
-      });
+      await action(order);
+      goTo(appRoutes.dashboard);
     } catch (error: any) {
       alert(error.message);
     }
