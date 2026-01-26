@@ -35,10 +35,8 @@ export function FormOrder() {
   function getServiceStatuses() {
     let statuses = [...STATUS];
 
-    if (!editMode) {
-      statuses = statuses.filter(s => s !== "Aguardando aprovação de orçamento");
-    }
-
+    statuses = statuses.filter(s => s !== "Aguardando aprovação de orçamento");
+    
     return statuses.map((s) => ({ label: s, value: s }));
   }
 
