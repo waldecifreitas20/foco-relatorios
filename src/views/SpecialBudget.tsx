@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ViewContainer } from "../components/ViewContainer";
 import { OrderContext } from "../provider/OrderContext";
 import { Button } from "../components/Button";
@@ -7,13 +7,15 @@ import { TableRow } from "../components/Table/TableRow";
 import { TableHead } from "../components/Table/TableHead";
 import type { Order } from "../types/Order";
 import { RouterContext } from "../provider/RouterContext";
+import { specialBudgetService } from "../services/SpecialBudget";
+import type { SpecialBudget } from "../types/SpecialBudget";
 
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
-  const { getSpecialBudgets, getOrder } = useContext(OrderContext);
+  const { getOrder } = useContext(OrderContext);
   const { goTo } = useContext(RouterContext);
 
-  const specialBudgets = getSpecialBudgets();
+  const [specialBudgets, setSpecialBudget] = useState<SpecialBudget[]>([]);
   const orders = specialBudgets.map(specialBudget => {
     const { specialBudgets, ...order } = getOrder(specialBudget.orderProtocol) as any as Order;
     return {
@@ -21,6 +23,13 @@ export function SpecialBudget() {
       specialBudget
     }
   });
+
+  useEffect(() => {
+    specialBudgetService
+    .getAll()
+    .then(budgets => setSpecialBudget(budgets));
+  }, []);
+
 
   return (
     <ViewContainer
