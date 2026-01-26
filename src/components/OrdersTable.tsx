@@ -39,7 +39,6 @@ export function OrdersTable(props: OrdersTableProps) {
             border-l border-slate-200
           `;
 
-          console.log(opt.providerProtocol);
           
 
           const providerName = Number(opt.providerProtocol) ? "Cadê Guincho" : (

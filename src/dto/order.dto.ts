@@ -1,8 +1,8 @@
-import type { Client } from "../types/Client";
-import type { MtaRequest } from "../types/MtaRequest";
-import type { Service } from "../types/Service";
-import type { ServiceStatus } from "../types/ServiceStatus";
-import type { SpecialBudgetStatus } from "../types/SpecialBudget";
+import { Client } from "../types/Client";
+import { MtaRequest } from "../types/MtaRequest";
+import { Service } from "../types/Service";
+import { ServiceStatus } from "../types/ServiceStatus";
+import { SpecialBudgetStatus } from "../types/SpecialBudget";
 
 export interface CreateOrderDto {
   plate: string;
@@ -14,7 +14,7 @@ export interface CreateOrderDto {
   date: string;
   hour?: string;
   mta?: MtaRequest;
-  specialBudget ? : {
+  specialBudget?: {
     cost: number;
     status: SpecialBudgetStatus;
   }
@@ -23,8 +23,36 @@ export interface CreateOrderDto {
 export interface UpdateOrderDto {
   protocol: string;
   plate?: string;
+  client?: Client;
+  service?: Service;
+  status?: ServiceStatus;
+  providerProtocol?: string;
   date?: string;
   hour?: string;
-  status?: string;
-  service?: Service;
+  mta?: MtaRequest;
 }
+
+
+export interface GetAllOrdersDto {
+  orders: Array<{
+    protocol: string,
+    plate: string,
+    client: Client,
+    service: Service,
+    status: ServiceStatus,
+    providerProtocol: string,
+    date: string,
+    hour: string,
+    mobilityService: [],
+    specialBudgets: Array<{
+      id: number,
+      status: SpecialBudgetStatus,
+      cost: number,
+      reason?: string,
+      orderProtocol: string,
+    }>
+  }>
+}
+
+
+
