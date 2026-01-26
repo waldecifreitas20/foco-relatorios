@@ -9,19 +9,18 @@ import { Fallback } from "../components/Fallback";
 import { orderService } from "../services/OrderService";
 
 export function Dashboard() {
-  const { getOrders } = useContext(OrderContext);
   const [orders, setOrders] = useState<Order[]>([]);
   const isLoading = useRef(true);
 
   useEffect(() => {
-    getOrders().then((res) => {
-      setOrders(() => {
-        isLoading.current = false;
-        return res;
-      });
-    });
+    orderService.getAll()
+      .then((response) => {
+        setOrders(() => response.orders);
+      })
+      .finally(() =>
+        isLoading.current = false);
 
-    orderService.getAll();
+
   }, []);
 
   const generalStats = [

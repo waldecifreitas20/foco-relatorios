@@ -1,20 +1,21 @@
 import axios from "axios";
 import type { GetAllOrdersDto } from "../dto/order.dto";
+import type { Order } from "../types/Order";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const BASE_ROUTE = `${API_URL}/orders`;
 
-async function getAll(): Promise<GetAllOrdersDto | undefined> {
+async function getAll(): Promise<GetAllOrdersDto> {
   try {
-    const {status, data: response} = await axios.get(`${BASE_ROUTE}/all`) as any;
-    console.log(response);
+    const { status, data } = await axios.get(`${BASE_ROUTE}/all`);
 
-    if (!response || status !== 200) {
+    if (!data || status !== 200) {
       throw new Error();
     }
-    
-    return { orders: response.orders };
-    
+
+
+    return { orders: data.orders as Order[] };
+
   } catch (error) {
     console.error(error);
     throw new Error("Não foi possível acessar este recurso no momento. Tente novamente mais tarde.");
