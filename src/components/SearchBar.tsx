@@ -6,6 +6,7 @@ import type { ServiceStatus } from "../types/ServiceStatus";
 import { useContext } from "react";
 import { OrderContext } from "../provider/OrderContext";
 import type { Order } from "../types/Order";
+import { orderService } from "../services/OrderService";
 
 
 export type SearchParams = {
@@ -48,8 +49,6 @@ const status: ServiceStatus[] = [
 
 
 export function SearchBar(props: SearchBarProps) {
-  const { search } = useContext(OrderContext);
-
 
 
   async function handleSubmit(evt: any) {
@@ -60,6 +59,34 @@ export function SearchBar(props: SearchBarProps) {
     const result = await search(data as SearchParams);
 
     props.onResult(result);
+  }
+
+
+  async function search(params: SearchParams) {
+    const orders = await orderService.getAll().then(r => r.orders);
+    let results: Order[] = []
+
+    if (params.plate !== "") {
+      results = orders.filter((o) => o.plate.includes(params.plate));
+    }
+
+    if (params.service !== "") {
+      if (results.length === 0) {
+        results = orders.filter((o) => o.service === params.service);
+      } else {
+        results = results.filter((o) => o.service === params.service);
+      }
+    }
+
+    if (params.status !== "") {
+      if (results.length === 0) {
+        results = orders.filter((o) => o.status === params.status);
+      } else {
+        results = results.filter((o) => o.status === params.status);
+      }
+    }
+
+    return results;
   }
 
   return (
@@ -76,12 +103,12 @@ export function SearchBar(props: SearchBarProps) {
         <Select
           name="service"
           label="Serviço"
-          options={services.map(s => ({label: s, value: s}))}
+          options={services.map(s => ({ label: s, value: s }))}
         />
         <Select
           name="status"
           label="Status"
-          options={status.map(s => ({label: s, value: s}))}
+          options={status.map(s => ({ label: s, value: s }))}
         />
       </div>
 

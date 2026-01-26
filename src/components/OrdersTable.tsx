@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { type Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
 import { TableRow } from "./Table/TableRow";
