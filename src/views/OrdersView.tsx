@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { OrdersTable } from "../components/OrdersTable";
 import { SearchBar } from "../components/SearchBar";
 import { ViewContainer } from "../components/ViewContainer";
 import type { Order } from "../types/Order";
-import { OrderContext } from "../provider/OrderContext";
+import { orderService } from "../services/OrderService";
 
 interface OrdersProps {
   title: string;
@@ -11,28 +11,28 @@ interface OrdersProps {
 }
 
 export function Orders(props: OrdersProps) {
-  const { getOrders } = useContext(OrderContext);
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    getOrders()
-    .then((allOrders) => {
+    orderService.getAll()
+      .then((response) => {
+        const allOrders = response.orders;
 
-      if (props.onlyPendency) {
-        setOrders(() => {
-          return allOrders.filter((o) => {
-            return (
-              o.status !== "Concluído" &&
-              o.status !== "Cancelado" &&
-              o.status !== "Serviço frustrado"
-            );
+        if (props.onlyPendency) {
+          setOrders(() => {
+            return allOrders.filter((o) => {
+              return (
+                o.status !== "Concluído" &&
+                o.status !== "Cancelado" &&
+                o.status !== "Serviço frustrado"
+              );
+            });
           });
-        });
 
-      } else {
-        setOrders(allOrders);
-      }
-    });
+        } else {
+          setOrders(allOrders);
+        }
+      });
   }, [props.onlyPendency]);
 
 
