@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ViewContainer } from "../components/ViewContainer";
 import { Button } from "../components/Button";
 import { appRoutes } from "../shared/routes";
@@ -12,13 +12,17 @@ import type { GetSpecialBudgetDto } from "../dto/specialbudget.dto";
 export function SpecialBudget() {
   const headStyle = "w-full block text-center";
   const [specialBudgets, setSpecialBudget] = useState<GetSpecialBudgetDto[]>([]);
+  const isLoading = useRef(true);
   const { goTo } = useContext(RouterContext);
 
 
   useEffect(() => {
     specialBudgetService
     .getAll()
-    .then(budgets => setSpecialBudget(budgets));
+    .then(budgets => setSpecialBudget(budgets))
+    .finally(() => {
+      isLoading.current = false;
+    });
   }, []);
 
 
@@ -38,7 +42,7 @@ export function SpecialBudget() {
             w-full select-none 
             text-slate-400 font-normal 
             text-2xl text-center mt-50
-            ">Não há orçamentos para verificar</p>
+            ">{isLoading.current? "Carregando dados...": "Não há orçamentos para verificar"}</p>
         </div>
       )}
 
