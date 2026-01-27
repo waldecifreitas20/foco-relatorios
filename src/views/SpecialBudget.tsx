@@ -6,7 +6,6 @@ import { TableRow } from "../components/Table/TableRow";
 import { TableHead } from "../components/Table/TableHead";
 import { RouterContext } from "../provider/RouterContext";
 import { specialBudgetService } from "../services/SpecialBudgetService";
-import type { SpecialBudget } from "../types/SpecialBudget";
 import type { GetSpecialBudgetDto } from "../dto/specialbudget.dto";
 
 export function SpecialBudget() {

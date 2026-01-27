@@ -1,18 +1,14 @@
 import { createContext, useEffect, useState, type PropsWithChildren } from "react";
 import type { Order } from "../types/Order";
-import type { SearchParams } from "../components/SearchBar";
 import { api } from "../api/api";
 import type { CreateOrderDto } from "../dto/order.dto";
 import type { SpecialBudget } from "../types/SpecialBudget";
 
 export const OrderContext = createContext({
   getOrders: async () => [] as Order[],
-  getOrdersByPlate: (_plate: string) => [] as Order[],
-  getSpecialBudgets: () => [] as SpecialBudget[],
   getOrder: (_protocol: string) => ({} as Order | undefined),
-  search: async (_params: SearchParams) => [] as Order[],
+  getSpecialBudgets: () => [] as SpecialBudget[],
   createOrder: async (_order: CreateOrderDto) => { },
-  addSpecialBudget: async () => { },
 });
 
 export function OrderProvider(props: PropsWithChildren) {
@@ -38,35 +34,6 @@ export function OrderProvider(props: PropsWithChildren) {
     }
   }
 
-  async function addSpecialBudget() { }
-
-
-  async function search(params: SearchParams) {
-    let results: Order[] = [];
-
-    if (params.plate !== "") {
-      results = orders.filter((o) => o.plate.includes(params.plate));
-    }
-
-    if (params.service !== "") {
-      if (results.length === 0) {
-        results = orders.filter((o) => o.service === params.service);
-      } else {
-        results = results.filter((o) => o.service === params.service);
-      }
-    }
-
-    if (params.status !== "") {
-      if (results.length === 0) {
-        results = orders.filter((o) => o.status === params.status);
-      } else {
-        results = results.filter((o) => o.status === params.status);
-      }
-    }
-
-    return results;
-  }
-
   async function getOrders() {
     try {
       if (orders.length > 0) {
@@ -83,11 +50,6 @@ export function OrderProvider(props: PropsWithChildren) {
   function getOrder(protocol: string) {
     return orders.find((o) => o.protocol === protocol.trim());
   }
-
-  function getOrdersByPlate(plate: string) {
-    return orders.filter((order) => order.plate === plate);
-  }
-
 
   function getSpecialBudgets() {
     const specialBudgets: SpecialBudget[] = [];
@@ -107,12 +69,9 @@ export function OrderProvider(props: PropsWithChildren) {
     <OrderContext.Provider
       value={{
         getOrders,
-        getOrdersByPlate,
-        search,
-        createOrder,
-        getSpecialBudgets,
         getOrder,
-        addSpecialBudget,
+        getSpecialBudgets,
+        createOrder,
       }}
     >
       {props.children}
