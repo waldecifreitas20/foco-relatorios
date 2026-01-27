@@ -37,6 +37,7 @@ export function Select(props: SelectProps) {
     });
   }, []);
 
+
   return (
     <>
       {showOptions && (
@@ -52,6 +53,7 @@ export function Select(props: SelectProps) {
           {props.required && <span className="text-red-500">*</span>}:{" "}
         </p>
         <Input
+          key={selected}
           readOnly={!props.inputEnable}
           required={props.required}
           name={props.name}
