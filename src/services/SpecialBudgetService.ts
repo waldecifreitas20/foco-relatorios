@@ -10,6 +10,18 @@ async function getAll(): Promise<GetSpecialBudgetDto[]> {
 }
 
 
+async function getById(id: number): Promise<GetSpecialBudgetDto> {
+  const all = await getAll();
+  const budget = all.find(budget => budget.id === id);
+
+  if(!budget) {
+    throw new Error("Orçamento Especial não encontrado!");
+  }
+
+  return budget;
+}
+
+
 async function create(specialBudget: CreateSpecialBudgetDto) {
   await axios
     .post(`${BASE_ROUTE}/create`, specialBudget)
@@ -25,5 +37,6 @@ async function update() { }
 
 export const specialBudgetService = {
   getAll,
+  getById,
   create
 }

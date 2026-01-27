@@ -8,7 +8,7 @@ export const appRoutes = {
   pendencies: { index: "/pendencias" },
   budget: { index: "/orcamentos",
     create: "/orcamentos/novo",
-    edit: (protocol = ":protocol") => `/orcamentos/editar/${protocol}`,
+    edit: (protocol=":protocol", id = ":id") => `/orcamentos/editar/${protocol}/${id}`,
    },
 
 }
