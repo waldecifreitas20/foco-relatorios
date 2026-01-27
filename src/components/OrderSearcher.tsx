@@ -8,7 +8,7 @@ interface OrderSearcherProps {
   label?: string;
   required?: boolean;
   blocked?: boolean
-  onSelect: (option: any) => void;
+  onSelect?: (option: any) => void;
 }
 
 export function OrderSearcher(props: OrderSearcherProps) {
@@ -40,7 +40,10 @@ export function OrderSearcher(props: OrderSearcherProps) {
   function handleSelectOption(option: DropdownOption) {
     setShowDropdown(false);
     setInputValue(option.value);
-    props.onSelect(option.value);
+
+    if (props.onSelect) {
+      props.onSelect(option.value);
+    }
   }
 
 
