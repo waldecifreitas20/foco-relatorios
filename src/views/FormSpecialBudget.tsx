@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
-import { OrderContext } from "../provider/OrderContext";
 import { Select } from "../components/Select";
 import { useParams } from "react-router";
 import type { SpecialBudgetReason, SpecialBudgetStatus } from "../types/SpecialBudget";
-import type { Order } from "../types/Order";
 import { OrderSearcher } from "../components/OrderSearcher";
 import { RouterContext } from "../provider/RouterContext";
 import { specialBudgetService } from "../services/SpecialBudgetService";
 import type { GetSpecialBudgetDto } from "../dto/specialbudget.dto";
+import { LoadingFallback } from "../components/LoadingFallback";
 
 
 const reasons: SpecialBudgetReason[] = [
@@ -29,19 +28,23 @@ const statuses: SpecialBudgetStatus[] = [
 
 export function FormSpecialBudget() {
   const { id, protocol } = useParams();
-  const {back, goTo} = useContext(RouterContext);
+  const {back} = useContext(RouterContext);
   const editMode = id != undefined;
-
-  const { getOrder } = useContext(OrderContext);
-  const [order, setOrder] = useState<Order>();
+  
   const [budget, setBudget] = useState<GetSpecialBudgetDto>();
+  const isLoading = useRef(true);
 
   
   useEffect(() => {
     if (editMode) {
       specialBudgetService.getById(Number(id))
       .then((budget) => {
-        setBudget(budget);
+
+        setBudget(() => {
+          isLoading.current = false;
+          return budget;
+
+        });
       });
     }
   }, []);
@@ -50,21 +53,23 @@ export function FormSpecialBudget() {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
-    let data = Object.fromEntries(formData.entries()) as any;
+    let budget = Object.fromEntries(formData.entries()) as any;
+    const {create, update} = specialBudgetService;
 
     if (editMode) {
-      return specialBudgetService.update({...data, id}) 
-      .then(() => back()).catch(error => alert(error));
-    }
+      update({...budget, id}) 
+      .then(() => back())
+      .catch(error => alert(error));
 
-    specialBudgetService.create(data)
-    .then(() => back()).catch(error => alert(error));
+    } else { 
+      create(budget)
+      .then(() => back())
+      .catch(error => alert(error));
+    }
   }
 
-  function handleSelectOrder(protocol: string) {
-    setOrder(() => {
-      return getOrder(protocol);
-    });
+  if(isLoading.current) {
+    return <LoadingFallback/>;
   }
 
   return (
@@ -77,7 +82,7 @@ export function FormSpecialBudget() {
           label="Ticket"
           required
           name="protocol"
-          onSelect={handleSelectOrder}
+          blocked={editMode}
           initialValue={protocol}
         />
 
@@ -105,13 +110,14 @@ export function FormSpecialBudget() {
           label="Valor do Orçamento"
           placeholder="R$ 1.000,00"
           value={budget?.cost}
-        />
+          />
         <Select
           label="Motivo"
           name="reason"
           required
           value={editMode? (budget?.reason ?? "Não Informado"): undefined}
           options={reasons.map((r) => ({ label: r, value: r }))}
+          
         />
         <Select
           label="Status"

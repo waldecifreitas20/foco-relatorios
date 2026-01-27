@@ -3,7 +3,6 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { ViewContainer } from "../components/ViewContainer";
 import { Select } from "../components/Select";
-import type { ServiceStatus } from "../types/ServiceStatus";
 import { useParams } from "react-router";
 import type { Order } from "../types/Order";
 import { appRoutes } from "../shared/routes";
