@@ -10,6 +10,7 @@ import type { Order } from "../types/Order";
 import { OrderSearcher } from "../components/OrderSearcher";
 import { RouterContext } from "../provider/RouterContext";
 import { specialBudgetService } from "../services/SpecialBudgetService";
+import type { GetSpecialBudgetDto } from "../dto/specialbudget.dto";
 
 
 const reasons: SpecialBudgetReason[] = [
@@ -27,17 +28,21 @@ const statuses: SpecialBudgetStatus[] = [
 
 
 export function FormSpecialBudget() {
-  const { protocol } = useParams();
+  const { id, protocol } = useParams();
   const {back, goTo} = useContext(RouterContext);
-  const editMode = protocol != undefined;
+  const editMode = id != undefined;
 
   const { getOrder } = useContext(OrderContext);
   const [order, setOrder] = useState<Order>();
+  const [budget, setBudget] = useState<GetSpecialBudgetDto>();
 
   
   useEffect(() => {
     if (editMode) {
-      setOrder(() => getOrder(protocol));
+      specialBudgetService.getById(Number(id))
+      .then((budget) => {
+        setBudget(budget);
+      });
     }
   }, []);
 
@@ -46,6 +51,11 @@ export function FormSpecialBudget() {
 
     const formData = new FormData(evt.target);
     let data = Object.fromEntries(formData.entries()) as any;
+
+    if (editMode) {
+      return specialBudgetService.update({...data, id}) 
+      .then(() => back()).catch(error => alert(error));
+    }
 
     specialBudgetService.create(data)
     .then(() => back()).catch(error => alert(error));
@@ -73,14 +83,14 @@ export function FormSpecialBudget() {
 
         <div className="flex gap-4">
           <Input
-            value={order?.plate}
+            value={budget?.order.plate}
             readOnly
             blocked
             name="plate"
             label="Placa"
           />
           <Input
-            value={order?.client}
+            value={budget?.order.client}
             readOnly
             blocked
             name="client"
@@ -94,20 +104,20 @@ export function FormSpecialBudget() {
           type="number"
           label="Valor do Orçamento"
           placeholder="R$ 1.000,00"
-          value={order?.specialBudgets?.[0]?.cost}
+          value={budget?.cost}
         />
         <Select
           label="Motivo"
           name="reason"
           required
-          value={editMode? (order?.specialBudgets?.[0]?.reason ?? "Não Informado"): undefined}
+          value={editMode? (budget?.reason ?? "Não Informado"): undefined}
           options={reasons.map((r) => ({ label: r, value: r }))}
         />
         <Select
           label="Status"
           name="status"
           required
-          value={order?.specialBudgets?.[0]?.status}
+          value={budget?.status}
           options={statuses.map((s) => ({ label: s, value: s }))}
         />
 

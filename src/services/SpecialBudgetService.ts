@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import type { CreateSpecialBudgetDto, GetSpecialBudgetDto } from "../dto/specialbudget.dto";
+import type { CreateSpecialBudgetDto, GetSpecialBudgetDto, UpdateSpecialBudgetDto } from "../dto/specialbudget.dto";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const BASE_ROUTE = `${API_URL}/special-budget`;
@@ -33,10 +33,28 @@ async function create(specialBudget: CreateSpecialBudgetDto) {
   return true;
 }
 
-async function update() { }
+async function update(patch: UpdateSpecialBudgetDto) { 
+  if (!patch.id) {
+    throw new Error("Id não encontrado na requisição");
+  }
+    
+  await axios
+    .patch(`${BASE_ROUTE}/update`, {
+      id: Number(patch.id),
+      cost: Number(patch.cost),
+      status: patch.status,
+      reason: patch.reason,
+    })
+    .catch((err: AxiosError<any>) => {
+      const errorMessage = err.response?.data?.error?.toString() ?? "Não foi possivel concluir solicitação";
+      throw new Error(errorMessage);
+    });
+ 
+}
 
 export const specialBudgetService = {
   getAll,
   getById,
-  create
+  create,
+  update,
 }
