@@ -3,8 +3,6 @@ import { Select } from "./Select";
 import type { Service } from "../types/Service";
 import { Input } from "./Input";
 import type { ServiceStatus } from "../types/ServiceStatus";
-import { useContext } from "react";
-import { OrderContext } from "../provider/OrderContext";
 import type { Order } from "../types/Order";
 import { orderService } from "../services/OrderService";
 

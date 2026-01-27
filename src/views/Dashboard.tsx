@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { ViewContainer } from "../components/ViewContainer";
-import type { ServiceStatus } from "../types/ServiceStatus";
-import type { Service } from "../types/Service";
-import { Card } from "../components/Card";
 import type { Order } from "../types/Order";
+import { Card } from "../components/Card";
 import { Fallback } from "../components/Fallback";
 import { orderService } from "../services/OrderService";
+import type { ServiceStatus } from "../types/ServiceStatus";
+import type { Service } from "../types/Service";
 
 export function Dashboard() {
   const [orders, setOrders] = useState<Order[]>([]);

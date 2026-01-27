@@ -2,7 +2,6 @@ import { createContext, useEffect, useState, type PropsWithChildren } from "reac
 import type { Order } from "../types/Order";
 import type { SearchParams } from "../components/SearchBar";
 import { api } from "../api/api";
-import type { AddSpecialBudgetDto } from "../dto/specialbudget.dto";
 import type { CreateOrderDto } from "../dto/order.dto";
 import type { SpecialBudget } from "../types/SpecialBudget";
 
@@ -13,7 +12,7 @@ export const OrderContext = createContext({
   getOrder: (_protocol: string) => ({} as Order | undefined),
   search: async (_params: SearchParams) => [] as Order[],
   createOrder: async (_order: CreateOrderDto) => { },
-  addSpecialBudget: async (_specialBudget: AddSpecialBudgetDto) => { },
+  addSpecialBudget: async () => { },
 });
 
 export function OrderProvider(props: PropsWithChildren) {
@@ -27,16 +26,7 @@ export function OrderProvider(props: PropsWithChildren) {
   /* API FUNCTIONS */
   async function createOrder(order: CreateOrderDto) {
     try {
-      const { specialBudget, ...onlyOrder } = order;
-
-      if (specialBudget) {
-        specialBudget.cost = Number(specialBudget.cost);
-      }
-
-      const response = await api.createOrder({
-        ...onlyOrder,
-        specialBudget
-      });
+      const response = await api.createOrder(order);
 
       if (response.status !== 200) {
         throw new Error();
@@ -48,7 +38,7 @@ export function OrderProvider(props: PropsWithChildren) {
     }
   }
 
-  async function addSpecialBudget(specialBudget: AddSpecialBudgetDto) { }
+  async function addSpecialBudget() { }
 
 
   async function search(params: SearchParams) {

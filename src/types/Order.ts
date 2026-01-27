@@ -12,6 +12,6 @@ export type Order = {
   providerProtocol: string;
   date: string;
   hour?: string;
-  specialBudgets: SpecialBudget[];
+  specialBudgets?: SpecialBudget[];
 };
 
