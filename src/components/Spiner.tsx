@@ -1,12 +1,13 @@
 export function Spiner() {
 	return (
     <div className="
-    size-8 animate-spin animate-bounce
-    mx-auto 
+    animate-spin animate-bounce
+    size-8
+    mx-auto
     border-2 
     rounded-full 
-    border-red-100
-    border-b-[var(--primary)] 
+    border
+    border-b-white
     "></div>
 	);
 }

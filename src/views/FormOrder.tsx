@@ -10,6 +10,7 @@ import { CLIENTS, SERVICES, STATUS } from "../mock/data";
 import { RouterContext } from "../provider/RouterContext";
 import { orderService } from "../services/OrderService";
 import { OrderContext } from "../provider/OrderContext";
+import { Spiner } from "../components/Spiner";
 
 
 export function FormOrder() {
@@ -18,6 +19,7 @@ export function FormOrder() {
   const { getOrder } = useContext(OrderContext);
 
   const [order, setOrder] = useState<Order>();
+  const [isSubmiting, setIsSubmitting] = useState(false);
   const { back, goTo } = useContext(RouterContext);
   const serviceStatuses = getServiceStatuses();
 
@@ -42,24 +44,25 @@ export function FormOrder() {
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
-
+    setIsSubmitting(true);
     const formData = new FormData(evt.target);
     let order = Object.fromEntries(formData.entries()) as any;
     const { createOrder, updateOrder } = orderService;
-
-
+    
+    
     try {
       if (editMode) {
         await updateOrder(order);
       } else {
         await createOrder(order);
       }
-
+      
       goTo(appRoutes.dashboard);
-
+      
     } catch (error: any) {
       alert(error.message);
     }
+    setIsSubmitting(false);
   }
 
   return (
@@ -127,6 +130,7 @@ export function FormOrder() {
 
         <div className="flex w-125 gap-4 flex-nowrap mt-10">
           <Button
+          disabled={isSubmiting}
             onClick={(evt) => {
               evt.preventDefault();
               back();
@@ -136,7 +140,12 @@ export function FormOrder() {
             Cancelar
           </Button>
 
-          <Button>{editMode ? "Salvar" : "Registrar"}</Button>
+          <Button disabled={isSubmiting}>
+            <div className="flex justify-center items-center gap-4">
+              {isSubmiting ? "Enviando..." : "Salvar"}
+          
+            </div>
+            </Button>
         </div>
       </form>
     </ViewContainer>
