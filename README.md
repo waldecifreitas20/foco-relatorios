@@ -21,8 +21,8 @@ O **Bosch Relatórios** é uma aplicação web desenvolvida em React com TypeScr
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/waldecifreitas20/foco-relatorios.git
-   cd foco-relatorios
+   git clone https://github.com/waldecifreitas20/bosch-relatorios.git
+   cd bosch-relatorios
    ```
 
 2. Instale as dependências:
