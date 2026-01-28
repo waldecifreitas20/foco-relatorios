@@ -6,6 +6,7 @@ import { Fallback } from "../components/Fallback";
 import { orderService } from "../services/OrderService";
 import type { ServiceStatus } from "../types/ServiceStatus";
 import type { Service } from "../types/Service";
+import { Spiner } from "../components/Spiner";
 
 export function Dashboard() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -81,7 +82,7 @@ export function Dashboard() {
                   } p-2 text-center`}
               >
                 <p>{stat.label}</p>
-                <Fallback display={!isLoading.current}>
+                <Fallback display={!isLoading.current} fallback={<Spiner />}>
                   <p className="text-4xl text-[var(--primary)]">{stat.value}</p>
                 </Fallback>
               </div>
@@ -93,9 +94,10 @@ export function Dashboard() {
         <div className="grid md:grid-cols-3 grid-cols-1 gap-2 w-full mt-2">
           {mainServices.map((stat) => {
             return (
-              <Fallback display={!isLoading.current}>
-                <Card label={stat.label} value={stat.value} large />
-              </Fallback>
+                <Card>
+                  <p>{stat.label}</p>
+                  <p className="text-6xl text-[var(--primary)]">{isLoading.current? <Spiner /> :stat.value}</p>
+                </Card>
             );
           })}
         </div>
@@ -103,9 +105,10 @@ export function Dashboard() {
         <div className="grid md:grid-cols-4 grid-cols-2  gap-2 w-full mt-2">
           {otherServices.map((stat) => {
             return (
-              <Fallback display={!isLoading.current}>
-                <Card label={stat.label} value={stat.value} />
-              </Fallback>
+                <Card>
+                  <p>{stat.label}</p>
+                  <p className="text-4xl text-[var(--primary)]">{isLoading.current? <Spiner /> :stat.value}</p>
+                </Card>
             );
           })}
         </div>

@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 
 interface FallbackProps extends PropsWithChildren{
   display: boolean;
+  fallback: React.ReactNode;
 }
 
 export function Fallback(props: FallbackProps) {
@@ -10,8 +11,6 @@ export function Fallback(props: FallbackProps) {
     return props.children;
   }
 
-  return (
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/>
-  );
+  return props.fallback
 
 }

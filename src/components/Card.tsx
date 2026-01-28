@@ -1,8 +1,6 @@
-interface CardProps {
-  label: string;
-  value: number;
-  large?: boolean;
-}
+import type { PropsWithChildren } from "react";
+
+interface CardProps extends PropsWithChildren {}
 
 export function Card(props: CardProps) {
   return (
@@ -15,8 +13,7 @@ export function Card(props: CardProps) {
         font-medium 
         w-full 
         rounded-[var(--border-radius)] text-center">
-        <p>{props.label}</p>
-        <p className={`${props.large ? 'text-6xl': 'text-4xl'} text-[var(--primary)]`}>{props.value}</p>
+       {props.children}
       </div>
     </>
   );
