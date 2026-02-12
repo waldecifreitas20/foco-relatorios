@@ -1,3 +1,4 @@
+import AsideBar from "~/components/AsideBar";
 import type { Route } from "./+types/home";
 
 
@@ -11,7 +12,9 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <>
+      <AsideBar />
       <h1>Dashboard</h1>
+
     </>
   );
 }
