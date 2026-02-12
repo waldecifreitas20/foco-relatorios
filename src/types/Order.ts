@@ -1,17 +1,20 @@
 import type { Client } from "./Client";
-import { type Service } from "./Service";
-import { type ServiceStatus } from "./ServiceStatus";
-import type { SpecialBudget } from "./SpecialBudget";
+import type { Service } from "./Service";
+import type { ServiceStatus } from "./ServiceStatus";
 
 export type Order = {
+  ticket: string;
+  service: Service;
   plate: string;
   client: Client;
-  protocol: string;
-  service: Service;
+  provider: string;
+  createdAt: string;
+  updatedAt: string;
   status: ServiceStatus;
-  providerProtocol: string;
-  date: string;
-  hour?: string;
-  specialBudgets?: SpecialBudget[];
+  agentName?: string;
+  notes?: string[];
+  eta?: number;
+  hasChecklist?: string;
 };
+
 
