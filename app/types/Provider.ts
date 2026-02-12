@@ -1,0 +1,1 @@
+export type Provider = "Amparo" | "Socorreae" | "Cadê Guincho";
