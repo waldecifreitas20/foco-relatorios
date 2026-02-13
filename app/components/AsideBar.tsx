@@ -17,7 +17,7 @@ export default function AsideBar() {
     const filters = sanitaze(data) as FormFilters;
 
     console.log(filters);
-    
+
   }
 
 
@@ -37,7 +37,7 @@ export default function AsideBar() {
           <select name="client">
             <option value={-1}>Todos os clientes</option>
             {clients.map(client => {
-              return <option value={client}>{client}</option>
+              return <option key={client} value={client}>{client}</option>
             })}
           </select>
         </section>
@@ -47,7 +47,7 @@ export default function AsideBar() {
         <section>
           <SectionTitle>STATUS DA SOLICITAÇÃO</SectionTitle>
           {serviceStatuses.map(status => {
-            return <Checkbox name="statuses" value={status}>{status}</Checkbox>
+            return <Checkbox key={status} name="statuses" value={status}>{status}</Checkbox>
           })}
         </section>
 
@@ -68,7 +68,7 @@ export default function AsideBar() {
         <section>
           <SectionTitle>SERVIÇOS</SectionTitle>
           {services.map(service => {
-            return <Checkbox name="services" value={service}>{service}</Checkbox>
+            return <Checkbox key={service} name="services" value={service}>{service}</Checkbox>
           })}
         </section>
 

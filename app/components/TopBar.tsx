@@ -19,7 +19,7 @@ export default function TopBar() {
           <img className="block mr-10" src={logo} alt="Bosch" />
           <nav className="w-fit h-full flex gap-8 items-center">
             {options.map(op => {
-              return <Link to={op.path} className="text-neutral-500 hover:text-neutral-900 block text-nowrap h-full leading-18">{op.label}</Link>
+              return <Link key={op.label} to={op.path} className="text-neutral-500 hover:text-neutral-900 block text-nowrap h-full leading-18">{op.label}</Link>
             })}
           </nav>
         </div>
