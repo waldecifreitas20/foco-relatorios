@@ -4,24 +4,40 @@ import { Divider } from "./Divider";
 import SectionTitle from "./SectionTitle";
 import { clients } from "~/types/Client";
 import { services } from "~/types/Service";
+import { useRef } from "react";
+import type { FormFilters } from "~/types/FormFilters";
 
 export default function AsideBar() {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  function handleSubmit(evt: any) {
+    evt.preventDefault();
+
+    const data = new FormData(formRef.current as HTMLFormElement);
+    const json = Object.fromEntries(data.entries()) as FormFilters;
+
+    console.log(json);
+  }
+
+
+
   return (
     <aside className="block h-full bg-white w-full max-w-[300px] px-6 rounded-md">
       <section>
         <h2 className="text-neutral-600 text-lg font-semibold mt-6
         ">FILTROS AVANÇADOS</h2>
-        <Divider />
       </section>
 
-      <form>
+      <Divider />
+
+      <form ref={formRef} onSubmit={handleSubmit}>
         <section>
           <SectionTitle>CLIENTES</SectionTitle>
 
-          <select>
-            <option>Todos os clientes</option>
+          <select name="client">
+            <option value={-1}>Todos os clientes</option>
             {clients.map(client => {
-              return <option>{client}</option>
+              return <option value={client}>{client}</option>
             })}
           </select>
         </section>
@@ -60,7 +76,10 @@ export default function AsideBar() {
 
         <section className="pb-4">
           <button className="block w-full my-2">Filtrar</button>
-          <button className="flat p-0 w-fit my-0 mx-auto block">Limpar Campos</button>
+          <button
+            onClick={() => formRef.current?.reset()}
+            className="flat p-0 w-fit my-0 mx-auto block"
+          >Limpar Campos</button>
         </section>
 
       </form>
