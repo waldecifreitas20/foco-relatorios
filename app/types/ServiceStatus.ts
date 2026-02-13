@@ -1,8 +1,19 @@
-export type ServiceStatus = 
+export type ServiceStatus =
 
-"Acionado" | 
-"Em Deslocamento" | 
-"Na Origem" | 
-"Em Base" | 
-"Concluído" | 
-"Cancelado"; 
+  "Agendado" |
+  "Acionado" |
+  "Em Deslocamento" |
+  "Na Origem" |
+  "Em Base" |
+  "Concluído" |
+  "Cancelado";
+
+export const serviceStatuses: ServiceStatus[] = [
+  "Agendado",
+  "Acionado",
+  "Em Deslocamento",
+  "Na Origem",
+  "Em Base",
+  "Concluído",
+  "Cancelado"
+];

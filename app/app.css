@@ -9,4 +9,13 @@ html,
 body {
   background-color: #efefef;
   font-size: 14px;
+  min-height: 100dvh;
+}
+
+button {
+  @apply bg-red-600 hover:bg-red-700 px-4 py-2;
+
+  color: white;
+  cursor: pointer;
+  border-radius: .25rem;
 }
