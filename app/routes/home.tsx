@@ -11,7 +11,7 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <main className="flex">
+    <main className="flex p-4">
       <AsideBar />
       <section className="max-w-[1000px]">
         <h1>Dashboard</h1>
