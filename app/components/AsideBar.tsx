@@ -14,14 +14,12 @@ export default function AsideBar() {
       </section>
 
       <form>
+        
         <section>
           <SectionTitle>STATUS DA SOLICITAÇÃO</SectionTitle>
-
           {serviceStatuses.map(status => {
             return <Checkbox>{status}</Checkbox>
           })}
-
-
           <Divider />
         </section>
 
@@ -29,10 +27,10 @@ export default function AsideBar() {
           <SectionTitle>PERÍODO</SectionTitle>
 
           <label htmlFor="createdAt">Data de Criação: </label>
-          <input className="border w-full mt-1 block border-neutral-200 bg-neutral-100 p-2 rounded-md" type="date" name="" id="createdAt" />
+          <input type="date" name="createdAt" id="createdAt" />
 
           <label htmlFor="updatedAt">Atualizado em: </label>
-          <input className="" type="date" name="" id="createdAt" />
+          <input type="date" name="updatedAt" id="updatedAt" />
         </section>
 
         <section>
@@ -42,12 +40,11 @@ export default function AsideBar() {
             {clients.map(client => {
               return <option>{client}</option>
             })}
-
           </select>
-
         </section>
 
         <Divider />
+
         <button className="block w-full my-4">Filtrar</button>
         <button className="outlined w-fit my-0 mx-auto block">Limpar</button>
 
