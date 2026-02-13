@@ -1,6 +1,5 @@
 import AsideBar from "~/components/AsideBar";
 import type { Route } from "./+types/home";
-import TopBar from "~/components/TopBar";
 
 
 export function meta({ }: Route.MetaArgs) {
@@ -12,15 +11,11 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <>
-      <TopBar />
-      <div className="flex">
-        <AsideBar />
-        
-        <main className="max-w-[1000px]">
-          <h1>Dashboard</h1>
-        </main>
-      </div>
-    </>
+    <main className="flex">
+      <AsideBar />
+      <section className="max-w-[1000px]">
+        <h1>Dashboard</h1>
+      </section>
+    </main>
   );
 }
