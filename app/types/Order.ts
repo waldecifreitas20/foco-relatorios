@@ -10,9 +10,9 @@ export type Order = {
   service: Service;
   provider: Provider;
   status: ServiceStatus;
-  createdAt: string;
-  updatedAt: string;
-  notes: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  notes?: string[];
   eta?: number;
   agentName?: string;
   hasChecklist?: boolean;
