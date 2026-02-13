@@ -20,8 +20,8 @@ button {
   border-radius: .25rem;
 }
 
-button.outlined {
-  @apply text-blue-600 hover:text-blue-700 hover:bg-transparent;
+button.flat {
+  @apply text-blue-600 p-0 hover:text-blue-700 hover:bg-transparent;
 
   background: none;
 }
