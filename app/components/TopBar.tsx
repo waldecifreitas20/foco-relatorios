@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import logo from "../assets/logo.png";
-
+import coloredBar from "../assets/top-bg.svg";
 
 
 export default function TopBar() {
@@ -11,7 +11,9 @@ export default function TopBar() {
     { label: "Agendamentos", path: "/" },
   ];
   return (
-    <header className="bg-white px-4 py-0 flex gap-4 items-center justify-start">
+    <>
+    <img className="block w-screen h-2 object-cover" src={coloredBar} />
+    <header className="bg-white px-4 py-0 flex gap-4 items-center justify-start border-b border-neutral-100">
       <img className="block mr-10" src={logo} alt="Bosch" />
 
       <nav className="w-fit h-full flex gap-8 items-center">
@@ -20,5 +22,6 @@ export default function TopBar() {
         })}
       </nav>
     </header>
+    </>
   );
 }
