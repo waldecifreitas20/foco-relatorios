@@ -28,13 +28,14 @@ export default function AsideBar() {
 
           <label htmlFor="createdAt">Data de Criação: </label>
           <input className="border w-full mt-1 block border-neutral-200 bg-neutral-100 p-2 rounded-md" type="date" name="" id="createdAt" />
-        
+
           <label htmlFor="updatedAt">Atualizado em: </label>
           <input className="border w-full mt-1 block border-neutral-200 bg-neutral-100 p-2 rounded-md" type="date" name="" id="createdAt" />
         </section>
 
-          <Divider />
-        <button className="block w-full my-4">Limpar Filtros</button>
+        <Divider />
+        <button className="block w-full my-4">Filtrar</button>
+        <button className="outlined w-fit my-0 mx-auto block">Limpar</button>
 
       </form>
     </aside>
