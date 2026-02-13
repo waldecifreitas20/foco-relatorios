@@ -1,4 +1,4 @@
-import { serviceStatuses } from "~/types/ServiceStatus";
+import { serviceStatuses, type ServiceStatus } from "~/types/ServiceStatus";
 import { Checkbox } from "./Checkbox";
 import { Divider } from "./Divider";
 import SectionTitle from "./SectionTitle";
@@ -14,11 +14,11 @@ export default function AsideBar() {
     evt.preventDefault();
 
     const data = new FormData(formRef.current as HTMLFormElement);
-    const json = Object.fromEntries(data.entries()) as FormFilters;
+    const filters = sanitaze(data) as FormFilters;
 
-    console.log(json);
+    console.log(filters);
+    
   }
-
 
 
   return (
@@ -47,7 +47,7 @@ export default function AsideBar() {
         <section>
           <SectionTitle>STATUS DA SOLICITAÇÃO</SectionTitle>
           {serviceStatuses.map(status => {
-            return <Checkbox>{status}</Checkbox>
+            return <Checkbox name="statuses" value={status}>{status}</Checkbox>
           })}
         </section>
 
@@ -68,7 +68,7 @@ export default function AsideBar() {
         <section>
           <SectionTitle>SERVIÇOS</SectionTitle>
           {services.map(service => {
-            return <Checkbox>{service}</Checkbox>
+            return <Checkbox name="services" value={service}>{service}</Checkbox>
           })}
         </section>
 
@@ -85,4 +85,55 @@ export default function AsideBar() {
       </form>
     </aside>
   );
+}
+
+
+
+function sanitaze(data: FormData) {
+  let fields = {};
+
+  const client = data.get("client");
+  if (client !== "-1") {
+    fields = {
+      client,
+    };
+  }
+
+
+  const statuses = data.getAll("statuses");
+  if (statuses.length > 0) {
+    fields = {
+      ...fields,
+      statuses,
+    };
+  }
+
+
+  const services = data.getAll("services");
+  if (services.length > 0) {
+    fields = {
+      ...fields,
+      services,
+    };
+  }
+
+
+  const createdAt = data.get("createdAt");
+  if (createdAt !== "") {
+    fields = {
+      ...fields,
+      createdAt: new Date(createdAt as string),
+    };
+  }
+
+
+  const updatedAt = data.get("updatedAt");
+  if (updatedAt !== "") {
+    fields = {
+      ...fields,
+      updatedAt: new Date(updatedAt as string),
+    };
+  }
+
+  return fields;
 }

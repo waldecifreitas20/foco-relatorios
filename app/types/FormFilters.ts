@@ -4,8 +4,8 @@ import type { ServiceStatus } from "./ServiceStatus";
 
 export type FormFilters = {
   client? : Client;
-  status? : ServiceStatus;
+  statuses? : ServiceStatus[];
+  services?: Service[];
   createdAt? : Date;
   updatedAt? : Date;
-  service?: Service;
 };
