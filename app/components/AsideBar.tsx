@@ -33,6 +33,7 @@ export default function AsideBar() {
           <input className="border w-full mt-1 block border-neutral-200 bg-neutral-100 p-2 rounded-md" type="date" name="" id="createdAt" />
         </section>
 
+          <Divider />
         <button className="block w-full my-4">Limpar Filtros</button>
 
       </form>
