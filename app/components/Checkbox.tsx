@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import { useId, type PropsWithChildren } from "react";
 
 interface CheckboxProps extends PropsWithChildren {
   value: string;
@@ -6,7 +6,7 @@ interface CheckboxProps extends PropsWithChildren {
 }
 
 export function Checkbox(props: CheckboxProps) {
-  const id = Math.random() * Math.random();
+  const id = useId();
   return (
     <div className="flex gap-2 text-neutral-600">
       <input
