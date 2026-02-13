@@ -2,6 +2,7 @@ import { serviceStatuses } from "~/types/ServiceStatus";
 import { Checkbox } from "./Checkbox";
 import { Divider } from "./Divider";
 import SectionTitle from "./SectionTitle";
+import { clients } from "~/types/Client";
 
 export default function AsideBar() {
   return (
@@ -20,6 +21,7 @@ export default function AsideBar() {
             return <Checkbox>{status}</Checkbox>
           })}
 
+
           <Divider />
         </section>
 
@@ -30,7 +32,19 @@ export default function AsideBar() {
           <input className="border w-full mt-1 block border-neutral-200 bg-neutral-100 p-2 rounded-md" type="date" name="" id="createdAt" />
 
           <label htmlFor="updatedAt">Atualizado em: </label>
-          <input className="border w-full mt-1 block border-neutral-200 bg-neutral-100 p-2 rounded-md" type="date" name="" id="createdAt" />
+          <input className="" type="date" name="" id="createdAt" />
+        </section>
+
+        <section>
+          <SectionTitle>CLIENTES</SectionTitle>
+
+          <select name="" id="">
+            {clients.map(client => {
+              return <option>{client}</option>
+            })}
+
+          </select>
+
         </section>
 
         <Divider />
