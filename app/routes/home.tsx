@@ -4,6 +4,8 @@ import mock from "../assets/server.json";
 import type { Order } from "~/types/Order";
 import { serviceStatuses, type ServiceStatus } from "~/types/ServiceStatus";
 import { Card } from "~/components/Card";
+import { Divider } from "~/components/Divider";
+import { Accordeon } from "~/components/Accordeon";
 
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -12,16 +14,17 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const orders = [...loaderData] as any as Order[];
+  const tileStyle = "grid grid-cols-6 block w-full text-center ";
 
   return (
-    <main className="flex p-4">
+    <div className="flex p-4">
       <AsideBar />
-      <section className="w-full block px-4">
+      <main className="w-full block px-4">
         <h1 className="text-3xl font-semibold text-neutral-800 mb-8">Painel de Monitoramento</h1>
 
-        <section className="w-[80&] overflow-hidden">
+        <section className="w-full overflow-hidden">
 
-          <ul className="grid grid-cols-5 justify-between gap-4 block w-full">
+          <ul className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-between gap-4 block w-full">
             {(["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
               return (
                 <Card>
@@ -31,9 +34,24 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               );
             })}
           </ul>
-
         </section>
-      </section>
-    </main>
+
+        <ul className="flex flex-col gap-5 my-4">
+          {(["Acionado", "Em Deslocamento", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
+            const filteredOrders = orders.filter(o => o.status === status);
+
+            return (
+              <Accordeon title={`${status} (${filteredOrders.length})`}>
+                {filteredOrders.map(o => {
+                  return <p className="px-4 py-2">{o.plate}</p>
+                })}
+              </Accordeon>
+            );
+          })}
+        </ul>
+
+
+      </main>
+    </div>
   );
 }

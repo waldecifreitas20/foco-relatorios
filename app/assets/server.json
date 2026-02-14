@@ -15,7 +15,7 @@
   },
   {
     "agentName": "Carlos",
-    "service": "Reboque Leve",
+    "service": "Guincho",
     "plate": "ABC1D23",
     "client": "Unidas Fleet",
     "provider": "Amparo",
@@ -37,13 +37,13 @@
     "createdAt": "2026-02-01T14:20:00Z",
     "updatedAt": "2026-02-01T14:50:00Z",
     "notes": ["Troca de cilindro"],
-    "status": "Em deslocamento",
+    "status": "Em Deslocamento",
     "eta": "30",
     "hasChecklist": false
   },
   {
     "agentName": "Rogério",
-    "service": "Reboque Pesado",
+    "service": "Guincho",
     "plate": "HGT4B11",
     "client": "Unidas Fleet",
     "provider": "Amparo",
@@ -57,7 +57,7 @@
   },
   {
     "agentName": "Ana",
-    "service": "Socorro Mecânico",
+    "service": "Recarga de Bateria",
     "plate": "LMN4P55",
     "client": "Unidas Fleet",
     "provider": "Amparo",
@@ -65,7 +65,7 @@
     "createdAt": "2026-02-05T11:10:00Z",
     "updatedAt": "2026-02-05T11:40:00Z",
     "notes": ["Troca de correia"],
-    "status": "Em deslocamento",
+    "status": "Em Deslocamento",
     "eta": "45",
     "hasChecklist": false
   },
@@ -99,7 +99,7 @@
   },
   {
     "agentName": "Eduardo",
-    "service": "Reboque Leve",
+    "service": "Guincho",
     "plate": "JHK3L22",
     "client": "Unidas Fleet",
     "provider": "Amparo",
@@ -113,7 +113,7 @@
   },
   {
     "agentName": "Bruna",
-    "service": "Socorro Mecânico",
+    "service": "Recarga de Bateria",
     "plate": "ZXC6V44",
     "client": "Unidas Fleet",
     "provider": "Amparo",
@@ -121,7 +121,7 @@
     "createdAt": "2026-02-10T12:00:00Z",
     "updatedAt": "2026-02-10T12:30:00Z",
     "notes": ["Verificação elétrica realizada"],
-    "status": "Em deslocamento",
+    "status": "Em Deslocamento",
     "eta": "50",
     "hasChecklist": false
   }
