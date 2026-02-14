@@ -2,9 +2,8 @@ import AsideBar from "~/components/AsideBar";
 import type { Route } from "./+types/home";
 import mock from "../assets/server.json";
 import type { Order } from "~/types/Order";
-import { serviceStatuses, type ServiceStatus } from "~/types/ServiceStatus";
+import { type ServiceStatus } from "~/types/ServiceStatus";
 import { Card } from "~/components/Card";
-import { Divider } from "~/components/Divider";
 import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
 
