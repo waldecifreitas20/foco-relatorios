@@ -44,7 +44,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <Accordeon title={`${status} (${filteredOrders.length})`}>
                 {filteredOrders.map(o => {
                   return (
-                    <ul key={o.ticket} className="grid grid-cols-7 text-sm text-center items-center hover:bg-blue-100 text-slate-800">
+                    <ul key={o.ticket} className="grid grid-cols-7 py-2 text-sm text-center items-center hover:bg-blue-100 text-slate-800">
                       <li>{o.plate}</li>
                       <li>{o.service}</li>
                       <li>{o.client}</li>
