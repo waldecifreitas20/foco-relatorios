@@ -44,7 +44,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
             return (
               <Accordeon title={
-                <span className="text-slate-600 flex block justify-between items-center">
+                <span className="text-slate-600 flex block gap-6 items-center">
                   {status}
                   <Badge>Quantidade: {filteredOrders.length}</Badge>
                 </span>
