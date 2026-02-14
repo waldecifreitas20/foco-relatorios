@@ -36,19 +36,38 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </ul>
         </section>
 
-        <ul className="flex flex-col gap-5 my-4">
+        <section className="flex flex-col gap-5 my-4">
           {(["Acionado", "Em Deslocamento", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
             const filteredOrders = orders.filter(o => o.status === status);
 
             return (
               <Accordeon title={`${status} (${filteredOrders.length})`}>
                 {filteredOrders.map(o => {
-                  return <p className="px-4 py-2">{o.plate}</p>
+                  return (
+                    <ul key={o.ticket} className="grid grid-cols-7 text-sm text-center items-center hover:bg-blue-100 text-slate-800">
+                      <li>{o.plate}</li>
+                      <li>{o.service}</li>
+                      <li>{o.client}</li>
+                      <li>{o.provider}</li>
+                      <li>{o.ticket.substring(o.ticket.length - 7)}</li>
+                      <li>{`${new Date(o.createdAt).toLocaleString("pt-BR", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                      })}`}</li>
+                      <li>{
+                        status === "Concluído" ? <input type="checkbox" checked={o.hasChecklist} /> :
+                          o.eta ? `${o.eta} minutos` : "Sem prévia"
+                      }</li>
+                    </ul>
+                  );
                 })}
               </Accordeon>
             );
           })}
-        </ul>
+        </section>
 
 
       </main>

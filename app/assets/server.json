@@ -8,7 +8,9 @@
     "ticket": "2040-cc7e4e3b-381a-49ad-01",
     "createdAt": "2026-02-12T08:15:00Z",
     "updatedAt": "2026-02-12T08:30:00Z",
-    "notes": ["Chegada estimada 20 minutos"],
+    "notes": [
+      "Chegada estimada 20 minutos"
+    ],
     "status": "Acionado",
     "eta": "20",
     "hasChecklist": false
@@ -20,12 +22,14 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-02",
-    "createdAt": "2026-01-30T10:05:00Z",
-    "updatedAt": "2026-01-30T10:45:00Z",
-    "notes": ["Problema elétrico"],
+    "createdAt": "2026-01-30",
+    "updatedAt": "2026-01-30",
+    "notes": [
+      "Problema elétrico"
+    ],
     "status": "Concluído",
     "eta": null,
-    "hasChecklist": false
+    "hasChecklist": true
   },
   {
     "agentName": "Mariana",
@@ -34,9 +38,11 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-03",
-    "createdAt": "2026-02-01T14:20:00Z",
-    "updatedAt": "2026-02-01T14:50:00Z",
-    "notes": ["Troca de cilindro"],
+    "createdAt": "2026-02-01",
+    "updatedAt": "2026-02-01",
+    "notes": [
+      "Troca de cilindro"
+    ],
     "status": "Em Deslocamento",
     "eta": "30",
     "hasChecklist": false
@@ -48,12 +54,14 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-04",
-    "createdAt": "2026-01-15T06:40:00Z",
-    "updatedAt": "2026-01-15T07:30:00Z",
-    "notes": ["Cabeçote danificado"],
+    "createdAt": "2026-01-15",
+    "updatedAt": "2026-01-15",
+    "notes": [
+      "Cabeçote danificado"
+    ],
     "status": "Concluído",
     "eta": null,
-    "hasChecklist": false
+    "hasChecklist": true
   },
   {
     "agentName": "Ana",
@@ -62,9 +70,11 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-05",
-    "createdAt": "2026-02-05T11:10:00Z",
-    "updatedAt": "2026-02-05T11:40:00Z",
-    "notes": ["Troca de correia"],
+    "createdAt": "2026-02-05",
+    "updatedAt": "2026-02-05",
+    "notes": [
+      "Troca de correia"
+    ],
     "status": "Em Deslocamento",
     "eta": "45",
     "hasChecklist": false
@@ -76,9 +86,11 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-06",
-    "createdAt": "2026-01-22T09:00:00Z",
-    "updatedAt": "2026-01-22T09:35:00Z",
-    "notes": ["Veículo bloqueado em acostamento"],
+    "createdAt": "2026-01-22",
+    "updatedAt": "2026-01-22",
+    "notes": [
+      "Veículo bloqueado em acostamento"
+    ],
     "status": "Acionado",
     "eta": "25",
     "hasChecklist": false
@@ -90,9 +102,11 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-07",
-    "createdAt": "2026-02-08T16:50:00Z",
-    "updatedAt": "2026-02-08T17:05:00Z",
-    "notes": ["Pneu furado - roda sobressalente ok"],
+    "createdAt": "2026-02-08",
+    "updatedAt": "2026-02-08",
+    "notes": [
+      "Pneu furado - roda sobressalente ok"
+    ],
     "status": "Concluído",
     "eta": null,
     "hasChecklist": false
@@ -104,9 +118,11 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-08",
-    "createdAt": "2026-01-05T05:30:00Z",
-    "updatedAt": "2026-01-05T06:10:00Z",
-    "notes": ["Pane seca"],
+    "createdAt": "2026-01-05",
+    "updatedAt": "2026-01-05",
+    "notes": [
+      "Pane seca"
+    ],
     "status": "Concluído",
     "eta": null,
     "hasChecklist": false
@@ -118,9 +134,11 @@
     "client": "Unidas Fleet",
     "provider": "Amparo",
     "ticket": "2040-cc7e4e3b-381a-49ad-09",
-    "createdAt": "2026-02-10T12:00:00Z",
-    "updatedAt": "2026-02-10T12:30:00Z",
-    "notes": ["Verificação elétrica realizada"],
+    "createdAt": "2026-02-10",
+    "updatedAt": "2026-02-10",
+    "notes": [
+      "Verificação elétrica realizada"
+    ],
     "status": "Em Deslocamento",
     "eta": "50",
     "hasChecklist": false
