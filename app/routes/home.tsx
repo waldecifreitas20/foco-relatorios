@@ -6,6 +6,7 @@ import { serviceStatuses, type ServiceStatus } from "~/types/ServiceStatus";
 import { Card } from "~/components/Card";
 import { Divider } from "~/components/Divider";
 import { Accordeon } from "~/components/Accordeon";
+import { Badge } from "~/components/Bagde";
 
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -14,7 +15,6 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const orders = [...loaderData] as any as Order[];
-  const tileStyle = "grid grid-cols-6 block w-full text-center ";
 
   return (
     <div className="flex p-4">
@@ -36,13 +36,19 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </ul>
         </section>
 
+
         <section className="flex flex-col gap-5 my-4">
           {(["Acionado", "Em Deslocamento", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
             const filteredOrders = orders.filter(o => o.status === status);
 
 
             return (
-              <Accordeon title={`${status} (${filteredOrders.length})`}>
+              <Accordeon title={
+                <span className="text-slate-600 flex block justify-between items-center">
+                  {status}
+                  <Badge>Quantidade: {filteredOrders.length}</Badge>
+                </span>
+              }>
                 {filteredOrders.map(o => {
 
                   const getChecklistIcon = () => o.hasChecklist ?
