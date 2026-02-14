@@ -40,9 +40,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           {(["Acionado", "Em Deslocamento", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
             const filteredOrders = orders.filter(o => o.status === status);
 
+
             return (
               <Accordeon title={`${status} (${filteredOrders.length})`}>
                 {filteredOrders.map(o => {
+
+                  const getChecklistIcon = () => o.hasChecklist ?
+                    <i className="fa-solid text-green-400 fa-circle-check"></i>
+                    : <i className="fa-solid text-red-400 fa-xmark"></i>
+
+                  const getEta = () => (o.eta ? `${o.eta} minutos` : "Sem prévia");
+
                   return (
                     <ul key={o.ticket} className="grid grid-cols-7 py-2 text-sm text-center items-center hover:bg-blue-100 text-slate-800">
                       <li>{o.plate}</li>
@@ -56,11 +64,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                         year: "2-digit",
                         hour: "2-digit",
                         minute: "2-digit"
-                      })}`}</li>
-                      <li>{
-                        status === "Concluído" ? <input type="checkbox" checked={o.hasChecklist} /> :
-                          o.eta ? `${o.eta} minutos` : "Sem prévia"
-                      }</li>
+                      })}`} <i className="fa-regular fa-calendar"></i></li>
+                      <li>{status === "Concluído" ? getChecklistIcon() : (<>{getEta()} <i className="fa-solid fa-hourglass-half"></i></>)}</li>
                     </ul>
                   );
                 })}
