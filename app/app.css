@@ -26,7 +26,7 @@
   }
 
   button.flat {
-    @apply text-blue-600 p-0 hover:text-blue-700 hover:bg-transparent;
+    @apply text-slate-400 p-0 hover:text-slate-600 hover:bg-transparent;
 
     background: none;
   }
