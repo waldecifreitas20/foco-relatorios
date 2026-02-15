@@ -6,6 +6,9 @@
 }
 
 @layer base {
+  * {
+    @apply border-slate-200;
+  }
 
   html,
   body {
@@ -34,7 +37,7 @@
 
   select,
   input[type="date"] {
-    @apply border mt-1 border-slate-200 bg-slate-50 p-2 rounded-md text-slate-800;
+    @apply border mt-1 bg-slate-50 p-2 rounded-md text-slate-800;
 
     display: block;
     width: 100%;
