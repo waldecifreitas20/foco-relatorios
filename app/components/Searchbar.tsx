@@ -1,18 +1,43 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { useClient } from "~/hooks/useClient";
 import { storageService } from "~/services/StorageService";
 import type { Order } from "~/types/Order";
-import { Badge } from "./Bagde";
+
 
 export function Searchbar() {
-  const orders = useClient(() => storageService.load("orders"));
+  const navigate = useNavigate();
+  const orders = useClient(() => storageService.load("orders")) ?? [] as Order[];
   const [results, setResults] = useState<Order[]>([]);
 
+  function handleTyping(value: string) {
+    const matchs: Order[] = [];
 
+    if (value.length === 0) {
+      return setResults([]);
+    }
+
+    orders.forEach(order => {
+      if (order.plate.toLowerCase().includes(value.toLowerCase())) {
+        matchs.push(order);
+      }
+    });
+
+    setResults(matchs);
+  }
+
+
+  function handleSubmit(evt: any) {
+    evt.preventDefault();
+    const searchString = new FormData(evt.target).get("search-input");
+
+    navigate(`/search?match=${searchString}`);
+  }
 
   return (
     <>
       <form
+        onSubmit={handleSubmit}
         className="
         relative inline-block 
         text-slate-800 
@@ -21,9 +46,11 @@ export function Searchbar() {
         border border-slate-200 rounded-lg
         py-2 px-4">
         <input
+          name="search-input"
           type="search"
           placeholder="Buscar Placas"
           className="w-[500px]"
+          onChange={evt => handleTyping(evt.target.value)}
         />
         <i className="block fa-brands fa-sistrix"></i>
 
@@ -34,16 +61,20 @@ export function Searchbar() {
             border shadow-2xl 
             w-full absolute top-full left-0 mt-1 p-2">
             {results.map(result => {
-              return <p className="text-slate-700 text-sm rounded-md p-2 hover:bg-red-500 hover:text-slate-50 cursor-pointer">
-                <span>{result.plate}</span>
-                <div className="flex text-xs gap-2">
-                  <span className="block text-xs">{new Date(result.createdAt).toLocaleDateString("pt-BR")}</span>
-                  <span>-</span>
-                  <span>{result.service}</span>
-                  <span>-</span>
-                  <span>{result.client}</span>
-                </div>
-              </p>
+              return (
+                <Link
+                  to={`/acionamentos/${result.plate}`}
+                  className="block text-left bg-white w-full text-slate-700 text-sm rounded-md p-2 hover:bg-red-500 hover:text-slate-50 cursor-pointer">
+                  <span>{result.plate}</span>
+                  <div className="flex text-xs gap-2">
+                    <span className="block text-xs">{new Date(result.createdAt).toLocaleDateString("pt-BR")}</span>
+                    <span>-</span>
+                    <span>{result.service}</span>
+                    <span>-</span>
+                    <span>{result.client}</span>
+                  </div>
+                </Link>
+              );
             })}
           </ul>
         )}
