@@ -18,11 +18,23 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <div className="flex p-4">
       <AsideBar />
-      <main className="w-full block px-4">
-        <h1 className="text-3xl font-semibold text-neutral-800 mb-8">Painel de Monitoramento</h1>
+
+      <main className="w-full block px-4 ">
+
+        <section className="flex justify-between h-fit">
+          <div className="flex gap-4 justify-start">
+            <h1 className="text-3xl font-semibold text-neutral-800 mb-8">Painel de Monitoramento</h1>
+            <button className="mx-auto rounded-full">Nova Solicitação +</button>
+          </div>
+
+          <button className="bg-slate-800 text-slate-200">
+            Atualizar Dados
+            <i className="fa-solid ml-2 font-bold fa-rotate"></i>
+          </button>
+        </section>
+
 
         <section className="w-full overflow-hidden">
-
           <ul className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-between gap-4 block w-full">
             {(["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
               return (
