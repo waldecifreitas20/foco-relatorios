@@ -7,6 +7,8 @@ import { Card } from "~/components/Card";
 import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
+import { storageService } from "~/services/StorageService";
+import { useEffect } from "react";
 
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -15,6 +17,10 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const orders = [...loaderData] as any as Order[];
+
+  useEffect(() => {
+    storageService.save("orders", orders);
+  }, []);
 
   return (
     <div className="flex p-4">
