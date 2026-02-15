@@ -9,6 +9,7 @@ import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
 import { storageService } from "~/services/StorageService";
 import { useEffect } from "react";
+import { Link } from "react-router";
 
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -58,12 +59,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
 
             return (
-              <Accordeon title={
-                <span className="text-slate-600 flex block gap-6 items-center">
-                  {status}
-                  <Badge>Quantidade: {filteredOrders.length}</Badge>
-                </span>
-              }>
+              <Accordeon
+                disabled={filteredOrders.length === 0}
+                title={
+                  <span className="flex block gap-6 items-center">
+                    {status}
+                    <Badge>Quantidade: {filteredOrders.length}</Badge>
+                  </span>
+                }>
                 {filteredOrders.map(o => {
 
                   const getChecklistIcon = () => o.hasChecklist ?
@@ -73,21 +76,35 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   const getEta = () => (o.eta ? `${o.eta} minutos` : "Sem prévia");
 
                   return (
-                    <ul key={o.ticket} className="grid grid-cols-7 py-2 text-sm text-center items-center hover:bg-blue-100 text-slate-800">
-                      <li>{o.plate}</li>
-                      <li>{o.service}</li>
-                      <li>{o.client}</li>
-                      <li>{o.provider}</li>
-                      <li>{o.ticket.substring(o.ticket.length - 7)}</li>
-                      <li>{`${new Date(o.createdAt).toLocaleString("pt-BR", {
+                    <Link 
+                    to={`/acionamentos/${o.plate}`}
+                    key={o.ticket} 
+                    className="
+                    grid grid-cols-7 items-center
+                    py-4 
+                    text-sm text-center  hover:ml-1
+                    border-l-4 border-transparent
+                    bg-white hover:border-red-500 hover:bg-slate-100 text-slate-800
+                    ">
+                      <span>{o.plate}</span>
+                      <span>{o.service}</span>
+                      <span>{o.client}</span>
+                      <span>{o.provider}</span>
+                      <span>{o.ticket.substring(o.ticket.length - 7)}</span>
+                      <span>{`${new Date(o.createdAt).toLocaleString("pt-BR", {
                         day: "2-digit",
                         month: "short",
                         year: "2-digit",
                         hour: "2-digit",
                         minute: "2-digit"
-                      })}`} <i className="fa-regular fa-calendar"></i></li>
-                      <li>{status === "Concluído" ? getChecklistIcon() : (<>{getEta()} <i className="fa-solid fa-hourglass-half"></i></>)}</li>
-                    </ul>
+                      })}`} <i className="fa-regular fa-calendar"></i>
+                      </span>
+                      <span>
+                        {status === "Concluído" ? 
+                        getChecklistIcon() : 
+                        (<>{getEta()} <i className="fa-solid fa-hourglass-half"></i></>)}
+                      </span>
+                    </Link>
                   );
                 })}
               </Accordeon>
