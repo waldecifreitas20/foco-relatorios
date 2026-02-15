@@ -6,6 +6,7 @@ import { type ServiceStatus } from "~/types/ServiceStatus";
 import { Card } from "~/components/Card";
 import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
+import { UpdateDataButton } from "~/components/UpdateDataButton";
 
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -27,10 +28,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <button className="mx-auto rounded-full">Nova Solicitação +</button>
           </div>
 
-          <button className="bg-slate-800 text-slate-200">
-            Atualizar Dados
-            <i className="fa-solid ml-2 font-bold fa-rotate"></i>
-          </button>
+          <UpdateDataButton />
         </section>
 
 
