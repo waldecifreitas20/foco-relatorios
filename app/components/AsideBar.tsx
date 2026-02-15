@@ -24,7 +24,7 @@ export default function AsideBar() {
   return (
     <aside className="block h-full bg-white w-full max-w-[300px] px-6 rounded-md">
       <section>
-        <h2 className="text-neutral-600 text-lg font-semibold mt-6
+        <h2 className="text-slate-600 text-lg font-semibold mt-6
         ">FILTROS AVANÇADOS</h2>
       </section>
 

@@ -8,7 +8,7 @@ interface CheckboxProps extends PropsWithChildren {
 export function Checkbox(props: CheckboxProps) {
   const id = useId();
   return (
-    <div className="flex gap-2 text-neutral-600">
+    <div className="flex gap-2 text-slate-600">
       <input
         type="checkbox"
         name={props.name}

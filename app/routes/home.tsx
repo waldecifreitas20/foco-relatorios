@@ -23,7 +23,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
         <section className="flex justify-between h-fit">
           <div className="flex gap-4 justify-start">
-            <h1 className="text-3xl font-semibold text-neutral-800 mb-8">Painel de Monitoramento</h1>
+            <h1 className="text-3xl font-semibold text-slate-800 mb-8">Painel de Monitoramento</h1>
             <button className="mx-auto rounded-full">Nova Solicitação +</button>
           </div>
 
@@ -39,8 +39,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             {(["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
               return (
                 <Card>
-                  <p className="font-semibold text-sm text-neutral-500 uppercase">{status}</p>
-                  <p className="text-6xl font-semibold text-neutral-800 my-6">{orders.filter(o => o.status === status).length}</p>
+                  <p className="font-semibold text-sm text-slate-500 uppercase">{status}</p>
+                  <p className="text-6xl font-semibold text-slate-800 my-6">{orders.filter(o => o.status === status).length}</p>
                 </Card>
               );
             })}
