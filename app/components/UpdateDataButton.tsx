@@ -3,14 +3,22 @@ import { useEffect, useState } from "react";
 export function UpdateDataButton() {
   const [isUpdating, setIsUpdating] = useState(false);
 
+
   useEffect(() => {
+    let displayMessage = false;
+
     const timeout = setTimeout(() => {
-      setIsUpdating(false);
-    }, 3000);
+      if (isUpdating) {
+        setIsUpdating(false);
+        displayMessage = true;
+      }
+    }, 1000);
 
     return () => {
-      clearInterval(timeout)
-      alert("Dados Atualizados");
+      clearInterval(timeout);
+      if (displayMessage) {
+        alert("Dados Atualizados!")
+      }
     };
   }, [isUpdating]);
 
