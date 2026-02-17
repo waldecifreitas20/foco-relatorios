@@ -62,7 +62,7 @@ export default function AsideBar() {
           <SectionTitle>CLIENTES</SectionTitle>
 
           <select name="client">
-            <option value={undefined}>Todos os clientes</option>
+            <option value={undefined} disabled>Todos os clientes</option>
             {clients.map(client => {
               return <option key={client} value={client}>{client}</option>
             })}

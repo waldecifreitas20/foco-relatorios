@@ -8,33 +8,41 @@ import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
 import { storageService } from "~/services/StorageService";
-import { useEffect } from "react";
-import { Link, useSearchParams } from "react-router";
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import type { FormFilters } from "~/types/FormFilters";
 
 
-export async function loader({ params }: Route.LoaderArgs) {
-  return mock;
+export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const filters = {
+    statuses: url.searchParams.get("statuses")?.split(";"),
+    services: url.searchParams.get("services")?.split(";"),
+    client: url.searchParams.get("client") || undefined,
+    createdAt: url.searchParams.get("createdAt") ? new Date(url.searchParams.get("createdAt") as string) : undefined,
+    updatedAt: url.searchParams.get("updatedAt") ? new Date(url.searchParams.get("updatedAt") as string) : undefined,
+  };
+  
+  let orders = mock;
+
+  if (filters.client) {
+    orders = orders.filter(o => {
+      return o.client
+      .toLowerCase()
+      .includes(filters.client!.toLowerCase())
+    });
+  }
+  
+  return orders;
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const [searchParams] = useSearchParams();
-  const url = new URLSearchParams(searchParams);
-  // console.log([...url.entries()]);
-  
-  const query = (Object.fromEntries(url.entries())) as any;
-  const filters = {
-    ...query,
-    services: query.services?.split(";") || [],
-    statuses: query.statuses?.split(";") || [],
-  } as FormFilters;
-  
-  
-  const orders = [...loaderData] as any as Order[];
+  const orders = (loaderData as any as Order[]);
 
   useEffect(() => {
     storageService.save("orders", orders);
   }, []);
+
 
   return (
     <div className="flex p-4">
