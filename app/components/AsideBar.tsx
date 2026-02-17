@@ -30,15 +30,15 @@ export default function AsideBar() {
     }
     
     if (filters.updatedAt) {
-      newSearchParams.set('createdAt', `${filters.updatedAt.toLocaleDateString()}`);
+      newSearchParams.set('updatedAt', `${filters.updatedAt.toLocaleDateString()}`);
     }
 
     if (filters.statuses) {
-      newSearchParams.set('statuses', filters.statuses.join("-"));
+      newSearchParams.set('statuses', filters.statuses.join(";"));
     }
     
     if (filters.services) {
-      newSearchParams.set('services', filters.services.join("-"));
+      newSearchParams.set('services', filters.services.join(";"));
     }
 
 

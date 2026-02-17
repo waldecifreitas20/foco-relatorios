@@ -9,7 +9,8 @@ import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
 import { storageService } from "~/services/StorageService";
 import { useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
+import type { FormFilters } from "~/types/FormFilters";
 
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -17,6 +18,18 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
+  const [searchParams] = useSearchParams();
+  const url = new URLSearchParams(searchParams);
+  // console.log([...url.entries()]);
+  
+  const query = (Object.fromEntries(url.entries())) as any;
+  const filters = {
+    ...query,
+    services: query.services?.split(";") || [],
+    statuses: query.statuses?.split(";") || [],
+  } as FormFilters;
+  
+  
   const orders = [...loaderData] as any as Order[];
 
   useEffect(() => {
