@@ -6,9 +6,12 @@ import { clients } from "~/types/Client";
 import { services } from "~/types/Service";
 import { useRef } from "react";
 import type { FormFilters } from "~/types/FormFilters";
+import { Link, useSearchParams } from "react-router";
 
 export default function AsideBar() {
   const formRef = useRef<HTMLFormElement>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
 
   function handleSubmit(evt: any) {
     evt.preventDefault();
@@ -16,7 +19,31 @@ export default function AsideBar() {
     const data = new FormData(formRef.current as HTMLFormElement);
     const filters = sanitaze(data) as FormFilters;
 
-    console.log(filters);
+    const newSearchParams = new URLSearchParams(searchParams);
+    
+    if (filters.client) {
+      newSearchParams.set('client', filters.client);
+    }
+    
+    if (filters.createdAt) {
+      newSearchParams.set('createdAt', `${filters.createdAt.toLocaleDateString()}`);
+    }
+    
+    if (filters.updatedAt) {
+      newSearchParams.set('createdAt', `${filters.updatedAt.toLocaleDateString()}`);
+    }
+
+    if (filters.statuses) {
+      newSearchParams.set('statuses', filters.statuses.join("-"));
+    }
+    
+    if (filters.services) {
+      newSearchParams.set('services', filters.services.join("-"));
+    }
+
+
+    // Update the URL
+    setSearchParams(newSearchParams);
 
   }
 
@@ -35,7 +62,7 @@ export default function AsideBar() {
           <SectionTitle>CLIENTES</SectionTitle>
 
           <select name="client">
-            <option value={-1}>Todos os clientes</option>
+            <option value={undefined}>Todos os clientes</option>
             {clients.map(client => {
               return <option key={client} value={client}>{client}</option>
             })}
@@ -76,10 +103,12 @@ export default function AsideBar() {
 
         <section className="pb-4">
           <button className="block w-full my-2">Filtrar</button>
-          <button
+          <Link to={"/"}>
+            <button
             onClick={() => formRef.current?.reset()}
             className="flat p-0 w-fit my-0 mx-auto block"
           >Limpar Campos</button>
+          </Link>
         </section>
 
       </form>
