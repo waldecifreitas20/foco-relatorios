@@ -20,15 +20,15 @@ export default function AsideBar() {
     const filters = sanitaze(data) as FormFilters;
 
     const newSearchParams = new URLSearchParams(searchParams);
-    
+
     if (filters.client) {
       newSearchParams.set('client', filters.client);
     }
-    
+
     if (filters.createdAt) {
       newSearchParams.set('createdAt', `${filters.createdAt.toLocaleDateString()}`);
     }
-    
+
     if (filters.updatedAt) {
       newSearchParams.set('updatedAt', `${filters.updatedAt.toLocaleDateString()}`);
     }
@@ -36,11 +36,14 @@ export default function AsideBar() {
     if (filters.statuses) {
       newSearchParams.set('statuses', filters.statuses.join(";"));
     }
-    
+
     if (filters.services) {
       newSearchParams.set('services', filters.services.join(";"));
     }
 
+    if ((filters.client as string) === "Todos os clientes") {
+      newSearchParams.delete('client');
+    } 
 
     // Update the URL
     setSearchParams(newSearchParams);
@@ -62,7 +65,7 @@ export default function AsideBar() {
           <SectionTitle>CLIENTES</SectionTitle>
 
           <select name="client">
-            <option value={undefined} disabled>Todos os clientes</option>
+            <option value={undefined}>Todos os clientes</option>
             {clients.map(client => {
               return <option key={client} value={client}>{client}</option>
             })}
@@ -105,9 +108,9 @@ export default function AsideBar() {
           <button className="block w-full my-2">Filtrar</button>
           <Link to={"/"}>
             <button
-            onClick={() => formRef.current?.reset()}
-            className="flat p-0 w-fit my-0 mx-auto block"
-          >Limpar Campos</button>
+              onClick={() => formRef.current?.reset()}
+              className="flat p-0 w-fit my-0 mx-auto block"
+            >Limpar Campos</button>
           </Link>
         </section>
 
