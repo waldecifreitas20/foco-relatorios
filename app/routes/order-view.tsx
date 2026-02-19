@@ -1,7 +1,48 @@
-export default function OrderView() {
+import { RsaViewer } from "~/components/RsaViewer";
+import type { Route } from "./+types/order-view";
+import { PageTitle } from "~/components/PageTitle";
+import type { Order } from "~/types/Order";
+import { Link } from "react-router";
+import { appRoutes } from "~/routes";
+
+export function loader({ params }: Route.LoaderArgs) {
+  const { plate, ticket } = params;
+
+  return {
+    "agentName": "Laura",
+    "service": "Guincho",
+    "plate": plate,
+    "client": "Unidas Fleet",
+    "provider": "Amparo",
+    "ticket": ticket,
+    "createdAt": "2026-02-12T08:15:00Z",
+    "updatedAt": "2026-02-12T08:30:00Z",
+    "notes": [
+      "Chegada estimada 20 minutos"
+    ],
+    "status": "Acionado",
+    "eta": "20",
+    "hasChecklist": false
+  };
+
+}
+
+export default function OrderView({ loaderData }: Route.ComponentProps) {
+  const order = loaderData as any as Order;
+
   return (
     <main className="mx-auto w-[80%] block p-4">
-      <h1>Order View</h1>
+      <section className="flex justify-between">
+        <PageTitle>Roadside Assistance</PageTitle>
+        <Link
+          className="ml-auto"
+          to={appRoutes.home}>
+          <button>
+            Editar <i className="fa-regular fa-pen-to-square"></i>
+          </button>
+        </Link>
+      </section>
+      <RsaViewer order={order} />
     </main>
   );
 }
