@@ -2,8 +2,8 @@ import AsideBar from "~/components/AsideBar";
 import type { Route } from "./+types/home";
 import mock from "../assets/server.json";
 import type { Order } from "~/types/Order";
-import { type ServiceStatus } from "~/types/ServiceStatus";
-import { Card } from "~/components/Card";
+import { serviceStatuses, type ServiceStatus } from "~/types/ServiceStatus";
+import { StatusCard } from "~/components/Card";
 import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
@@ -39,6 +39,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const orders = (loaderData as any as Order[]);
+  const statusList: ServiceStatus[] = ["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"];
+
 
   useEffect(() => {
     storageService.save("orders", orders);
@@ -52,10 +54,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <main className="w-full block px-4 ">
 
         <section className="flex justify-between h-fit">
-
-          <span className="flex gap-4 justify-start">
+          <span>
             <PageTitle>Painel de Monitoramento</PageTitle>
-            <Link to="/rsa/new">
+            <Link to="/rsa/new" className="inline">
               <button className="mx-auto rounded-full">Nova Solicitação +</button>
             </Link>
           </span>
@@ -66,12 +67,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
         <section className="w-full overflow-hidden">
           <ul className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-between gap-4 w-full">
-            {(["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
+            {statusList.map(status => {
               return (
-                <Card>
-                  <p className="font-semibold text-sm text-slate-500 uppercase">{status}</p>
-                  <p className="text-6xl font-semibold text-slate-800 my-6">{orders.filter(o => o.status === status).length}</p>
-                </Card>
+                <StatusCard
+                  status={status}
+                  value={orders.filter(o => o.status === status).length}
+                />
               );
             })}
           </ul>
@@ -79,9 +80,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
 
         <section className="flex flex-col gap-5 my-4">
-          {(["Acionado", "Em Deslocamento", "Agendado", "Em Base", "Concluído", "Cancelado"] as ServiceStatus[]).map(status => {
+          {serviceStatuses.map(status => {
             const filteredOrders = orders.filter(o => o.status === status);
-
 
             return (
               <Accordeon

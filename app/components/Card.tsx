@@ -1,10 +1,16 @@
-import type { PropsWithChildren } from "react";
+import type { ServiceStatus } from "~/types/ServiceStatus";
 
-export function Card({ children }: PropsWithChildren) {
+interface StatusCardProps {
+  status: ServiceStatus;
+  value: number;
+}
+
+export function StatusCard({ status, value }: StatusCardProps) {
   return (
-    <li 
+    <li
       className="bg-white border border-slate-200 rounded-lg p-6 w-full block">
-      {children}
+      <p className="font-semibold text-sm text-slate-500 uppercase">{status}</p>
+      <p className="text-6xl font-semibold text-slate-800 my-6">{value}</p>
     </li>
   );
 }
