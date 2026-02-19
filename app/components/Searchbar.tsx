@@ -67,7 +67,7 @@ export function Searchbar() {
                   className="block text-left bg-white w-full text-slate-700 text-sm rounded-md p-2 hover:bg-red-500 hover:text-slate-50 cursor-pointer">
                   <span>{result.plate}</span>
                   <div className="flex text-xs gap-2">
-                    <span className="block text-xs">{new Date(result.createdAt).toLocaleDateString("pt-BR")}</span>
+                    <span className="block text-xs">{new Date(result.createdAt ?? new Date(Date.now())).toLocaleDateString("pt-BR")}</span>
                     <span>-</span>
                     <span>{result.service}</span>
                     <span>-</span>

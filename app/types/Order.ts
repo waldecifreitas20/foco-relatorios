@@ -5,16 +5,16 @@ import { type ServiceStatus } from "./ServiceStatus";
 
 export type Order = {
   plate: string;
-  client: Client;
   ticket: string;
+  client: Client;
   service: Service;
-  provider: Provider;
   status: ServiceStatus;
-  createdAt: Date;
-  updatedAt: Date;
-  notes?: string[];
+  provider: Provider;
+  createdAt?: Date;
+  updatedAt?: Date;
   eta?: number;
   agentName?: string;
+  notes?: string[];
   hasChecklist?: boolean;
 };
 

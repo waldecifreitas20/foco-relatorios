@@ -37,7 +37,8 @@
   }
 
   select,
-  input[type="date"] {
+  input[type="date"], 
+  .input {
     @apply border mt-1 bg-slate-50 p-2 rounded-md text-slate-800;
 
     display: block;
