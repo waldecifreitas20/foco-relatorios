@@ -5,6 +5,7 @@ import { serviceStatuses } from "~/types/ServiceStatus";
 import { FormSection } from "./FormSection";
 import { clients } from "~/types/Client";
 import { useRef, useState } from "react";
+import { Link } from "react-router";
 
 export function RsaForm() {
   const { register } = useForm();
@@ -14,7 +15,13 @@ export function RsaForm() {
     "Cliente entrou em contato para informar que o técnico chegou, mas não conseguiu realizar o serviço por falta de peças."
   ]);
 
-  const noteRef = useRef<HTMLTextAreaElement>(undefined);
+  function handleAddNote() {
+    const note = (document.getElementById("notes") as HTMLTextAreaElement)?.value;
+
+    if (note) {
+      setNotes(prev => [...prev, note]);
+    }
+  }
 
   return (
      <form className="flex justify-between gap-4">
@@ -104,8 +111,9 @@ export function RsaForm() {
 
         <FormSection>
           <button>Salvar</button>
-          <button className="flat">Cancelar</button>
+          <Link to="/"><button className="flat">Cancelar</button></Link>
         </FormSection>
+
         </section>
 
          {/* NOTES */}
@@ -120,17 +128,16 @@ export function RsaForm() {
             ))}
           </ul>
 
-          <textarea ref={noteRef}
+          <textarea
+          id="notes"
           className="resize-none input text-sm h-[100px] mt-4" 
+          {...register("notes")}
           />
 
           <button 
           type="button" 
           className="mt-4 bg-slate-800"
-          onClick={() => setNotes(prev => [
-            ...prev,
-            noteRef.current?.value || "",
-          ]) }
+          onClick={() => handleAddNote()}
           >Adicionar</button>
         </section>
 
