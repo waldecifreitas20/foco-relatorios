@@ -4,14 +4,23 @@ import { services } from "~/types/Service";
 import { serviceStatuses } from "~/types/ServiceStatus";
 import { FormSection } from "./FormSection";
 import { clients } from "~/types/Client";
+import { useRef, useState } from "react";
 
 export function RsaForm() {
   const { register } = useForm();
+  const [notes, setNotes] = useState<string[]>([
+    "informado previa de 50 minutos, mas o técnico chegou em 30 minutos.", 
+    "Prestador não chegou ao local, mesmo com o cliente informando que estava aguardando a chegada do técnico.", 
+    "Cliente entrou em contato para informar que o técnico chegou, mas não conseguiu realizar o serviço por falta de peças."
+  ]);
+
+  const noteRef = useRef<HTMLTextAreaElement>(undefined);
 
   return (
-     <form className="bg-white border p-4 flex flex-col gap-5">
+     <form className="flex justify-between gap-4">
 
-        <FormSection>
+        <section className="w-[75%] bg-white border p-4 flex flex-col gap-5">
+          <FormSection>
           {/* PLATE */}
           <div className="">
             <label>Placa:*</label>
@@ -69,33 +78,62 @@ export function RsaForm() {
         </FormSection>
     
       
-        <FormSection>
-          {/* AGENT NAME */}
-          <div className="w-1/2">
-            <label>Acionado por:</label>
-            <input className="input" {...register("agentName")} />
-          </div>
-      
-          <section>
-            {/* ETA */}
-            <label className="block text-nowrap">Prévia Estimada:*</label>
-            <div className="flex gap-2 items-center">
-              <input className="input w-[100px]" {...register("eta")} />
-              <span>minutos.</span>
-            </div>
-          </section>
-        </FormSection>
+        {/* AGENT NAME */}
+        <div className="w-1/2">
+          <label>Acionado por:</label>
+          <input className="input" {...register("agentName")} />
+        </div>
   
+  
+        <section>
+          {/* ETA */}
+          <label className="block text-nowrap">Prévia Estimada:*</label>
+          <div className="flex gap-2 items-center">
+            <input className="input w-[100px]" {...register("eta")} />
+            <span>minutos.</span>
+          </div>
+        </section>
+
+
         <section className="items-center flex gap-2">
           {/* HAS CHECKLIST */}
           <input type="checkbox" {...register("hasChecklist")} />
           <label>Possui checklist?</label>
         </section>
 
+
         <FormSection>
           <button>Salvar</button>
           <button className="flat">Cancelar</button>
         </FormSection>
+        </section>
+
+         {/* NOTES */}
+        <section className="bg-white border p-4 w-[25%]">
+          <label>Observações:</label>
+
+          <ul className="overflow-y-auto flex flex-col justify-start text-slate-700 h-[200px] ">
+            {notes.map((item) => (
+              <li key={item} className="text-xs border-y p-2">
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <textarea ref={noteRef}
+          className="resize-none input text-sm h-[100px] mt-4" 
+          />
+
+          <button 
+          type="button" 
+          className="mt-4 bg-slate-800"
+          onClick={() => setNotes(prev => [
+            ...prev,
+            noteRef.current?.value || "",
+          ]) }
+          >Adicionar</button>
+        </section>
+
       </form>
   );
 }

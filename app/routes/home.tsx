@@ -10,6 +10,7 @@ import { UpdateDataButton } from "~/components/UpdateDataButton";
 import { storageService } from "~/services/StorageService";
 import { useEffect } from "react";
 import { Link } from "react-router";
+import { PageTitle } from "~/components/PageTitle";
 
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -52,7 +53,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <section className="flex justify-between h-fit">
 
           <span className="flex gap-4 justify-start">
-            <h1 className="text-3xl font-semibold text-slate-800 mb-8">Painel de Monitoramento</h1>
+            <PageTitle>Painel de Monitoramento</PageTitle>
             <Link to="/rsa/new">
               <button className="mx-auto rounded-full">Nova Solicitação +</button>
             </Link>
@@ -114,7 +115,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <span>{o.client}</span>
           <span>{o.provider}</span>
           <span>{o.ticket.substring(o.ticket.length - 7)}</span>
-            <span>{`${new Date(o.createdAt).toLocaleString("pt-BR", {
+            <span>{`${new Date(o.createdAt ?? new Date(Date.now()))
+            .toLocaleString("pt-BR", {
                 day: "2-digit",
                 month: "short",
                 year: "2-digit",
