@@ -65,6 +65,7 @@ export function Searchbar() {
               return (
                 <Link
                   to={appRoutes.orderView(result.plate, result.ticket)}
+                  onClick={() => setResults([])}
                   className="block text-left bg-white w-full text-slate-700 text-sm rounded-md p-2 hover:bg-red-500 hover:text-slate-50 cursor-pointer">
                   <span>{result.plate}</span>
                   <div className="flex text-xs gap-2">
