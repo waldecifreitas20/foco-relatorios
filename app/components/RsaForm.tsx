@@ -6,6 +6,7 @@ import { FormSection } from "./FormSection";
 import { clients } from "~/types/Client";
 import { useRef, useState } from "react";
 import { Link } from "react-router";
+import { appRoutes } from "~/routes";
 
 export function RsaForm() {
   const { register, handleSubmit } = useForm();
@@ -119,7 +120,7 @@ export function RsaForm() {
 
         <FormSection>
           <button>Salvar</button>
-          <Link to="/"><button className="flat">Cancelar</button></Link>
+          <Link to={appRoutes.home}><button className="flat">Cancelar</button></Link>
         </FormSection>
 
         </section>

@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { Link } from "react-router";
 import { PageTitle } from "~/components/PageTitle";
 import { OrderTitle } from "~/components/OrderTitle";
+import { appRoutes } from "~/routes";
 
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -56,7 +57,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <section className="flex items-start justify-between h-fit">
           <span className="flex items-start border">
             <PageTitle>Painel de Monitoramento</PageTitle>
-            <Link to="/rsa/new" className="inline-block ml-4">
+            <Link to={appRoutes.newOrder} className="inline-block ml-4">
               <button className="mx-auto rounded-full">Nova Solicitação +</button>
             </Link>
           </span>
@@ -103,7 +104,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
                   return (
                     <OrderTitle
-                      linkTo={`/rsa/${o.plate}/${o.ticket}`}
+                      linkTo={appRoutes.orderView(o.plate, o.ticket)}
                       key={o.ticket}
                       order={o}
                       trailing={

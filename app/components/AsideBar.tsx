@@ -7,6 +7,7 @@ import { services } from "~/types/Service";
 import { useRef } from "react";
 import type { FormFilters } from "~/types/FormFilters";
 import { Link, useSearchParams } from "react-router";
+import { appRoutes } from "~/routes";
 
 export default function AsideBar() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -106,7 +107,7 @@ export default function AsideBar() {
 
         <section className="pb-4">
           <button className="block w-full my-2">Filtrar</button>
-          <Link to={"/"}>
+          <Link to={appRoutes.home}>
             <button
               onClick={() => formRef.current?.reset()}
               className="flat p-0 w-fit my-0 mx-auto block"

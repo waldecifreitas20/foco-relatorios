@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useClient } from "~/hooks/useClient";
+import { appRoutes } from "~/routes";
 import { storageService } from "~/services/StorageService";
 import type { Order } from "~/types/Order";
 
@@ -63,7 +64,7 @@ export function Searchbar() {
             {results.map(result => {
               return (
                 <Link
-                  to={`/acionamentos/${result.plate}`}
+                  to={appRoutes.orderView(result.plate, result.ticket)}
                   className="block text-left bg-white w-full text-slate-700 text-sm rounded-md p-2 hover:bg-red-500 hover:text-slate-50 cursor-pointer">
                   <span>{result.plate}</span>
                   <div className="flex text-xs gap-2">
