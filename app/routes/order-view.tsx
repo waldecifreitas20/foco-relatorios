@@ -4,6 +4,8 @@ import { PageTitle } from "~/components/PageTitle";
 import type { Order } from "~/types/Order";
 import { Link } from "react-router";
 import { appRoutes } from "~/routes";
+import { useState } from "react";
+import { RsaForm } from "~/components/RsaForm";
 
 export function loader({ params }: Route.LoaderArgs) {
   const { plate, ticket } = params;
@@ -29,20 +31,24 @@ export function loader({ params }: Route.LoaderArgs) {
 
 export default function OrderView({ loaderData }: Route.ComponentProps) {
   const order = loaderData as any as Order;
+  const [enableEdit, setEnableEdit] = useState(false);
 
   return (
     <main className="mx-auto w-[80%] block p-4">
       <section className="flex justify-between">
         <PageTitle>Roadside Assistance</PageTitle>
-        <Link
-          className="ml-auto"
-          to={appRoutes.home}>
-          <button>
+        {!enableEdit && (
+          <button
+            className="ml-auto"
+            onClick={() => setEnableEdit(true)}>
             Editar <i className="fa-regular fa-pen-to-square"></i>
           </button>
-        </Link>
+        )}
       </section>
-      <RsaViewer order={order} />
+      {enableEdit
+        ? <RsaForm order={order} />
+        : <RsaViewer order={order} />
+      }
     </main>
   );
 }
