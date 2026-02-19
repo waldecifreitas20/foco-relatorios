@@ -12,7 +12,7 @@ export type Order = {
   status: ServiceStatus;
   createdAt: Date;
   updatedAt: Date;
-  notes?: string[];
+  notes?: string;
   eta?: number;
   agentName?: string;
   hasChecklist?: boolean;
