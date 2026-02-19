@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useClient } from "~/hooks/useClient";
 import { appRoutes } from "~/routes";
@@ -8,10 +8,12 @@ import type { Order } from "~/types/Order";
 
 export function Searchbar() {
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
   const orders = useClient(() => storageService.load("orders")) ?? [] as Order[];
   const [results, setResults] = useState<Order[]>([]);
 
-  function handleTyping(value: string) {
+  function handleTyping(evt: any) {
+    const value = evt.target.value;
     const matchs: Order[] = [];
 
     if (value.length === 0) {
@@ -37,6 +39,13 @@ export function Searchbar() {
 
   return (
     <>
+      {/* DROPDOWN DISPOSER */}
+      {results.length > 0 &&
+        <div
+          onClick={() => setResults([])}
+          className="bg-transparent fixed z-10 inset-0 h-full"></div>
+      }
+
       <form
         onSubmit={handleSubmit}
         className="
@@ -47,11 +56,12 @@ export function Searchbar() {
         border border-slate-200 rounded-lg
         py-2 px-4">
         <input
+          ref={inputRef}
           name="search-input"
           type="search"
           placeholder="Buscar Placas"
           className="max-w-[500px] w-full"
-          onChange={evt => handleTyping(evt.target.value)}
+          onChange={handleTyping}
         />
         <i className="block fa-brands fa-sistrix"></i>
 
@@ -65,8 +75,16 @@ export function Searchbar() {
               return (
                 <Link
                   to={appRoutes.orderView(result.plate, result.ticket)}
-                  onClick={() => setResults([])}
-                  className="block text-left bg-white w-full text-slate-700 text-sm rounded-md p-2 hover:bg-red-500 hover:text-slate-50 cursor-pointer">
+                  onClick={() => {
+                    setResults([]);
+                    inputRef.current!.value = "";
+                  }}
+                  className="
+                  z-20 block relative
+                  text-left bg-white 
+                  w-full text-slate-700 text-sm 
+                  rounded-md p-2 
+                  hover:bg-red-500 hover:text-slate-50 cursor-pointer">
                   <span>{result.plate}</span>
                   <div className="flex text-xs gap-2">
                     <span className="block text-xs">{new Date(result.createdAt ?? new Date(Date.now())).toLocaleDateString("pt-BR")}</span>
