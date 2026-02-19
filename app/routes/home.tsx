@@ -53,10 +53,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       <main className="w-full block px-4 ">
 
-        <section className="flex justify-between h-fit">
-          <span>
+        <section className="flex items-start justify-between h-fit">
+          <span className="flex items-start border">
             <PageTitle>Painel de Monitoramento</PageTitle>
-            <Link to="/rsa/new" className="inline">
+            <Link to="/rsa/new" className="inline-block ml-4">
               <button className="mx-auto rounded-full">Nova Solicitação +</button>
             </Link>
           </span>
