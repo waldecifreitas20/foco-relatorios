@@ -8,7 +8,8 @@ import { useRef, useState } from "react";
 import { Link } from "react-router";
 
 export function RsaForm() {
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
+
   const [notes, setNotes] = useState<string[]>([
     "informado previa de 50 minutos, mas o técnico chegou em 30 minutos.", 
     "Prestador não chegou ao local, mesmo com o cliente informando que estava aguardando a chegada do técnico.", 
@@ -23,8 +24,15 @@ export function RsaForm() {
     }
   }
 
+  function handleFormSubmit(data: any) {
+    console.log({...data, notes});
+  }
+
+
   return (
-     <form className="flex justify-between gap-4">
+     <form 
+      className="flex justify-between gap-4" 
+      onSubmit={handleSubmit(handleFormSubmit)}>
 
         <section className="w-[75%] bg-white border p-4 flex flex-col gap-5">
           <FormSection>
@@ -131,7 +139,6 @@ export function RsaForm() {
           <textarea
           id="notes"
           className="resize-none input text-sm h-[100px] mt-4" 
-          {...register("notes")}
           />
 
           <button 
