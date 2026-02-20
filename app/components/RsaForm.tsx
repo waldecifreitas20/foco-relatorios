@@ -4,25 +4,39 @@ import { services } from "~/types/Service";
 import { serviceStatuses } from "~/types/ServiceStatus";
 import { FormSection } from "./FormSection";
 import { clients } from "~/types/Client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 import { appRoutes } from "~/routes";
 import type { Order } from "~/types/Order";
 
-export function RsaForm({ order }: { order: Order }) {
+export function RsaForm({ orderData }: { orderData?: Order }) {
   const { register, handleSubmit } = useForm();
-
-  const [notes, setNotes] = useState<string[]>([
-    "informado previa de 50 minutos, mas o técnico chegou em 30 minutos.",
-    "Prestador não chegou ao local, mesmo com o cliente informando que estava aguardando a chegada do técnico.",
-    "Cliente entrou em contato para informar que o técnico chegou, mas não conseguiu realizar o serviço por falta de peças."
-  ]);
+  
+  let order: Order = orderData ?? {} as Order;
+  
+  if (!orderData) {
+    order = {
+      client: "Unidas Fleet",
+      plate: "",
+      provider: "Amparo",
+      service: "Guincho",
+      status: "Acionado",
+      ticket: "",
+      agentName: "",
+      eta: 60,
+      notes: [],
+      hasChecklist: false
+    }
+  }
+  
+  const [notes, setNotes] = useState<string[]>([]);
 
   function handleAddNote() {
-    const note = (document.getElementById("notes") as HTMLTextAreaElement)?.value;
+    const note = (document.getElementById("notes") as HTMLTextAreaElement)
+      ?.value;
 
     if (note) {
-      setNotes(prev => [...prev, note]);
+      setNotes((prev) => [...prev, note]);
     }
   }
 
@@ -30,45 +44,63 @@ export function RsaForm({ order }: { order: Order }) {
     console.log({ ...data, notes });
   }
 
-
   return (
     <form
       className="flex justify-between gap-4"
-      onSubmit={handleSubmit(handleFormSubmit)}>
-
+      onSubmit={handleSubmit(handleFormSubmit)}
+    >
       <section className="w-[75%] bg-white border p-4 flex flex-col gap-5">
         <FormSection>
           {/* PLATE */}
           <div className="">
             <label>Placa:*</label>
-            <input className="input" {...register("plate")} defaultValue={order.plate} />
+            <input
+              className="input"
+              {...register("plate")}
+              defaultValue={order.plate}
+            />
           </div>
 
           {/* MSP TICKET */}
           <div className="w-full">
             <label>Ticket:*</label>
-            <input className="input" {...register("ticket")} defaultValue={order.ticket} />
+            <input
+              className="input"
+              {...register("ticket")}
+              defaultValue={order.ticket}
+            />
           </div>
 
           {/* CLIENT */}
           <div className="w-full">
             <label>Cliente:*</label>
-            <select className="input" {...register("client")} defaultValue={order.client}>
-              {clients.map(client => (
-                <option key={client} value={client}>{client}</option>
+            <select
+              className="input"
+              {...register("client")}
+              defaultValue={order.client}
+            >
+              {clients.map((client) => (
+                <option key={client} value={client}>
+                  {client}
+                </option>
               ))}
             </select>
           </div>
         </FormSection>
 
-
         <FormSection>
           {/* SERVICE TYPE */}
           <div className="w-full">
             <label>Serviço:*</label>
-            <select className="input" {...register("service")} defaultValue={order.service}>
-              {services.map(service => (
-                <option key={service} value={service}>{service}</option>
+            <select
+              className="input"
+              {...register("service")}
+              defaultValue={order.service}
+            >
+              {services.map((service) => (
+                <option key={service} value={service}>
+                  {service}
+                </option>
               ))}
             </select>
           </div>
@@ -76,9 +108,15 @@ export function RsaForm({ order }: { order: Order }) {
           {/* SERVICE STATUS */}
           <div className="w-full">
             <label>Status:*</label>
-            <select className="input" {...register("statuses")} defaultValue={order.status} >
-              {serviceStatuses.map(status => (
-                <option key={status} value={status}>{status}</option>
+            <select
+              className="input"
+              {...register("statuses")}
+              defaultValue={order.status}
+            >
+              {serviceStatuses.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
               ))}
             </select>
           </div>
@@ -86,44 +124,59 @@ export function RsaForm({ order }: { order: Order }) {
           {/* PROVIDER */}
           <div className="w-full">
             <label>Fornecedor:*</label>
-            <select className="input" {...register("provider")} defaultValue={order.provider} >
-              {providers.map(status => (
-                <option key={status} value={status}>{status}</option>
+            <select
+              className="input"
+              {...register("provider")}
+              defaultValue={order.provider}
+            >
+              {providers.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
               ))}
             </select>
           </div>
         </FormSection>
 
-
         {/* AGENT NAME */}
         <div className="w-1/2">
           <label>Acionado por:</label>
-          <input className="input" {...register("agentName")} defaultValue={order.agentName} />
+          <input
+            className="input"
+            {...register("agentName")}
+            defaultValue={order.agentName}
+          />
         </div>
-
 
         <section>
           {/* ETA */}
           <label className="block text-nowrap">Prévia Estimada:*</label>
           <div className="flex gap-2 items-center">
-            <input className="input w-[100px]" {...register("eta")} defaultValue={order.eta} />
+            <input
+              className="input w-[100px]"
+              {...register("eta")}
+              defaultValue={order.eta}
+            />
             <span>minutos.</span>
           </div>
         </section>
 
-
         <section className="items-center flex gap-2">
           {/* HAS CHECKLIST */}
-          <input type="checkbox" {...register("hasChecklist")} defaultChecked={order.hasChecklist} />
+          <input
+            type="checkbox"
+            {...register("hasChecklist")}
+            defaultChecked={order.hasChecklist}
+          />
           <label>Possui checklist?</label>
         </section>
 
-
         <FormSection>
           <button>Salvar</button>
-          <Link to={appRoutes.home}><button className="flat">Cancelar</button></Link>
+          <Link to={appRoutes.home}>
+            <button className="flat">Cancelar</button>
+          </Link>
         </FormSection>
-
       </section>
 
       {/* NOTES */}
@@ -147,9 +200,10 @@ export function RsaForm({ order }: { order: Order }) {
           type="button"
           className="mt-4 bg-slate-800"
           onClick={() => handleAddNote()}
-        >Adicionar</button>
+        >
+          Adicionar
+        </button>
       </section>
-
     </form>
   );
 }
