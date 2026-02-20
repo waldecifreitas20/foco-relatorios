@@ -1,4 +1,4 @@
-export function useClient(fn: (args?: any) => void) {
+export function useClient(fn: (args?: any) => any) {
   if(typeof window !== "undefined") {
     return fn();
   }

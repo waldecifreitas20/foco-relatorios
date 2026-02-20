@@ -9,7 +9,8 @@ import type { Order } from "~/types/Order";
 export function Searchbar() {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
-  const orders = useClient(() => storageService.load("orders")) ?? [] as Order[];
+  const orders = (useClient(() => storageService.load("orders")) ??
+    []) as Order[];
   const [results, setResults] = useState<Order[]>([]);
 
   function handleTyping(evt: any) {
