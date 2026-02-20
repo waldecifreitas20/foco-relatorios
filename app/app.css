@@ -8,7 +8,6 @@
 @layer base {
   * {
     @apply border-slate-200;
-    transition: all 300ms;
   }
 
   html,
