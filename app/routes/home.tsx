@@ -73,6 +73,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             {statusList.map(status => {
               return (
                 <StatusCard
+                  key={status}
                   status={status}
                   value={orders.filter(o => o.status === status).length}
                 />
@@ -88,6 +89,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
             return (
               <Accordeon
+                key={`Accordeon-${status}`}
                 disabled={filteredOrders.length === 0}
                 title={
                   <span className="flex gap-6 items-center">
