@@ -5,52 +5,11 @@ import SectionTitle from "./SectionTitle";
 import { clients } from "~/types/Client";
 import { services } from "~/types/Service";
 import { useRef } from "react";
-import type { FormFilters } from "~/types/FormFilters";
-import { Link, useSearchParams } from "react-router";
+import { Form, Link} from "react-router";
 import { appRoutes } from "~/routes";
 
 export default function AsideBar() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-
-
-  function handleSubmit(evt: any) {
-    evt.preventDefault();
-
-    const data = new FormData(formRef.current as HTMLFormElement);
-    const filters = sanitaze(data) as FormFilters;
-
-    const newSearchParams = new URLSearchParams(searchParams);
-
-    if (filters.client) {
-      newSearchParams.set('client', filters.client);
-    }
-
-    if (filters.createdAt) {
-      newSearchParams.set('createdAt', `${filters.createdAt.toLocaleDateString()}`);
-    }
-
-    if (filters.updatedAt) {
-      newSearchParams.set('updatedAt', `${filters.updatedAt.toLocaleDateString()}`);
-    }
-
-    if (filters.statuses) {
-      newSearchParams.set('statuses', filters.statuses.join(";"));
-    }
-
-    if (filters.services) {
-      newSearchParams.set('services', filters.services.join(";"));
-    }
-
-    if ((filters.client as string) === "Todos os clientes") {
-      newSearchParams.delete('client');
-    } 
-
-    // Update the URL
-    setSearchParams(newSearchParams);
-
-  }
-
 
   return (
     <aside className="block h-full bg-white w-full max-w-[300px] px-6 rounded-md">
@@ -61,7 +20,7 @@ export default function AsideBar() {
 
       <Divider />
 
-      <form ref={formRef} onSubmit={handleSubmit}>
+      <Form method="get" ref={formRef}>
         <section>
           <SectionTitle>CLIENTES</SectionTitle>
 
@@ -115,58 +74,7 @@ export default function AsideBar() {
           </Link>
         </section>
 
-      </form>
+      </Form>
     </aside>
   );
-}
-
-
-
-function sanitaze(data: FormData) {
-  let fields = {};
-
-  const client = data.get("client");
-  if (client !== "-1") {
-    fields = {
-      client,
-    };
-  }
-
-
-  const statuses = data.getAll("statuses");
-  if (statuses.length > 0) {
-    fields = {
-      ...fields,
-      statuses,
-    };
-  }
-
-
-  const services = data.getAll("services");
-  if (services.length > 0) {
-    fields = {
-      ...fields,
-      services,
-    };
-  }
-
-
-  const createdAt = data.get("createdAt");
-  if (createdAt !== "") {
-    fields = {
-      ...fields,
-      createdAt: new Date(createdAt as string),
-    };
-  }
-
-
-  const updatedAt = data.get("updatedAt");
-  if (updatedAt !== "") {
-    fields = {
-      ...fields,
-      updatedAt: new Date(updatedAt as string),
-    };
-  }
-
-  return fields;
 }
