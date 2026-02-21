@@ -46,7 +46,7 @@ export default function OrderView({ loaderData }: Route.ComponentProps) {
         )}
       </section>
       {enableEdit
-        ? <RsaForm order={order} />
+        ? <RsaForm orderData={order} />
         : <RsaViewer order={order} />
       }
     </main>
