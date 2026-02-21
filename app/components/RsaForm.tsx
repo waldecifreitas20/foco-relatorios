@@ -1,16 +1,19 @@
-import { useForm } from "react-hook-form";
 import { providers } from "~/types/Provider";
 import { services } from "~/types/Service";
 import { serviceStatuses } from "~/types/ServiceStatus";
 import { FormSection } from "./FormSection";
 import { clients } from "~/types/Client";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Form, Link } from "react-router";
 import { appRoutes } from "~/routes";
 import type { Order } from "~/types/Order";
 
-export function RsaForm({ orderData }: { orderData?: Order }) {
-  const { register, handleSubmit } = useForm();
+
+interface RsaFormProps {
+  orderData?: Order;
+}
+
+export function RsaForm({ orderData }: RsaFormProps) {
   
   let order: Order = orderData ?? {} as Order;
   
@@ -40,14 +43,11 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
     }
   }
 
-  function handleFormSubmit(data: any) {
-    console.log({ ...data, notes });
-  }
 
   return (
-    <form
+    <Form
+      method="post"
       className="flex justify-between gap-4"
-      onSubmit={handleSubmit(handleFormSubmit)}
     >
       <section className="w-[75%] bg-white border p-4 flex flex-col gap-5">
         <FormSection>
@@ -56,7 +56,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
             <label>Placa:*</label>
             <input
               className="input"
-              {...register("plate")}
+              name={"plate"}
               defaultValue={order.plate}
             />
           </div>
@@ -66,7 +66,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
             <label>Ticket:*</label>
             <input
               className="input"
-              {...register("ticket")}
+              name={"ticket"}
               defaultValue={order.ticket}
             />
           </div>
@@ -76,7 +76,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
             <label>Cliente:*</label>
             <select
               className="input"
-              {...register("client")}
+              name={"client"}
               defaultValue={order.client}
             >
               {clients.map((client) => (
@@ -94,7 +94,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
             <label>Serviço:*</label>
             <select
               className="input"
-              {...register("service")}
+              name={"service"}
               defaultValue={order.service}
             >
               {services.map((service) => (
@@ -110,7 +110,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
             <label>Status:*</label>
             <select
               className="input"
-              {...register("statuses")}
+              name={"statuses"}
               defaultValue={order.status}
             >
               {serviceStatuses.map((status) => (
@@ -126,7 +126,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
             <label>Fornecedor:*</label>
             <select
               className="input"
-              {...register("provider")}
+              name={"provider"}
               defaultValue={order.provider}
             >
               {providers.map((status) => (
@@ -143,7 +143,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
           <label>Acionado por:</label>
           <input
             className="input"
-            {...register("agentName")}
+            name={"agentName"}
             defaultValue={order.agentName}
           />
         </div>
@@ -154,7 +154,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
           <div className="flex gap-2 items-center">
             <input
               className="input w-[100px]"
-              {...register("eta")}
+              name={"eta"}
               defaultValue={order.eta}
             />
             <span>minutos.</span>
@@ -165,7 +165,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
           {/* HAS CHECKLIST */}
           <input
             type="checkbox"
-            {...register("hasChecklist")}
+            name={"hasChecklist"}
             defaultChecked={order.hasChecklist}
           />
           <label>Possui checklist?</label>
@@ -191,6 +191,7 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
           ))}
         </ul>
 
+        <input name="notes" className="hidden" aria-hidden value={JSON.stringify(notes)}/>
         <textarea
           id="notes"
           className="resize-none input text-sm h-[100px] mt-4"
@@ -204,6 +205,6 @@ export function RsaForm({ orderData }: { orderData?: Order }) {
           Adicionar
         </button>
       </section>
-    </form>
+    </Form>
   );
 }
