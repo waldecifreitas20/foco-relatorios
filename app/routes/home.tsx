@@ -13,11 +13,14 @@ import { Link } from "react-router";
 import { PageTitle } from "~/components/PageTitle";
 import { OrderTitle } from "~/components/OrderTitle";
 import { appRoutes } from "~/routes";
-
+import { orderService } from "~/services/OrderService";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
-  const filters = {
+  let { orders, page } = await orderService.getAll();
+
+
+  /* const filters = {
     statuses: url.searchParams.get("statuses")?.split(";"),
     services: url.searchParams.get("services")?.split(";"),
     client: url.searchParams.get("client") || undefined,
@@ -25,7 +28,6 @@ export async function loader({ request }: Route.LoaderArgs) {
     updatedAt: url.searchParams.get("updatedAt") ? new Date(url.searchParams.get("updatedAt") as string) : undefined,
   };
 
-  let orders = mock;
 
   if (filters.client) {
     orders = orders.filter(o => {
@@ -33,13 +35,13 @@ export async function loader({ request }: Route.LoaderArgs) {
         .toLowerCase()
         .includes(filters.client!.toLowerCase())
     });
-  }
+  } */
 
-  return orders;
+  return { orders, page };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const orders = (loaderData as any as Order[]);
+  const { orders } = loaderData;
   const statusList: ServiceStatus[] = ["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"];
 
 
