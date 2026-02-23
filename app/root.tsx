@@ -9,6 +9,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import TopBar from "./components/TopBar";
+import { OrderProvider } from "./provider/OrderProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,11 +40,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
-        <script src="https://kit.fontawesome.com/28de0b46ad.js" crossOrigin="anonymous"></script>
+        <script
+          src="https://kit.fontawesome.com/28de0b46ad.js"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body>
-        <TopBar />
-        {children}
+        <OrderProvider>
+          <TopBar />
+          {children}
+        </OrderProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -13,6 +13,7 @@ interface OrderContextValue {
   orders: Order[];
   loadCache: () => Order[];
   setCache: (data: Order[]) => void;
+  getOrderByTicket: (ticket:string) => Order | null;
 }
 
 export const OrderContext = createContext({} as OrderContextValue);
@@ -35,6 +36,10 @@ export function OrderProvider({ children }: PropsWithChildren) {
     storageService.save("orders", data);
   }
 
+  function getOrderByTicket(ticket: string) {
+    loadCache();
+    return orders.find(o => o.ticket === ticket) ?? null;
+  }
 
 
   return (
@@ -43,6 +48,7 @@ export function OrderProvider({ children }: PropsWithChildren) {
         orders, 
         loadCache,
         setCache,
+        getOrderByTicket,
       }}
     >
       {children}

@@ -8,12 +8,13 @@ import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
 import { storageService } from "~/services/StorageService";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router";
 import { PageTitle } from "~/components/PageTitle";
 import { OrderTitle } from "~/components/OrderTitle";
 import { appRoutes } from "~/routes";
 import { orderService } from "~/services/order.server";
+import { OrderContext } from "~/provider/OrderProvider";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
@@ -24,11 +25,13 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { orders } = loaderData;
+  const {setCache} = useContext(OrderContext);
   const statusList: ServiceStatus[] = ["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"];
 
-
-  useEffect(() => {
-    storageService.save("orders", orders);
+  useEffect(() => {    
+    setCache(orders);
+    console.log(orders);
+    
   }, []);
 
 

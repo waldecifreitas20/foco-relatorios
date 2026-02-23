@@ -44,5 +44,5 @@ export async function action({ request }: Route.ActionArgs) {
   
   console.log(response);
   
-  return redirect(appRoutes.orderView(order.plate, order.ticket));
+  return redirect(appRoutes.home);
 }

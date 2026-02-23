@@ -3,33 +3,40 @@ import type { Route } from "./+types/order-view";
 import { PageTitle } from "~/components/PageTitle";
 import type { Order } from "~/types/Order";
 import { Link, redirect } from "react-router";
-import { appRoutes } from "~/routes";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RsaForm } from "~/components/RsaForm";
 import { orderService } from "~/services/order.server";
+import { OrderContext } from "~/provider/OrderProvider";
+import { appRoutes } from "~/routes";
 
 export function loader({ params }: Route.LoaderArgs) {
-  const { plate, ticket } = params;
+  const { ticket, plate } = params;
 
   return {
-    agentName: "Laura",
-    service: "Guincho",
-    plate: plate,
-    client: "Unidas Fleet",
-    provider: "Amparo",
-    ticket: ticket,
-    createdAt: "2026-02-12T08:15:00Z",
-    updatedAt: "2026-02-12T08:30:00Z",
-    notes: ["Chegada estimada 20 minutos"],
-    status: "Acionado",
-    eta: "20",
-    hasChecklist: false,
+    ticket,
+    plate,
   };
 }
 
 export default function OrderView({ loaderData }: Route.ComponentProps) {
-  const order = loaderData as any as Order;
+  const { ticket, plate } = loaderData;
+  const { getOrderByTicket } = useContext(OrderContext);
+  const [order, setOrder] = useState<Order>({} as Order);
+
   const [enableEdit, setEnableEdit] = useState(false);
+
+  useEffect(() => {
+    let cached = getOrderByTicket(ticket);
+    console.log(cached);
+    
+    if (!cached) {
+     alert("Não foi possível carregar os dados.");
+     window.location.pathname = "/";
+    } else {
+      setOrder(cached);
+    }
+
+  }, []);
 
   return (
     <main className="mx-auto w-[80%] block p-4">
@@ -63,12 +70,11 @@ export async function action({ request }: Route.ActionArgs) {
     notes: JSON.parse(notes),
   } as Partial<Order>;
 
-  console.log(order);
 
   const response = await orderService.update(order);
   
-  console.log(response.status);
+  console.log(response);
   
 
-  return null;
+  return redirect(appRoutes.home);
 }
