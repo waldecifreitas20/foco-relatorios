@@ -110,7 +110,7 @@ export function RsaForm({ orderData }: RsaFormProps) {
             <label>Status:*</label>
             <select
               className="input"
-              name={"statuses"}
+              name={"status"}
               defaultValue={order.status}
             >
               {serviceStatuses.map((status) => (

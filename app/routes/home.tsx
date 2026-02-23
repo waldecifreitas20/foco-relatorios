@@ -13,29 +13,11 @@ import { Link } from "react-router";
 import { PageTitle } from "~/components/PageTitle";
 import { OrderTitle } from "~/components/OrderTitle";
 import { appRoutes } from "~/routes";
-import { orderService } from "~/services/OrderService";
+import { orderService } from "~/services/order.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   let { orders, page } = await orderService.getAll();
-
-
-  /* const filters = {
-    statuses: url.searchParams.get("statuses")?.split(";"),
-    services: url.searchParams.get("services")?.split(";"),
-    client: url.searchParams.get("client") || undefined,
-    createdAt: url.searchParams.get("createdAt") ? new Date(url.searchParams.get("createdAt") as string) : undefined,
-    updatedAt: url.searchParams.get("updatedAt") ? new Date(url.searchParams.get("updatedAt") as string) : undefined,
-  };
-
-
-  if (filters.client) {
-    orders = orders.filter(o => {
-      return o.client
-        .toLowerCase()
-        .includes(filters.client!.toLowerCase())
-    });
-  } */
 
   return { orders, page };
 }
