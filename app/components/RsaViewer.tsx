@@ -11,6 +11,9 @@ export function RsaViewer({ order }: { order: Order }) {
     { label: "Acionado por", value: order.agentName },
     { label: "Prévia Estimada", value: order.eta },
   ];
+  
+  console.log(order.notes);
+  
 
   return (
     <section

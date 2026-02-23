@@ -24,7 +24,14 @@ async function create(order:Order) {
   return data;
 }
 
+async function update(orderPatch: Partial<Order>) {
+  const {data} = await api.patch(`/update/${orderPatch.ticket}`, orderPatch);
+
+  return data;
+}
+
 export const orderService = {
   getAll,
-  create
+  create,
+  update
 };
