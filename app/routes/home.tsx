@@ -60,7 +60,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <span className="flex items-start border">
             <PageTitle>Painel de Monitoramento</PageTitle>
             <Link to={appRoutes.newOrder} className="inline-block ml-4">
-              <button className="mx-auto rounded-full">Nova Solicitação +</button>
+              <button onClick={(evt) => evt.stopPropagation()} className="mx-auto rounded-full">Nova Solicitação +</button>
             </Link>
           </span>
 
