@@ -1,24 +1,29 @@
 import { PageTitle } from "~/components/PageTitle";
-import { lazy, Suspense } from "react";
 import { appRoutes } from "~/routes";
 import { redirect } from "react-router";
 import type { Route } from "./+types/order-view";
 import type { Order } from "~/types/Order";
 import {orderService} from "~/services/order.server"
+import { RsaForm } from "~/components/RsaForm";
+import { useEffect } from "react";
 
 
-// Load the form only when needed
-const RsaForm = lazy(() =>
-  import("~/components/RsaForm").then((m) => ({ default: m.RsaForm }))
-);
+export default function Order({actionData}: Route.ComponentProps) {
 
-export default function Order() {
+
+  useEffect(() => {
+    console.log(actionData);
+    
+    if (actionData) {
+      const {message} = actionData;
+      alert(message)
+    }
+  }, [actionData]);
+  
   return (
     <main className="mx-auto w-[80%] block p-4">
       <PageTitle>Roadside Assistance</PageTitle>
-      <Suspense fallback={<div>Loading Form...</div>}>
-        <RsaForm />
-      </Suspense>
+      <RsaForm />
     </main>
   );
 }
@@ -39,10 +44,18 @@ export async function action({ request }: Route.ActionArgs) {
     hasChecklist: data.get("hasChecklist") === "on",
     notes: JSON.parse(notes),
   } as Order;
-  
-  const response = await orderService.create(order);
-  
-  console.log(response);
-  
+
+  try {
+    await orderService.create(order);
+
+  } catch (error) {
+    console.log(error);
+    
+    return {
+      message: "Ticket já castrado. Por favor informe outro valor",
+    };
+  }
+
   return redirect(appRoutes.home);
 }
+
