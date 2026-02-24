@@ -13,7 +13,9 @@ async function getAll(
   orders: Order[];
   page: number;
 }> {
-  const { data } = await api.get("/all");
+  const dateParam = date ? `createdAt=${date}&limit=200` : "";
+  const { data } = await api.get(`/all?${dateParam}`);
+
   return data;
 }
 

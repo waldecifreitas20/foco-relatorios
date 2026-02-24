@@ -15,7 +15,9 @@ import { OrderContext } from "~/provider/OrderProvider";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
-  let { orders, page } = await orderService.getAll();
+  const createdAt = url.searchParams.get("createdAt") ?? undefined;
+  
+  let { orders, page } = await orderService.getAll(createdAt);
 
   return { orders, page };
 }
