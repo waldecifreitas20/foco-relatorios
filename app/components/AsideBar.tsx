@@ -5,7 +5,7 @@ import SectionTitle from "./SectionTitle";
 import { clients } from "~/types/Client";
 import { services } from "~/types/Service";
 import { useRef } from "react";
-import { Form, Link} from "react-router";
+import { Link} from "react-router";
 import { appRoutes } from "~/routes";
 
 export default function AsideBar() {
@@ -20,7 +20,7 @@ export default function AsideBar() {
 
       <Divider />
 
-      <Form method="get" ref={formRef}>
+      <form method="get" ref={formRef}>
         <section>
           <SectionTitle>CLIENTES</SectionTitle>
 
@@ -44,18 +44,6 @@ export default function AsideBar() {
         <Divider />
 
         <section>
-          <SectionTitle>PERÍODO</SectionTitle>
-
-          <label htmlFor="createdAt">Data de Criação: </label>
-          <input type="date" name="createdAt" id="createdAt" />
-
-          <label htmlFor="updatedAt">Atualizado em: </label>
-          <input type="date" name="updatedAt" id="updatedAt" />
-        </section>
-
-        <Divider />
-
-        <section>
           <SectionTitle>SERVIÇOS</SectionTitle>
           {services.map(service => {
             return <Checkbox key={service} name="services" value={service}>{service}</Checkbox>
@@ -74,7 +62,7 @@ export default function AsideBar() {
           </Link>
         </section>
 
-      </Form>
+      </form>
     </aside>
   );
 }
