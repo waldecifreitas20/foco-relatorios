@@ -75,7 +75,7 @@ export function Searchbar() {
             {results.map(result => {
               return (
                 <Link
-                  to={appRoutes.orderView(result.plate, result.ticket)}
+                  to={appRoutes.orderView(result.ticket)}
                   onClick={() => {
                     setResults([]);
                     inputRef.current!.value = "";

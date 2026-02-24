@@ -1,17 +1,14 @@
 import AsideBar from "~/components/AsideBar";
 import type { Route } from "./+types/home";
-import mock from "../assets/server.json";
-import type { Order } from "~/types/Order";
 import { serviceStatuses, type ServiceStatus } from "~/types/ServiceStatus";
 import { StatusCard } from "~/components/Card";
 import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
-import { storageService } from "~/services/StorageService";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router";
 import { PageTitle } from "~/components/PageTitle";
-import { OrderTitle } from "~/components/OrderTitle";
+import { OrderTile} from "~/components/OrderTile";
 import { appRoutes } from "~/routes";
 import { orderService } from "~/services/order.server";
 import { OrderContext } from "~/provider/OrderProvider";
@@ -92,8 +89,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   const getEta = () => (o.eta ? `${o.eta} minutos` : "Sem prévia");
 
                   return (
-                    <OrderTitle
-                      linkTo={appRoutes.orderView(o.plate, o.ticket)}
+                    <OrderTile
+                      linkTo={appRoutes.orderView(o.ticket)}
                       key={o.ticket}
                       order={o}
                       trailing={

@@ -7,7 +7,7 @@ interface OrderTitleProps {
   trailing: React.ReactNode;
 }
 
-export function OrderTitle({ order, linkTo, trailing }: OrderTitleProps) {
+export function OrderTile({ order, linkTo, trailing }: OrderTitleProps) {
 
   function getDate(date: Date | undefined) {
     return new Date(date ?? new Date(Date.now()))
