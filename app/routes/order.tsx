@@ -11,9 +11,7 @@ import { useEffect } from "react";
 export default function Order({actionData}: Route.ComponentProps) {
 
 
-  useEffect(() => {
-    console.log(actionData);
-    
+  useEffect(() => {    
     if (actionData) {
       const {message} = actionData;
       alert(message)
@@ -47,10 +45,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   try {
     await orderService.create(order);
-
-  } catch (error) {
-    console.log(error);
-    
+  } catch (error) {    
     return {
       message: "Ticket já castrado. Por favor informe outro valor",
     };

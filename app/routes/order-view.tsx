@@ -18,13 +18,11 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export default function OrderView({ loaderData }: Route.ComponentProps) {
+  const [enableEdit, setEnableEdit] = useState(false);
   const { order } = loaderData;
   const navigate = useNavigate();
 
-  console.log(order);
-  
 
-  const [enableEdit, setEnableEdit] = useState(false);
 
   useEffect(()=> {
     if (!order) {
@@ -67,10 +65,8 @@ export async function action({ request }: Route.ActionArgs) {
   } as Partial<Order>;
 
 
-  const response = await orderService.update(order);
-  
-  console.log(response);
-  
+  await orderService.update(order);
+   
 
   return redirect(appRoutes.home);
 }

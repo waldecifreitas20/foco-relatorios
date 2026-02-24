@@ -26,9 +26,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const statusList: ServiceStatus[] = ["Acionado", "Agendado", "Em Base", "Concluído", "Cancelado"];
 
   useEffect(() => {    
-    setCache(orders);
-    console.log(orders);
-    
+    setCache(orders);    
   }, []);
 
 
