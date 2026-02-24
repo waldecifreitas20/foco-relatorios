@@ -14,24 +14,26 @@ async function getAll(
   page: number;
 }> {
   const { data } = await api.get("/all");
-
   return data;
+}
+
+async function getOrder(ticket: string) {
+  return await api.get(`/order/${ticket}`).then(response => response.data);
 }
 
 async function create(order:Order) {
   const {data} = await api.post("/create", order);
-
   return data;
 }
 
 async function update(orderPatch: Partial<Order>) {
   const {data} = await api.patch(`/update/${orderPatch.ticket}`, orderPatch);
-
   return data;
 }
 
 export const orderService = {
   getAll,
+  getOrder,
   create,
   update
 };

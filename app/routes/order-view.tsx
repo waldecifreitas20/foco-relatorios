@@ -2,42 +2,38 @@ import { RsaViewer } from "~/components/RsaViewer";
 import type { Route } from "./+types/order-view";
 import { PageTitle } from "~/components/PageTitle";
 import type { Order } from "~/types/Order";
-import { Link, redirect } from "react-router";
-import { useContext, useEffect, useState } from "react";
+import { redirect, useNavigate } from "react-router";
+import {  useEffect, useState } from "react";
 import { RsaForm } from "~/components/RsaForm";
 import { orderService } from "~/services/order.server";
-import { OrderContext } from "~/provider/OrderProvider";
 import { appRoutes } from "~/routes";
 
-export function loader({ params }: Route.LoaderArgs) {
-  const { ticket, plate } = params;
-
+export async function loader({ params }: Route.LoaderArgs) {
+  const { ticket } = params;
+  const response = await orderService.getOrder(ticket);
+  
   return {
-    ticket,
-    plate,
+    order: response.order as Order
   };
 }
 
 export default function OrderView({ loaderData }: Route.ComponentProps) {
-  const { ticket, plate } = loaderData;
-  const { getOrderByTicket } = useContext(OrderContext);
-  const [order, setOrder] = useState<Order>({} as Order);
+  const { order } = loaderData;
+  const navigate = useNavigate();
+
+  console.log(order);
+  
 
   const [enableEdit, setEnableEdit] = useState(false);
 
-  useEffect(() => {
-    let cached = getOrderByTicket(ticket);
-    console.log(cached);
-    
-    if (!cached) {
-     alert("Não foi possível carregar os dados.");
-     window.location.pathname = "/";
-    } else {
-      setOrder(cached);
+  useEffect(()=> {
+    if (!order) {
+      alert("Não foi possível carregar os dados");
+      navigate(appRoutes.home);
     }
-
   }, []);
 
+ 
   return (
     <main className="mx-auto w-[80%] block p-4">
       <section className="flex justify-between">
