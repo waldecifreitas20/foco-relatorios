@@ -49,7 +49,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <UpdateDataButton />
         </section>
 
-
+        
+        {/* TODAY'S STATS */}
         <section className="w-full overflow-hidden">
           <ul className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-between gap-4 w-full">
             {statusList.map(status => {
@@ -64,7 +65,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </ul>
         </section>
 
-
+        <p className="text-slate-800 text-sm my-4 text-blue-500 flex gap-2 items-center">
+          <span 
+          className="
+          bg-blue-500 text-white
+          flex items-center justify-center 
+          size-5 rounded-full">!</span>
+          Todos os acionamentos mostrados são do dia. 
+          Caso deseje visualizar acionamentos de outros 
+          dias utilize o filtro à esquerda
+        </p>
+        
         <section className="flex flex-col gap-5 my-4">
           {serviceStatuses.map(status => {
             const filteredOrders = orders.filter(o => o.status === status);
