@@ -5,8 +5,9 @@ import SectionTitle from "./SectionTitle";
 import { clients } from "~/types/Client";
 import { services } from "~/types/Service";
 import { useRef } from "react";
-import { Link} from "react-router";
+import { Form, Link} from "react-router";
 import { appRoutes } from "~/routes";
+
 
 export default function AsideBar() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -14,20 +15,28 @@ export default function AsideBar() {
   return (
     <aside className="block h-full bg-white w-full max-w-[300px] px-6 rounded-md">
       <section>
-        <h2 className="text-slate-600 text-lg font-semibold mt-6
-        ">FILTROS AVANÇADOS</h2>
+        <h2
+          className="text-slate-600 text-lg font-semibold mt-6
+        "
+        >
+          FILTROS AVANÇADOS
+        </h2>
       </section>
 
       <Divider />
 
-      <form method="get" ref={formRef}>
+      <Form method="post" ref={formRef}>
         <section>
           <SectionTitle>CLIENTES</SectionTitle>
 
           <select name="client">
-            <option value={undefined}>Todos os clientes</option>
-            {clients.map(client => {
-              return <option key={client} value={client}>{client}</option>
+            <option value={"all"}>Todos os clientes</option>
+            {clients.map((client) => {
+              return (
+                <option key={client} value={client}>
+                  {client}
+                </option>
+              );
             })}
           </select>
         </section>
@@ -36,8 +45,12 @@ export default function AsideBar() {
 
         <section>
           <SectionTitle>STATUS DA SOLICITAÇÃO</SectionTitle>
-          {serviceStatuses.map(status => {
-            return <Checkbox key={status} name="statuses" value={status}>{status}</Checkbox>
+          {serviceStatuses.map((status) => {
+            return (
+              <Checkbox key={status} name="statuses" value={status}>
+                {status}
+              </Checkbox>
+            );
           })}
         </section>
 
@@ -45,8 +58,12 @@ export default function AsideBar() {
 
         <section>
           <SectionTitle>SERVIÇOS</SectionTitle>
-          {services.map(service => {
-            return <Checkbox key={service} name="services" value={service}>{service}</Checkbox>
+          {services.map((service) => {
+            return (
+              <Checkbox key={service} name="services" value={service}>
+                {service}
+              </Checkbox>
+            );
           })}
         </section>
 
@@ -58,11 +75,12 @@ export default function AsideBar() {
             <button
               onClick={() => formRef.current?.reset()}
               className="flat p-0 w-fit my-0 mx-auto block"
-            >Limpar Campos</button>
+            >
+              Limpar Campos
+            </button>
           </Link>
         </section>
-
-      </form>
+      </Form>
     </aside>
   );
 }
