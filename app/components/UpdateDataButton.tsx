@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react";
+import { Form, useFetcher } from "react-router";
+import { appRoutes } from "~/routes";
 
 export function UpdateDataButton() {
+  const fetcher = useFetcher();
   const [isUpdating, setIsUpdating] = useState(false);
 
 
   useEffect(() => {
-    let displayMessage = false;
+    if (fetcher.state === "idle") {
+      setIsUpdating(false);
+    }
+  }, [fetcher.state]);
 
-    const timeout = setTimeout(() => {
-      if (isUpdating) {
-        setIsUpdating(false);
-        displayMessage = true;
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(timeout);
-      if (displayMessage) {
-        alert("Dados Atualizados!")
-      }
-    };
-  }, [isUpdating]);
 
   return (
-    <button disabled={isUpdating} className={`bg-slate-800 text-slate-200 ${isUpdating ? "opacity-70 cursor-not-allowed" : ""}`} onClick={() => setIsUpdating(true)}>
-      Atualizar Dados
-      <i className={`fa-solid ml-2 font-bold fa-rotate ${isUpdating ? "animate-spin" : ""}`}></i>
-    </button>
+    <fetcher.Form method="post">
+      <input className="hidden" name="update" value={"true"}/>
+      <button
+        type="submit"
+        className={`bg-slate-800 text-slate-200 ${isUpdating ? "opacity-70 cursor-not-allowed" : ""}`}
+        onClick={() => setIsUpdating(true)}
+      >
+        Atualizar Dados
+        <i
+          className={`fa-solid ml-2 font-bold fa-rotate ${isUpdating ? "animate-spin" : ""}`}
+        ></i>
+      </button>
+    </fetcher.Form>
   );
 }

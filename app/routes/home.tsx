@@ -24,17 +24,35 @@ interface DataResponse {
 }
 
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function action({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const searchDate = url.searchParams.get("createdAt");
   let { orders, page } = await orderService.getAll(searchDate ?? undefined);
 
+  console.log("aaaaaaa");
+  
   
   return { orders, page, searchDate };
 }
 
-export async function clientAction({request}: Route.ClientActionArgs) {
-  const data = await request.formData();
+export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const searchDate = url.searchParams.get("createdAt");
+  let { orders, page } = await orderService.getAll(searchDate ?? undefined);
+  
+  
+  return { orders, page, searchDate };
+}
+
+export async function clientAction({request, serverAction}: Route.ClientActionArgs) {
+  const clonedRequest = request.clone();
+  const data = await clonedRequest.formData();
+  
+
+  if(data.get("update")) {
+    return await serverAction();
+  }
+
   let orders = (storageService.load("orders") ?? []) as Order[];
   const searchDate = storageService.load("searchDate");
 

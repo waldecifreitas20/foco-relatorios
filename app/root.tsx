@@ -70,14 +70,16 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  const _error = error as any;
   let message = "Oops!";
   let details = "An unexpected error occurred.";
 
-
+  console.error(error);
+  
   return (
     <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+      <h1 className="font-bold text-xl mb-4">{_error.message?? message}</h1>
+      <p>{_error.stack ?? details}</p>
     </main>
   );
 }
