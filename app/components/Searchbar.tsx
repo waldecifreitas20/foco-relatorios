@@ -52,7 +52,7 @@ export function Searchbar() {
         className="
         relative
         text-slate-800 
-        flex flex-nowrap justify-between 
+        flex flex-nowrap justify-between items-center
         bg-slate-100 
         border border-slate-200 rounded-lg
         py-2 px-4">
@@ -61,7 +61,7 @@ export function Searchbar() {
           name="search-input"
           type="search"
           placeholder="Buscar Placas"
-          className="max-w-[500px] w-full"
+          className="max-w-[500px] min-w-[300px] w-full"
           onChange={handleTyping}
         />
         <i className="block fa-brands fa-sistrix"></i>
