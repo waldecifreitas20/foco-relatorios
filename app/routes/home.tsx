@@ -66,10 +66,8 @@ export default function Home() {
   const serverData = useLoaderData<DataResponse>();
   const cachedData = useActionData<DataResponse>();
   const { setCache } = useContext(OrderContext);
- 
+  const { orders, searchDate } = (cachedData) ? cachedData : serverData;
 
-  const { orders, searchDate } = cachedData ?? serverData;
- 
   const statusList: ServiceStatus[] = [
     "Acionado",
     "Agendado",
