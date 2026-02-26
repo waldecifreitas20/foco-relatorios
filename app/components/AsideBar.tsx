@@ -1,13 +1,11 @@
-import { serviceStatuses, type ServiceStatus } from "~/types/ServiceStatus";
+import { serviceStatuses } from "~/types/ServiceStatus";
 import { Checkbox } from "./Checkbox";
 import { Divider } from "./Divider";
 import SectionTitle from "./SectionTitle";
 import { clients } from "~/types/Client";
 import { services } from "~/types/Service";
 import { useRef } from "react";
-import { Form, Link} from "react-router";
-import { appRoutes } from "~/routes";
-
+import { Form } from "react-router";
 
 export default function AsideBar() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -15,10 +13,7 @@ export default function AsideBar() {
   return (
     <aside className="block h-full bg-white w-full max-w-[300px] px-6 rounded-md">
       <section>
-        <h2
-          className="text-slate-600 text-lg font-semibold mt-6
-        "
-        >
+        <h2 className="text-slate-600 text-lg font-semibold mt-6">
           FILTROS AVANÇADOS
         </h2>
       </section>
@@ -71,14 +66,13 @@ export default function AsideBar() {
 
         <section className="pb-4">
           <button className="block w-full my-2">Filtrar</button>
-          <Link to={appRoutes.home}>
-            <button
-              onClick={() => formRef.current?.reset()}
-              className="flat p-0 w-fit my-0 mx-auto block"
-            >
-              Limpar Campos
-            </button>
-          </Link>
+
+          <button
+            onClick={() => formRef.current?.reset()}
+            className="flat p-0 w-fit my-0 mx-auto block"
+          >
+            Limpar Campos
+          </button>
         </section>
       </Form>
     </aside>
