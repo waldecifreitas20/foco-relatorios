@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form, useFetcher } from "react-router";
-import { appRoutes } from "~/routes";
+import { useFetcher } from "react-router";
 
 export function UpdateDataButton() {
   const fetcher = useFetcher();
@@ -16,7 +15,7 @@ export function UpdateDataButton() {
 
   return (
     <fetcher.Form method="post">
-      <input className="hidden" name="update" value={"true"}/>
+      <input className="hidden" readOnly name="update" value={"true"}/>
       <button
         type="submit"
         className={`bg-slate-800 text-slate-200 ${isUpdating ? "opacity-70 cursor-not-allowed" : ""}`}
