@@ -14,7 +14,7 @@ export type Order = {
   updatedAt?: Date;
   eta?: number;
   agentName?: string;
-  notes?: string[];
+  notes: string[];
   hasChecklist?: boolean;
 };
 

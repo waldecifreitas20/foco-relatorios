@@ -32,7 +32,7 @@ export function RsaForm({ orderData }: RsaFormProps) {
     }
   }
   
-  const [notes, setNotes] = useState<string[]>([]);
+  const [notes, setNotes] = useState<string[]>(order.notes);
 
   function handleAddNote() {
     const note = (document.getElementById("notes") as HTMLTextAreaElement)
