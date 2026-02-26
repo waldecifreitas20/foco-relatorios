@@ -23,18 +23,16 @@ interface DataResponse {
   searchDate: string
 }
 
-
+/* Updates data from server on clicking update button */
 export async function action({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const searchDate = url.searchParams.get("createdAt");
   let { orders, page } = await orderService.getAll(searchDate ?? undefined);
-
-  console.log("aaaaaaa");
-  
   
   return { orders, page, searchDate };
 }
 
+/* Load data from server base on date sent by url */
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const searchDate = url.searchParams.get("createdAt");
@@ -44,6 +42,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   return { orders, page, searchDate };
 }
 
+/* Handle filters */
 export async function clientAction({request, serverAction}: Route.ClientActionArgs) {
   const clonedRequest = request.clone();
   const data = await clonedRequest.formData();
