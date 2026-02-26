@@ -5,7 +5,7 @@ import { StatusCard } from "~/components/Card";
 import { Accordeon } from "~/components/Accordeon";
 import { Badge } from "~/components/Bagde";
 import { UpdateDataButton } from "~/components/UpdateDataButton";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useActionData, useLoaderData } from "react-router";
 import { PageTitle } from "~/components/PageTitle";
 import { OrderTile} from "~/components/OrderTile";
@@ -23,23 +23,24 @@ interface DataResponse {
   searchDate: string
 }
 
-/* Updates data from server on clicking update button */
-export async function action({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
+
+const fetchData = async (url: URL) => {
   const searchDate = url.searchParams.get("createdAt");
   let { orders, page } = await orderService.getAll(searchDate ?? undefined);
   
   return { orders, page, searchDate };
 }
 
+/* Updates data from server on clicking update button */
+export async function action({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url); 
+  return await fetchData(url);
+}
+
 /* Load data from server base on date sent by url */
 export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const searchDate = url.searchParams.get("createdAt");
-  let { orders, page } = await orderService.getAll(searchDate ?? undefined);
-  
-  
-  return { orders, page, searchDate };
+  const url = new URL(request.url);  
+  return await fetchData(url);
 }
 
 /* Handle filters */
