@@ -56,6 +56,7 @@ export async function action({ request }: Route.ActionArgs) {
     plate: data.get("plate"),
     provider: data.get("provider"),
     service: data.get("service"),
+    date: data.get("date"),
     status: data.get("status"),
     ticket: data.get("ticket"),
     agentName: data.get("agentName"),
@@ -63,7 +64,9 @@ export async function action({ request }: Route.ActionArgs) {
     hasChecklist: data.get("hasChecklist") === "on",
     notes: JSON.parse(notes),
   } as Partial<Order>;
+  
 
+  
 
   await orderService.update(order);
    

@@ -21,6 +21,7 @@ export function RsaForm({ orderData }: RsaFormProps) {
     order = {
       client: "Unidas Fleet",
       plate: "",
+      date: "",
       provider: "Amparo",
       service: "Guincho",
       status: "Acionado",
@@ -145,6 +146,17 @@ export function RsaForm({ orderData }: RsaFormProps) {
             className="input"
             name={"agentName"}
             defaultValue={order.agentName}
+          />
+        </div>
+
+        {/* DATE */}
+        <div className="w-1/2">
+          <label>Data de acionamento:</label>
+          <input
+            className="input"
+            type="date"
+            name={"date"}
+            defaultValue={order.date}
           />
         </div>
 

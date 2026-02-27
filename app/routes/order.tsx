@@ -34,6 +34,7 @@ export async function action({ request }: Route.ActionArgs) {
     client: data.get("client"),
     plate: data.get("plate"),
     provider: data.get("provider"),
+    date: data.get("date"),
     service: data.get("service"),
     status: data.get("status"),
     ticket: data.get("ticket"),
@@ -42,6 +43,7 @@ export async function action({ request }: Route.ActionArgs) {
     hasChecklist: data.get("hasChecklist") === "on",
     notes: JSON.parse(notes),
   } as Order;
+
 
   try {
     await orderService.create(order);

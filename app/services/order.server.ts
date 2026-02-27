@@ -7,14 +7,16 @@ const api = axios.create({
 
 async function getAll(
   date?: string,
-  page = 0
+  anyDate = false,
+  page = 0,
 ): Promise<{
   status: number;
   orders: Order[];
   page: number;
 }> {
   const dateParam = date ? `createdAt=${date}&limit=200` : "";
-  const { data } = await api.get(`/all?${dateParam}`);
+  const searchParams = anyDate ? "anyDate=true" : dateParam;
+  const { data } = await api.get(`/all?${searchParams}`);
 
   return data;
 }

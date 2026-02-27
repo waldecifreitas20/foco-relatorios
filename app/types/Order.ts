@@ -8,6 +8,7 @@ export type Order = {
   ticket: string;
   client: Client;
   service: Service;
+  date: string;
   status: ServiceStatus;
   provider: Provider;
   createdAt?: Date;
