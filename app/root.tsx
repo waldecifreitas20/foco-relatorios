@@ -10,6 +10,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import TopBar from "./components/TopBar";
 import { OrderProvider } from "./provider/OrderProvider";
+import { Footer } from "./components/Footer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,14 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <OrderProvider>
           <TopBar />
           {children}
-          <footer 
-          className="mx-auto w-full text-slate-600 text-sm font-medium text-center">
-            Powered by
-            <a 
-              target="_blank"
-              href="https://waldecifreitas.vercel.app" 
-              className="text-red-600"> Waldeci Freitas</a>
-            </footer>
+          <Footer/>
         </OrderProvider>
         <ScrollRestoration />
         <Scripts />

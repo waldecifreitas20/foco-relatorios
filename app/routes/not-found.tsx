@@ -1,3 +1,6 @@
+import { Link } from "react-router";
+import { appRoutes } from "~/routes";
+
 export default function NotFound404() {
   return (
     <main
@@ -13,7 +16,11 @@ export default function NotFound404() {
         <p className="text-center mt-4 mb-6 text-xl font-bold">
           Página Não Encontrada!
         </p>
-        <button>Voltar para o dashboard</button>
+        
+        <Link to={appRoutes.home}>
+          <button>Voltar para o dashboard</button>
+        </Link>
+
       </section>
     </main>
   );
