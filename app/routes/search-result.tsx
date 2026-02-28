@@ -6,6 +6,8 @@ import type { Order } from "~/types/Order";
 import { OrderTile } from "~/components/OrderTile";
 import { appRoutes } from "~/routes";
 import { URL } from "url";
+import { useContext, useEffect } from "react";
+import { OrderContext } from "~/provider/OrderProvider";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const req = new URL(request.url);
@@ -18,6 +20,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function SearchResult() {
   const { orders, match } = useLoaderData<{ orders: Order[]; match: string }>();
+  const {setCache} = useContext(OrderContext);
+
+  useEffect(()=> {
+    setCache(orders);
+  });
 
   return (
     <main className="mx-auto px-10 max-w-[1200px]">
