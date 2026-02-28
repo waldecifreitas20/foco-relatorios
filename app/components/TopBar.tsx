@@ -6,19 +6,22 @@ import { Searchbar } from "./Searchbar";
 
 export default function TopBar() {
   const options: { label: string, path: string }[] = [
-    { label: "Painel", path: "/" },
+    /*{ label: "Painel", path: "/" }, 
     { label: "Reporte Diário", path: "/" },
     { label: "Veículos em Base", path: "/" },
-    { label: "Agendamentos", path: "/" },
+    { label: "Agendamentos", path: "/" }, */
   ];
   return (
     <>
       <header className="sticky top-0 border-b border-slate-200">
         <img className="block w-screen h-2 object-cover" src={coloredBar} />
 
-        <div className="bg-white px-4 py-0 flex gap-8 items-center justify-start border-b border-slate-100">
-          <img className="block mr-10" src={logo} alt="Bosch" />
-          <nav className="w-fit h-full flex gap-8 items-center">
+        <div className="bg-white px-4 py-4 flex gap-8 items-center justify-start border-b border-slate-100">
+          <Link to="/">
+            <img className="block mr-10" src={logo} alt="Bosch" />
+          </Link>
+          
+          {/* <nav className="w-fit h-full flex gap-8 items-center">
             {options.map(op => {
               return <Link
                 key={op.label}
@@ -27,9 +30,10 @@ export default function TopBar() {
                 {op.label}
               </Link>
             })}
-          </nav>
-
-          <Searchbar />
+          </nav> */}
+          <div className="w-1/2 max-w-[700px]">
+            <Searchbar />
+          </div>
         </div>
 
       </header>

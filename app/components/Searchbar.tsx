@@ -50,7 +50,7 @@ export function Searchbar() {
       <form
         onSubmit={handleSubmit}
         className="
-        relative
+        relative w-full
         text-slate-800 
         flex flex-nowrap justify-between items-center
         bg-slate-100 
@@ -61,7 +61,7 @@ export function Searchbar() {
           name="search-input"
           type="search"
           placeholder="Buscar Placas"
-          className="max-w-[500px] min-w-[300px] w-full"
+          className="w-full"
           onChange={handleTyping}
         />
         <i className="block fa-brands fa-sistrix"></i>
