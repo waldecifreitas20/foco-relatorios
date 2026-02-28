@@ -7,6 +7,7 @@ export function RsaViewer({ order }: { order: Order }) {
     { label: "Cliente", value: order.client },
     { label: "Serviço", value: order.service },
     { label: "Status", value: order.status },
+    { label: "Data de Acionamento", value: order.date },
     { label: "Fornecedor", value: order.provider },
     { label: "Acionado por", value: order.agentName },
     { label: "Prévia Estimada", value: order.eta },
