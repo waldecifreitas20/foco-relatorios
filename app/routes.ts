@@ -14,6 +14,7 @@ export default [
   route("/rsa/new","routes/order.tsx"),
   route("/rsa/:ticket", "routes/order-view.tsx"),
   route("/search","routes/search-result.tsx"),
+  route("/*","routes/not-found.tsx"),
 ] satisfies RouteConfig;
 
 
