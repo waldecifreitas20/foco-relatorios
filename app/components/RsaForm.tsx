@@ -11,13 +11,16 @@ import type { Order } from "~/types/Order";
 
 interface RsaFormProps {
   orderData?: Order;
+  onCancelled?: () => void; 
 }
 
-export function RsaForm({ orderData }: RsaFormProps) {
-  
+export function RsaForm({ orderData, onCancelled }: RsaFormProps) {
   let order: Order = orderData ?? {} as Order;
-  
+  let isEditMode = true;
+
   if (!orderData) {
+    isEditMode = false;
+
     order = {
       client: "Unidas Fleet",
       plate: "",
@@ -185,9 +188,20 @@ export function RsaForm({ orderData }: RsaFormProps) {
 
         <FormSection>
           <button>Salvar</button>
-          <Link to={appRoutes.home}>
-            <button className="flat">Cancelar</button>
-          </Link>
+          
+          {isEditMode ? (
+            <button className="flat" onClick={() => {
+              if (onCancelled) {
+                onCancelled();
+              }
+            }}>Cancelar</button>
+          ): (
+          <button className="flat">
+            <Link to={appRoutes.home}>
+              Cancelar
+            </Link>
+          </button>
+          )}
         </FormSection>
       </section>
 

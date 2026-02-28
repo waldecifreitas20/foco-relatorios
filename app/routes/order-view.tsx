@@ -42,7 +42,11 @@ export default function OrderView({ loaderData }: Route.ComponentProps) {
           </button>
         )}
       </section>
-      {enableEdit ? <RsaForm orderData={order} /> : <RsaViewer order={order} />}
+      {enableEdit ? (
+        <RsaForm orderData={order} onCancelled={() => setEnableEdit(false)} />
+      ) : (
+        <RsaViewer order={order} />
+      )}
     </main>
   );
 }
