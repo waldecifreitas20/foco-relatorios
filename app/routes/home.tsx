@@ -26,7 +26,8 @@ interface DataResponse {
 
 const fetchData = async (url: URL) => {
   const searchDate = url.searchParams.get("createdAt");
-  let { orders, page } = await orderService.getAll(searchDate ?? undefined);
+  const today = new Date().toISOString().split("T")[0]; 
+  let { orders, page } = await orderService.getAll(searchDate ?? today);
   
   return { orders, page, searchDate };
 }
