@@ -12,8 +12,13 @@ async function getAll(date?: string,page = 0): Promise<{
   orders: Order[];
   page: number;
 }> {
-  const searchParams = `createdAt=${date}&${page}&limit=200`;
-  const { data } = await api.get(`/all?${searchParams}`);
+
+  let searchParams = "";
+  if (date) {
+    searchParams = `?createdAt=${date}&${page}&limit=200`;
+  }
+  
+  const { data } = await api.get(`/all${searchParams}`);
   return data;
 }
 
