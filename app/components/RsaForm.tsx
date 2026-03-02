@@ -202,7 +202,7 @@ export function RsaForm({ orderData, onCancelled }: RsaFormProps) {
             }}>Cancelar</button>
           ): (
           <button className="flat">
-            <Link to={appRoutes.home}>
+            <Link to={getPath(appRoutes.home)}>
               Cancelar
             </Link>
           </button>
