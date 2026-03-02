@@ -41,11 +41,12 @@ export function Searchbar() {
   return (
     <>
       {/* DROPDOWN DISPOSER */}
-      {results.length > 0 &&
+      {results.length > 0 && (
         <div
           onClick={() => setResults([])}
-          className="bg-transparent fixed z-10 inset-0 h-full"></div>
-      }
+          className="bg-transparent fixed z-10 inset-0 h-full"
+        ></div>
+      )}
 
       <form
         onSubmit={handleSubmit}
@@ -55,12 +56,13 @@ export function Searchbar() {
         flex flex-nowrap justify-between items-center
         bg-slate-100 
         border border-slate-200 rounded-lg
-        py-2 px-4">
+        py-2 px-4"
+      >
         <input
           ref={inputRef}
           name="search-input"
           type="search"
-          placeholder="Buscar Placas"
+          placeholder="Busque por placa, ticket ou nome do agente"
           className="w-full"
           onChange={handleTyping}
         />
@@ -71,8 +73,9 @@ export function Searchbar() {
             className="
             bg-white rounded-b-lg 
             border shadow-2xl 
-            w-full absolute top-full left-0 mt-1 p-2">
-            {results.map(result => {
+            w-full absolute top-full left-0 mt-1 p-2"
+          >
+            {results.map((result) => {
               return (
                 <Link
                   to={appRoutes.orderView(result.ticket)}
@@ -85,10 +88,15 @@ export function Searchbar() {
                   text-left bg-white 
                   w-full text-slate-700 text-sm 
                   rounded-md p-2 
-                  hover:bg-red-500 hover:text-slate-50 cursor-pointer">
+                  hover:bg-red-500 hover:text-slate-50 cursor-pointer"
+                >
                   <span>{result.plate}</span>
                   <div className="flex text-xs gap-2">
-                    <span className="block text-xs">{new Date(result.createdAt ?? new Date(Date.now())).toLocaleDateString("pt-BR")}</span>
+                    <span className="block text-xs">
+                      {new Date(
+                        result.createdAt ?? new Date(Date.now())
+                      ).toLocaleDateString("pt-BR")}
+                    </span>
                     <span>-</span>
                     <span>{result.service}</span>
                     <span>-</span>
@@ -99,7 +107,6 @@ export function Searchbar() {
             })}
           </ul>
         )}
-
       </form>
     </>
   );
