@@ -67,12 +67,12 @@ export default function AsideBar() {
         <section className="pb-4">
           <button className="block w-full my-2">Filtrar</button>
 
-          <button
-            onClick={() => formRef.current?.reset()}
-            className="flat p-0 w-fit my-0 mx-auto block"
-          >
-            Limpar Campos
-          </button>
+          <input
+            type="reset"
+            className="
+            cursor-pointer hover:text-red-500 
+            mx-auto w-fit block text-slate-500"
+          />
         </section>
       </Form>
     </aside>
