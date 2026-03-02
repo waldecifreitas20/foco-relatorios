@@ -11,11 +11,37 @@ import { OrderContext } from "~/provider/OrderProvider";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const req = new URL(request.url);
-  const { orders } = await orderService.getAll();
+  let { orders } = await orderService.getAll();
 
-  const match = req.searchParams.get("match");
+  let match = (req.searchParams.get("match") ?? "").toLocaleLowerCase();
 
-  return { orders, match };
+  const getFilteredOrders = () => {
+    if (!match) {
+      return [] as Order[];
+    }
+    
+    let results = [] as Order[];
+    match = (match ?? "").toLowerCase();
+
+    orders.forEach((o) => {
+      if (o.plate.toLowerCase().includes(match)) {
+        results = [...results, o];
+      }
+
+      const searchAgent = o.agentName && o.agentName !== "";
+      if (searchAgent && o.agentName?.toLowerCase().includes(match)) {
+        results = [...results, o];
+      }
+
+      if (o.ticket.includes(match)) {
+        results = [...results, o];
+      }
+    });
+
+    return results;
+  };
+
+  return { orders: getFilteredOrders(), match };
 }
 
 export default function SearchResult() {
