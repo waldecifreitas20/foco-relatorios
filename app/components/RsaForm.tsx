@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Form, Link } from "react-router";
 import { appRoutes } from "~/routes";
 import type { Order } from "~/types/Order";
+import { useRouter } from "~/hooks/useRouter";
 
 
 interface RsaFormProps {
@@ -17,6 +18,7 @@ interface RsaFormProps {
 export function RsaForm({ orderData, onCancelled }: RsaFormProps) {
   let order: Order = orderData ?? {} as Order;
   let isEditMode = true;
+  const {getPath} = useRouter();
 
   if (!orderData) {
     isEditMode = false;
@@ -53,6 +55,9 @@ export function RsaForm({ orderData, onCancelled }: RsaFormProps) {
       method="post"
       className="flex justify-between gap-4"
     >
+      {/* metadata input only */}
+      <input type="hidden" name="redirect_to" value={getPath(appRoutes.home)}/>
+
       <section className="w-[75%] bg-white border p-4 flex flex-col gap-5">
         <FormSection>
           {/* PLATE */}

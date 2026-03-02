@@ -29,7 +29,7 @@ export default function Order({actionData}: Route.ComponentProps) {
 export async function action({ request }: Route.ActionArgs) {
   const data = await request.formData();
   const notes = (data.getAll("notes") ?? []).toString();
-
+  const redirectTo = data.get("redirect_to") ?? appRoutes.home;
   const order = {
     client: data.get("client"),
     plate: data.get("plate"),
@@ -53,6 +53,6 @@ export async function action({ request }: Route.ActionArgs) {
     };
   }
 
-  return redirect(appRoutes.home);
+  return redirect(`${redirectTo}`);
 }
 
