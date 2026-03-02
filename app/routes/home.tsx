@@ -113,20 +113,18 @@ export default function Home() {
       <AsideBar />
 
       <main className="w-full block px-4 ">
-        <section className="flex items-start justify-between h-fit">
-          <span className="flex items-start">
-            <PageTitle>Painel de Monitoramento</PageTitle>
-            <Link to={appRoutes.newOrder} className="inline-block ml-4">
-              <button
-                onClick={(evt) => evt.stopPropagation()}
-                className="mx-auto rounded-full"
-              >
+
+        <section className="flex flex-col lg:flex-row items-start justify-between h-fit mb-4">
+          <PageTitle>Painel de Monitoramento</PageTitle>
+          
+          <span className="flex border-4 p-0 gap-4">
+            <Link to={appRoutes.newOrder}>
+              <button onClick={(evt) => evt.stopPropagation()}>
                 Nova Solicitação +
               </button>
             </Link>
+            <UpdateDataButton />
           </span>
-
-          <UpdateDataButton />
         </section>
 
         {/* TODAY'S STATS */}

@@ -28,17 +28,28 @@ export function OrderTile({ order, linkTo, trailing }: OrderTitleProps) {
       key={order.ticket}
       className={`
       grid ${gridCols} items-center
-      py-4
-      text-sm text-center  hover:ml-1
-      border-l-4 border-transparent
-      bg-white hover:border-red-500 hover:bg-slate-100 text-slate-800
-      `}>
+      py-4 px-2 
+      text-sm text-center 
+      text-slate-800
+      
+      border-l-1 border-transparent
+      
+      bg-white
+      hover:bg-linear-to-l hover:from-slate-200
+      hover:border-slate-500 hover:to-slate-100 
+      
+      
+      `}
+    >
       <span>{order.plate}</span>
       <span>{order.service}</span>
       <span>{order.client}</span>
       <span>{order.provider}</span>
       <span>{order.ticket.substring(order.ticket.length - 7)}</span>
-      <span>{getDate(order.createdAt)} <i className="fa-regular fa-calendar"></i></span>
+      <span className=" text-right">
+        {order.agentName === "" ? "Agente Desconhecido" : order.agentName}{" "}
+        <i className="fa-regular fa-user"></i>
+      </span>
 
       {trailing && <span>{trailing}</span>}
     </Link>
