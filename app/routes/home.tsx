@@ -113,23 +113,25 @@ export default function Home() {
       <AsideBar />
 
       <main className="w-full block px-4 ">
-
         <section className="flex flex-col lg:flex-row items-start justify-between h-fit mb-4">
           <PageTitle>Painel de Monitoramento</PageTitle>
-          
+
           <span className="flex border-4 p-0 gap-4">
+            
             <Link to={appRoutes.newOrder}>
               <button onClick={(evt) => evt.stopPropagation()}>
-                Nova Solicitação +
+                <span className="hidden md:inline mr-2">Nova Solicitação</span> 
+                <i className="fa-solid fa-plus"></i>
               </button>
             </Link>
+
             <UpdateDataButton />
           </span>
         </section>
 
         {/* TODAY'S STATS */}
         <section className="w-full overflow-hidden">
-          <ul className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 justify-between gap-4 w-full">
+          <ul className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 justify-between gap-4 w-full">
             {statusList.map((status) => {
               return (
                 <StatusCard
@@ -142,9 +144,7 @@ export default function Home() {
           </ul>
         </section>
 
-        <section className="flex w-full justify-between items-center my-4">
-          <DateUpdater />
-
+        <section className="flex flex-col md:flex-row gap-4 my-4">
           <p className="text-slate-800 text-sm my-4 text-blue-500 flex gap-2 items-center">
             <span
               className="
@@ -156,6 +156,8 @@ export default function Home() {
             </span>
             Mostrando acionamentos {getDate()}
           </p>
+
+          <DateUpdater />
         </section>
 
         <section className="flex flex-col gap-5 my-4">

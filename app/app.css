@@ -18,7 +18,9 @@
   }
 
   button {
-    @apply bg-red-600 hover:bg-red-700 px-6 py-2 rounded-md text-sm xl:text-base;
+    @apply bg-red-600 hover:bg-red-700 
+    px-6 py-2 text-sm rounded-full lg:rounded-md 
+    xl:text-base;
 
     height: fit-content;
     color: white;

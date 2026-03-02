@@ -21,9 +21,9 @@ export function UpdateDataButton() {
         className={`bg-slate-800 text-slate-200 ${isUpdating ? "opacity-70 cursor-not-allowed" : ""}`}
         onClick={() => setIsUpdating(true)}
       >
-        Atualizar Dados
+        <span className="hidden md:inline mr-2">Atualizar Dados</span>
         <i
-          className={`fa-solid ml-2 font-bold fa-rotate ${isUpdating ? "animate-spin" : ""}`}
+          className={`fa-solid font-bold fa-rotate ${isUpdating ? "animate-spin" : ""}`}
         ></i>
       </button>
     </fetcher.Form>
